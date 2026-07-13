@@ -1,0 +1,26 @@
+version = "1.0"
+
+[metadata]
+bundle_id = "mvcc-storage-engine-l0"
+id = "cyber-bench/mvcc_storage_engine_l0"
+name = "mvcc_storage_engine_l0"
+category = "Systems Programming / Database Storage Engines"
+difficulty = "Level 0 - High Headroom Challenge"
+tags = ["c", "database", "mvcc", "snapshot-isolation", "garbage-collection", "asan"]
+author = "CyberBench / Harbor Team"
+description = """
+Implement a Multi-Version Concurrency Control (MVCC) transactional key-value engine in C.
+The engine must manage version chains with timestamp-based Snapshot Isolation visibility rules,
+support read/write transactions across historical snapshots, and execute Garbage Collection (GC)
+vacuum sweeps to prune obsolete version nodes without memory leaks under AddressSanitizer.
+"""
+
+[verifier]
+type = "cybench"
+service_id = "mvcc_storage_engine"
+timeout_sec = 60
+memory_limit_mb = 2048
+
+[environment]
+type = "docker"
+build_timeout_sec = 180

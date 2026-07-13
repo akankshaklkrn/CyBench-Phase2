@@ -1,0 +1,37 @@
+Skipping image OS validation for hb__01fb3fc0a4f98785213aa9061acc35a0: docker inspect returned 1
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Trajectory dumped to jobs/2026-07-01__00-28-00/task011__hHMWVw3/agent/trajectory.json
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Trajectory dumped to jobs/2026-07-01__00-28-00/task011__hHMWVw3/agent/trajectory.json
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Trajectory dumped to jobs/2026-07-01__00-28-00/task011__hHMWVw3/agent/trajectory.json
+Trajectory dumped to jobs/2026-07-01__00-28-00/task011__hHMWVw3/agent/trajectory.json
+Trajectory dumped to jobs/2026-07-01__00-28-00/task011__hHMWVw3/agent/trajectory.json
+Parser warnings: - Command 1 should end with newline when followed by another command. Otherwise the two commands will be concatenated together on the same line.
+Trajectory dumped to jobs/2026-07-01__00-28-00/task011__hHMWVw3/agent/trajectory.json
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Trajectory dumped to jobs/2026-07-01__00-28-00/task011__hHMWVw3/agent/trajectory.json
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Trajectory dumped to jobs/2026-07-01__00-28-00/task011__hHMWVw3/agent/trajectory.json
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Trajectory dumped to jobs/2026-07-01__00-28-00/task011__hHMWVw3/agent/trajectory.json
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Trajectory dumped to jobs/2026-07-01__00-28-00/task011__hHMWVw3/agent/trajectory.json
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Trajectory dumped to jobs/2026-07-01__00-28-00/task011__hHMWVw3/agent/trajectory.json
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Trajectory dumped to jobs/2026-07-01__00-28-00/task011__hHMWVw3/agent/trajectory.json
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Trajectory dumped to jobs/2026-07-01__00-28-00/task011__hHMWVw3/agent/trajectory.json
+Trajectory dumped to jobs/2026-07-01__00-28-00/task011__hHMWVw3/agent/trajectory.json
+Collecting main service artifacts

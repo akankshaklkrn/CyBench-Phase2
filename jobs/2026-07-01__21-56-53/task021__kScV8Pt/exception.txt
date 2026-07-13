@@ -1,0 +1,56 @@
+Traceback (most recent call last):
+  File "/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/environments/docker/docker_unix.py", line 154, in upload_dir
+    await self._env._run_docker_compose_command(
+  File "/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 625, in _run_docker_compose_command
+    raise RuntimeError(
+RuntimeError: Docker compose command failed for environment ringbuffer_tsan_l0. Command: docker compose --project-name task021__kscv8pt__env --project-directory /Users/jatinjena/Downloads/tasknew/task021/environment -f /private/var/folders/dr/z8_nw0rn619_kmd5rtq3dpf40000gn/T/tmp_agv6qml/task021__kScV8Pt__env-docker-compose-resources.json -f /Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /private/var/folders/dr/z8_nw0rn619_kmd5rtq3dpf40000gn/T/tmpibizn_js/docker-compose-mounts.json cp /Users/jatinjena/Downloads/tasknew/task021/tests/. main:/tests. Return code: 1. Stdout: failed to connect to the docker API at unix:///Users/jatinjena/.docker/run/docker.sock; check if the path is correct and if the daemon is running: dial unix /Users/jatinjena/.docker/run/docker.sock: connect: no such file or directory
+. Stderr: None. 
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/environments/docker/docker_unix.py", line 134, in _fallback_to_tar
+    await operation()
+  File "/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/environments/docker/docker_unix.py", line 124, in _upload_dir_with_tar
+    await self._extract_tar(self._tar_dir_contents(source_dir), target_dir)
+  File "/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/environments/docker/docker_unix.py", line 80, in _extract_tar
+    await self._env._run_docker_compose_command(
+  File "/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 625, in _run_docker_compose_command
+    raise RuntimeError(
+RuntimeError: Docker compose command failed for environment ringbuffer_tsan_l0. Command: docker compose --project-name task021__kscv8pt__env --project-directory /Users/jatinjena/Downloads/tasknew/task021/environment -f /private/var/folders/dr/z8_nw0rn619_kmd5rtq3dpf40000gn/T/tmp_agv6qml/task021__kScV8Pt__env-docker-compose-resources.json -f /Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /private/var/folders/dr/z8_nw0rn619_kmd5rtq3dpf40000gn/T/tmpibizn_js/docker-compose-mounts.json exec -T -u root main mkdir -p /tests. Return code: 1. Stdout: failed to connect to the docker API at unix:///Users/jatinjena/.docker/run/docker.sock; check if the path is correct and if the daemon is running: dial unix /Users/jatinjena/.docker/run/docker.sock: connect: no such file or directory
+. Stderr: None. 
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/verifier/verifier.py", line 150, in verify
+    await self.environment.upload_dir(
+  File "/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 943, in upload_dir
+    await self._platform.upload_dir(source_dir, target_dir)
+  File "/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/environments/docker/docker_unix.py", line 159, in upload_dir
+    await self._fallback_to_tar(
+  File "/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/environments/docker/docker_unix.py", line 136, in _fallback_to_tar
+    raise RuntimeError(
+RuntimeError: Docker compose cp failed, and tar upload fallback also failed. cp error: Docker compose command failed for environment ringbuffer_tsan_l0. Command: docker compose --project-name task021__kscv8pt__env --project-directory /Users/jatinjena/Downloads/tasknew/task021/environment -f /private/var/folders/dr/z8_nw0rn619_kmd5rtq3dpf40000gn/T/tmp_agv6qml/task021__kScV8Pt__env-docker-compose-resources.json -f /Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /private/var/folders/dr/z8_nw0rn619_kmd5rtq3dpf40000gn/T/tmpibizn_js/docker-compose-mounts.json cp /Users/jatinjena/Downloads/tasknew/task021/tests/. main:/tests. Return code: 1. Stdout: failed to connect to the docker API at unix:///Users/jatinjena/.docker/run/docker.sock; check if the path is correct and if the daemon is running: dial unix /Users/jatinjena/.docker/run/docker.sock: connect: no such file or directory
+. Stderr: None. . tar error: Docker compose command failed for environment ringbuffer_tsan_l0. Command: docker compose --project-name task021__kscv8pt__env --project-directory /Users/jatinjena/Downloads/tasknew/task021/environment -f /private/var/folders/dr/z8_nw0rn619_kmd5rtq3dpf40000gn/T/tmp_agv6qml/task021__kScV8Pt__env-docker-compose-resources.json -f /Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /private/var/folders/dr/z8_nw0rn619_kmd5rtq3dpf40000gn/T/tmpibizn_js/docker-compose-mounts.json exec -T -u root main mkdir -p /tests. Return code: 1. Stdout: failed to connect to the docker API at unix:///Users/jatinjena/.docker/run/docker.sock; check if the path is correct and if the daemon is running: dial unix /Users/jatinjena/.docker/run/docker.sock: connect: no such file or directory
+. Stderr: None. 
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/trial/trial.py", line 345, in run
+    await self._run()
+  File "/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/trial/single_step.py", line 46, in _run
+    await self._run_verifier()
+  File "/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/trial/single_step.py", line 99, in _run_verifier
+    self.result.verifier_result = await self._run_shared_verifier(
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/trial/trial.py", line 519, in _run_shared_verifier
+    return await asyncio.wait_for(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/verifier/verifier.py", line 155, in verify
+    raise AddTestsDirError(
+harbor.verifier.verifier.AddTestsDirError: Failed to add tests directory to environment.

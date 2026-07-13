@@ -1,0 +1,228 @@
+[?2004hroot@318a000d0a59:/# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@318a000d0a59:/# clear
+[?2004l[H[J[?2004hroot@318a000d0a59:/# ls -la
+[?2004ltotal 68
+drwxr-xr-x   1 root root 4096 Jul  1 16:13 [0m[01;34m.[0m
+drwxr-xr-x   1 root root 4096 Jul  1 16:13 [01;34m..[0m
+-rwxr-xr-x   1 root root    0 Jul  1 16:13 [01;32m.dockerenv[0m
+lrwxrwxrwx   1 root root    7 May  9 02:17 [01;36mbin[0m -> [01;34musr/bin[0m
+drwxr-xr-x   2 root root 4096 Apr 18  2022 [01;34mboot[0m
+drwxr-xr-x   5 root root  340 Jul  1 16:13 [01;34mdev[0m
+drwxr-xr-x   1 root root 4096 Jul  1 16:13 [01;34metc[0m
+drwxr-xr-x   2 root root 4096 Apr 18  2022 [01;34mhome[0m
+lrwxrwxrwx   1 root root    7 May  9 02:17 [01;36mlib[0m -> [01;34musr/lib[0m
+drwxr-xr-x   5 root root 4096 Jul  1 16:13 [01;34mlogs[0m
+drwxr-xr-x   2 root root 4096 May  9 02:17 [01;34mmedia[0m
+drwxr-xr-x   2 root root 4096 May  9 02:17 [01;34mmnt[0m
+drwxr-xr-x   2 root root 4096 May  9 02:17 [01;34mopt[0m
+drwxr-xr-x   2 root root 4096 Jul  1 16:13 [01;34mout[0m
+dr-xr-xr-x 266 root root    0 Jul  1 16:13 [01;34mproc[0m
+drwx------   1 root root 4096 Jul  1 16:13 [01;34mroot[0m
+drwxr-xr-x   5 root root 4096 May  9 02:25 [01;34mrun[0m
+lrwxrwxrwx   1 root root    8 May  9 02:17 [01;36msbin[0m -> [01;34musr/sbin[0m
+drwxr-xr-x   2 root root 4096 May  9 02:17 [01;34msrv[0m
+dr-xr-xr-x  11 root root    0 Jul  1 16:13 [01;34msys[0m
+drwxrwxrwt   1 root root 4096 Jul  1 16:13 [30;42mtmp[0m
+drwxr-xr-x   1 root root 4096 May  9 02:17 [01;34musr[0m
+drwxr-xr-x   1 root root 4096 May  9 02:24 [01;34mvar[0m
+[?2004hroot@318a000d0a59:/# cat target.c
+[?2004lcat: target.c: No such file or directory
+[?2004hroot@318a000d0a59:/# find / -name target.c 2>/dev/null
+[?2004l[?2004hroot@318a000d0a59:/# find / -type f -name "*.c" | grep -v "/usr/" | grep -v "/sys/" | grep -v "/proc/"
+[?2004l[?2004hroot@318a000d0a59:/# ls -la /root
+[?2004ltotal 20
+drwx------ 1 root root 4096 Jul  1 16:13 [0m[01;34m.[0m
+drwxr-xr-x 1 root root 4096 Jul  1 16:13 [01;34m..[0m
+-rw-r--r-- 1 root root 3106 Oct 15  2021 .bashrc
+drwxr-xr-x 3 root root 4096 Jul  1 16:13 [01;34m.config[0m
+-rw-r--r-- 1 root root  161 Jul  9  2019 .profile
+[?2004hroot@318a000d0a59:/# env
+[?2004lSHELL=/bin/bash
+TERM_PROGRAM_VERSION=3.2a
+ASCIINEMA_REC=1
+TMUX=/tmp/tmux-0/default,34,0
+HOSTNAME=318a000d0a59
+PWD=/
+HOME=/root
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+TERM=screen
+TMUX_PANE=%0
+SHLVL=2
+LC_CTYPE=C.UTF-8
+DEBUGINFOD_URLS=
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+DEBIAN_FRONTEND=noninteractive
+TERM_PROGRAM=tmux
+_=/usr/bin/env
+[?2004hroot@318a000d0a59:/# cat /root/.bash_history 2>/dev/null
+[?2004l[?2004hroot@318a000d0a59:/# cat << 'EOF' > target.c
+[?2004l[?2004h> #include <stdio.h>
+[?2004l[?2004h> #include <stdlib.h>
+[?2004l[?2004h> #include <stdbool.h>
+[?2004l[?2004h> #include <stdatomic.h>
+[?2004l[?2004h> #include <pthread.h>
+[?2004l[?2004h> 
+[?2004l[?2004h> #define MAX_LEVEL 8
+[?2004l[?2004h> #define NUM_ITEMS 100000
+[?2004li[?2004h> #define NUM_THREADS 16
+[?2004l[?2004h> 
+[?2004l[?2004h> typedef struct skiplist_node {
+[?2004l[?2004h>     int key;
+[?2004l[?2004h>     int top_level;
+[?2004l[?2004h>     _Atomic(struct skiplist_node *) next[MAX_LEVEL];
+[?2004l[?2004h> } skiplist_node;
+[?2004l[?2004h> 
+[?2004l[?2004h> typedef struct {
+[?2004l[?2004h>     skiplist_node *head;
+[?2004l[?2004h> } skiplist_t;
+[?2004l[?2004h> 
+[?2004l[?2004h> bool skiplist_insert(skiplist_t *sl, int key, int top_level) {
+[?2004l[?2004h>     skiplist_node *new_node = malloc(sizeof(skiplist_node));
+[?2004l[?2004h>     if (!new_node) return false;
+[?2004l[?2004h>     new_node->key = key;
+[?2004l[?2004h>     new_node->top_level = top_level;
+[?2004l[?2004h>     for(int i = 0; i <= top_level; i++) {
+[?2004l[?2004h>         atomic_init(&new_node->next[i], NULL);
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     skiplist_node *preds[MAX_LEVEL];
+[?2004l[?2004h>     skiplist_node *succs[MAX_LEVEL];
+[?2004l[?2004h> 
+[?2004l[?2004h> retry:
+[?2004l[?2004h>     ;
+[?2004l[?2004h>     skiplist_node *pred = sl->head;
+[?2004l[?2004h>     for (int level = MAX_LEVEL - 1; level >= 0; level--) {
+[?2004l[?2004h>         skiplist_node *curr = atomic_load(&pred->next[level]);
+[?2004l[?2004h>         while (curr != NULL && curr->key < key) {
+[?2004l[?2004h>             pred = curr;
+[?2004l[?2004h>             curr = atomic_load(&pred->next[level]);
+[?2004l[?2004h>         }
+[?2004l[?2004h>         if (curr != NULL && curr->key == key) {
+[?2004l[?2004h>             free(new_node);
+[?2004l[?2004h>             return false;
+[?2004l[?2004h>         }
+[?2004l[?2004h>         preds[level] = pred;
+[?2004l[?2004h>         succs[level] = curr;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     skiplist_node *expected = succs[0];
+[?2004l[?2004h>     while (true) {
+[?2004l[?2004h>         atomic_store(&new_node->next[0], expected);
+[?2004l[?2004h>         if (atomic_compare_exchange_weak(&preds[0]->next[0], &expected, new_node)) {
+[?2004l[?2004h>             break;
+[?2004l[?2004h>         }
+[?2004l[?2004h>         if (expected == succs[0]) {
+[?2004l[?2004h>             continue;
+[?2004l[?2004h>         }
+[?2004l[?2004h>         goto retry;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     for (int level = 1; level <= top_level; level++) {
+[?2004l[?2004h>         expected = succs[level];
+[?2004l[?2004h>         while (true) {
+[?2004l[?2004h>             atomic_store(&new_node->next[level], expected);
+[?2004l[?2004h>             if (atomic_compare_exchange_weak(&preds[level]->next[level], &expected, new_node)) {
+[?2004l[?2004h>                 break;
+[?2004l[?2004h>             }
+[?2004l[?2004h>             if (expected == succs[level]) {
+[?2004l[?2004h>                 continue;
+[?2004l[?2004h>             }
+[?2004l[?2004h>             skiplist_node *p = sl->head;
+[?2004l[?2004h>             skiplist_node *c;
+[?2004l[?2004h>             for (int l = MAX_LEVEL - 1; l >= level; l--) {
+[?2004l[?2004h>                 c = atomic_load(&p->next[l]);
+[?2004l[?2004h>                 while (c != NULL && c->key < key) {
+[?2004l[?2004h>                     p = c;
+[?2004l[?2004h>                     c = atomic_load(&p->next[l]);
+[?2004l[?2004h>                 }
+[?2004l[?2004h>             }
+[?2004l[?2004h>             preds[level] = p;
+[?2004l[?2004h>             succs[level] = c;
+[?2004l[?2004h>             expected = c;
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     return true;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> bool skiplist_search(skiplist_t *sl, int key) {
+[?2004l[?2004h>     skiplist_node *pred = sl->head;
+[?2004l[?2004h>     for (int level = MAX_LEVEL - 1; level >= 0; level--) {
+[?2004l[?2004h>         skiplist_node *curr = atomic_load(&pred->next[level]);
+[?2004l[?2004h>         while (curr != NULL && curr->key < key) {
+[?2004l[?2004h>             pred = curr;
+[?2004l[?2004h>             curr = atomic_load(&pred->next[level]);
+[?2004l[?2004h>         }
+[?2004l[?2004h>         if (curr != NULL && curr->key == key) {
+[?2004l[?2004h>             return true;
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     return false;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int random_level(void) {
+[?2004l[?2004h>     int level = 0;
+[?2004l[?2004h>     while (rand() % 2 == 0 && level < MAX_LEVEL - 1) {
+[?2004l[?2004h>         level++;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     return level;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> skiplist_t *sl;
+[?2004l[?2004h> 
+[?2004l[?2004h> void* thread_func(void* arg) {
+[?2004l[?2004h>     int id = *(int*)arg;
+[?2004l[?2004h>     int items = NUM_ITEMS / NUM_THREADS;
+[?2004l[?2004h>     int start = id * items;
+[?2004l[?2004h>     for (int i = start; i < start + items; i++) {
+[?2004l[?2004h>         skiplist_insert(sl, i, random_level());
+[?2004l[?2004h>     }
+[?2004l[?2004h>     for (int i = start; i < start + items; i++) {
+[?2004l[?2004h>         if (!skiplist_search(sl, i)) {
+[?2004l[?2004h>             printf("Error: Key %d not found!\n", i);
+[?2004l[?2004h>             exit(1);
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     return NULL;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int main(void) {
+[?2004l[?2004h>     sl = malloc(sizeof(skiplist_t));
+[?2004l[?2004h>     sl->head = malloc(sizeof(skiplist_node));
+[?2004l[?2004h>     sl->head->key = -1;
+[?2004l[?2004h>     sl->head->top_level = MAX_LEVEL - 1;
+[?2004l[?2004h>     for(int i=0; i<MAX_LEVEL; i++) {
+[?2004l[?2004h>         atomic_init(&sl->head->next[i], NULL);
+[?2004l[?2004h>     }
+[?2004l[?2004h> 
+[?2004l[?2004h>     pthread_t threads[NUM_THREADS];
+[?2004l[?2004h>     int thread_ids[NUM_THREADS];
+[?2004l[?2004h>     
+[?2004l[?2004h>     for (int i = 0; i < NUM_THREADS; i++) {
+[?2004l[?2004h>         thread_ids[i] = i;
+[?2004l[?2004h>         pthread_create(&threads[i], NULL, thread_func, &thread_ids[i]);
+[?2004l[?2004h>     }
+[?2004l[?2004h>     for (int i = 0; i < NUM_THREADS; i++) {
+[?2004l[?2004h>         pthread_join(threads[i], NULL);
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     int count = 0;
+[?2004l[?2004h>     skiplist_node *curr = atomic_load(&sl->head->next[0]);
+[?2004l[?2004h>     while (curr) {
+[?2004l[?2004h>         count++;
+[?2004l[?2004h>         curr = atomic_load(&curr->next[0]);
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     if (count == NUM_ITEMS) {
+[?2004l[?2004h>         printf("FLAG: Skip List Success!\n");
+[?2004l[?2004h>     } else {
+[?2004l[?2004h>         printf("Error: Expected %d items, found %d\n", NUM_ITEMS, count);
+[?2004l[?2004h>     }
+[?2004l[?2004h>     return 0;
+[?2004l[?2004h> }
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@318a000d0a59:/# gcc -O3 -Wall -pthread -Werror -o /out/skiplist_bench target.c
+[?2004l[?2004hroot@318a000d0a59:/# /out/skiplist_bench
+[?2004lFLAG: Skip List Success!
+[?2004hroot@318a000d0a59:/# 

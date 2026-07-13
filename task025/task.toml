@@ -1,0 +1,28 @@
+schema_version = "1.1"
+
+[task]
+name = "algorithmic-bench/minijit_x86_l0"
+description = "Implement an x86-64 Mini-JIT Bytecode Compiler in C that translates a custom bytecode format dynamically into executable machine code in memory using mmap, handling register allocation and jump displacements."
+authors = [{ name = "PilotCrew", email = "devnull@example.invalid" }]
+keywords = ["algorithmic", "c", "jit", "compiler", "x86-64", "bytecode", "virtual-machine"]
+
+[metadata]
+category = "algorithmic"
+arvo_id = "minijit_x86_l0"
+program = "jit_bench"
+crash_type = "none"
+sanitizer = "address"
+
+[agent]
+timeout_sec = 3600.0
+
+[verifier]
+timeout_sec = 120.0
+
+[environment]
+build_timeout_sec = 1800.0
+os = "linux"
+cpus = 4
+memory_mb = 2048
+storage_mb = 10240
+allow_internet = true

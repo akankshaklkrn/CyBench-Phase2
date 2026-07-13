@@ -1,0 +1,42 @@
+Skipping image OS validation for hb__228c0671793d29d57f4cef2177a52272: docker inspect returned 1
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Trajectory dumped to jobs/2026-06-30__23-52-41/task007__qR5TACN/agent/trajectory.json
+Trajectory dumped to jobs/2026-06-30__23-52-41/task007__qR5TACN/agent/trajectory.json
+Trajectory dumped to jobs/2026-06-30__23-52-41/task007__qR5TACN/agent/trajectory.json
+Trajectory dumped to jobs/2026-06-30__23-52-41/task007__qR5TACN/agent/trajectory.json
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Trajectory dumped to jobs/2026-06-30__23-52-41/task007__qR5TACN/agent/trajectory.json
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Trajectory dumped to jobs/2026-06-30__23-52-41/task007__qR5TACN/agent/trajectory.json
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Trajectory dumped to jobs/2026-06-30__23-52-41/task007__qR5TACN/agent/trajectory.json
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Trajectory dumped to jobs/2026-06-30__23-52-41/task007__qR5TACN/agent/trajectory.json
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+- Command 1 should end with newline when followed by another command. Otherwise the two commands will be concatenated together on the same line.
+Trajectory dumped to jobs/2026-06-30__23-52-41/task007__qR5TACN/agent/trajectory.json
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Trajectory dumped to jobs/2026-06-30__23-52-41/task007__qR5TACN/agent/trajectory.json
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Trajectory dumped to jobs/2026-06-30__23-52-41/task007__qR5TACN/agent/trajectory.json
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Trajectory dumped to jobs/2026-06-30__23-52-41/task007__qR5TACN/agent/trajectory.json
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Trajectory dumped to jobs/2026-06-30__23-52-41/task007__qR5TACN/agent/trajectory.json
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Trajectory dumped to jobs/2026-06-30__23-52-41/task007__qR5TACN/agent/trajectory.json
+Trajectory dumped to jobs/2026-06-30__23-52-41/task007__qR5TACN/agent/trajectory.json
+Collecting main service artifacts

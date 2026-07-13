@@ -1,0 +1,27 @@
+version = "1.0"
+
+[metadata]
+bundle_id = "olc-btree-engine-l0"
+id = "cyber-bench/olc_btree_engine_l0"
+name = "olc_btree_engine_l0"
+category = "Systems Programming / Concurrent Indexing & Latch Protocols"
+difficulty = "Level 0 - High Headroom Challenge"
+tags = ["c", "concurrent-data-structures", "btree", "optimistic-lock-coupling", "asan"]
+author = "CyberBench / Harbor Team"
+description = """
+Implement an Optimistic Lock Coupling (OLC) Concurrent B-Tree Indexing Engine in C.
+The engine attaches 64-bit version latches to each tree node, allowing readers to traverse and
+lookup keys optimistically without acquiring exclusive read locks, while writers acquire exclusive
+bit latches, split nodes when capacity is exceeded, and bump versions on release.
+Verified under AddressSanitizer with multi-threaded concurrent stress testing.
+"""
+
+[verifier]
+type = "cybench"
+service_id = "olc_btree_engine"
+timeout_sec = 60
+memory_limit_mb = 2048
+
+[environment]
+type = "docker"
+build_timeout_sec = 180

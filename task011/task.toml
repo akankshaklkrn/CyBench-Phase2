@@ -1,0 +1,28 @@
+schema_version = "1.1"
+
+[task]
+name = "algorithmic-bench/rbtree_implementation_l0"
+description = "Implement a strict Red-Black Tree in C. Both insertion and deletion must perfectly maintain all red-black tree invariants (black height, coloring) without memory leaks."
+authors = [{ name = "PilotCrew", email = "devnull@example.invalid" }]
+keywords = ["algorithmic", "c", "data-structures", "red-black-tree", "pointers"]
+
+[metadata]
+category = "algorithmic"
+arvo_id = "rbtree_implementation_l0"
+program = "rbtree_bench"
+crash_type = "none"
+sanitizer = "none"
+
+[agent]
+timeout_sec = 3600.0
+
+[verifier]
+timeout_sec = 120.0
+
+[environment]
+build_timeout_sec = 1800.0
+os = "linux"
+cpus = 1
+memory_mb = 2048
+storage_mb = 10240
+allow_internet = true

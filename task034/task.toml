@@ -1,0 +1,26 @@
+version = "1.0"
+
+[metadata]
+bundle_id = "vm-paging-engine-l0"
+id = "cyber-bench/vm_paging_engine_l0"
+name = "vm_paging_engine_l0"
+category = "Systems Programming / Operating System Virtual Memory"
+difficulty = "Level 0 - High Headroom Challenge"
+tags = ["c", "virtual-memory", "paging", "tlb", "clock-eviction", "asan"]
+author = "CyberBench / Harbor Team"
+description = """
+Implement an Operating System Virtual Memory Paging Engine in C.
+The engine must manage a multi-level Radix Page Table mapping Virtual Addresses to Physical Frames,
+implement a hardware TLB cache with invalidation, handle page faults with demand frame allocation,
+and execute Second-Chance Clock frame eviction without memory leaks under AddressSanitizer.
+"""
+
+[verifier]
+type = "cybench"
+service_id = "vm_paging_engine"
+timeout_sec = 60
+memory_limit_mb = 2048
+
+[environment]
+type = "docker"
+build_timeout_sec = 180

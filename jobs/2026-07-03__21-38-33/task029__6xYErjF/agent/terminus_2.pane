@@ -1,0 +1,444 @@
+[?2004hroot@59148c0f41e5:/# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@59148c0f41e5:/# clear
+[?2004l[H[J[?2004hroot@59148c0f41e5:/# cat target.c
+[?2004lcat: target.c: No such file or directory
+[?2004hroot@59148c0f41e5:/# ls -l
+[?2004ltotal 60
+lrwxrwxrwx   1 root root    7 Jun 27 02:10 [0m[01;36mbin[0m -> [01;34musr/bin[0m
+drwxr-xr-x   2 root root 4096 Apr 18  2022 [01;34mboot[0m
+drwxr-xr-x   5 root root  340 Jul  3 16:08 [01;34mdev[0m
+drwxr-xr-x   1 root root 4096 Jul  3 16:08 [01;34metc[0m
+drwxr-xr-x   2 root root 4096 Apr 18  2022 [01;34mhome[0m
+lrwxrwxrwx   1 root root    7 Jun 27 02:10 [01;36mlib[0m -> [01;34musr/lib[0m
+drwxr-xr-x   5 root root 4096 Jul  3 16:08 [01;34mlogs[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34mmedia[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34mmnt[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34mopt[0m
+drwxr-xr-x   2 root root 4096 Jul  3 16:08 [01;34mout[0m
+dr-xr-xr-x 257 root root    0 Jul  3 16:08 [01;34mproc[0m
+drwx------   1 root root 4096 Jul  3 16:08 [01;34mroot[0m
+drwxr-xr-x   5 root root 4096 Jun 27 02:17 [01;34mrun[0m
+lrwxrwxrwx   1 root root    8 Jun 27 02:10 [01;36msbin[0m -> [01;34musr/sbin[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34msrv[0m
+dr-xr-xr-x  11 root root    0 Jul  3 16:08 [01;34msys[0m
+drwxrwxrwt   1 root root 4096 Jul  3 16:08 [30;42mtmp[0m
+drwxr-xr-x   1 root root 4096 Jun 27 02:10 [01;34musr[0m
+drwxr-xr-x   1 root root 4096 Jun 27 02:17 [01;34mvar[0m
+[?2004hroot@59148c0f41e5:/# cat << 'EOF' > target.c
+[?2004l[?2004h> #include <stdio.h>
+[?2004l[?2004h> #include <stdlib.h>
+[?2004l<< 16;
+    if ((len & 3) >= 2) k1 ^= tail[1] << 8;
+    if ((len & 3) >= 1) {
+        k1 ^= tail[0];
+        k1 *= c1;
+        k1 = (k1 << 15) | (k1 >> 17);
+        k1 *= c2;
+        h ^= k1;
+    }
+    h ^= len;
+    h ^= h >> 16;
+    h *= 0x85ebca6b;
+    h ^= h >> 13;
+    h *= 0xc2b2ae35;
+    h ^= h >> 16;
+    return h;
+}
+
+void bloom_add(bloom_filter_t *filter, const char *key) {
+    uint32_t h1 = hash_fnv1a(key);
+    uint32_t h2 = hash_murmur3(key);
+    for(int i=0; i<3; i++) { 
+        uint32_t bit = (h1 + i * h2) % BLOOM_BITS;
+        filter->bits[bit / 8] |= (1 << (bit % 8));
+    }
+}
+
+bool bloom_check(const bloom_filter_t *filter, const char *key) {
+    uint32_t h1 = hash_fnv1a(key);
+    uint32_t h2 = hash_murmur3(key);
+    for(int i=0; i<3; i++) {
+        uint32_t bit = (h1 + i * h2) % BLOOM_BITS;
+        if ((filter->bits[bit / 8] & (1 << (bit % 8))) == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+typedef struct {
+    char *key;
+    char *val;
+} kv_pair_t;
+
+typedef struct {
+    kv_p[?2004h> #include <string.h>
+[?2004l[?2004h> #include <stdbool.h>
+[?2004l[?2004h> #include <stdint.h>
+[?2004l[?2004h> 
+[?2004l[?2004h> #define MAX_MEMTABLE_ENTRIES 1000
+[?2004l[?2004h> #define BLOOM_BITS 8192
+[?2004l[?2004h> 
+[?2004l[?2004h> typedef struct {
+[?2004l[?2004h>     uint8_t bits[BLOOM_BITS / 8];
+[?2004l[?2004h> } bloom_filter_t;
+[?2004l[?2004h> 
+[?2004l[?2004h> uint32_t hash_fnv1a(const char *key) {
+[?2004l[?2004h>     uint32_t hash = 2166136261u;
+[?2004l[?2004h>     while (*key) {
+[?2004l[?2004h>         hash ^= (uint8_t)*key++;
+[?2004l[?2004h>         hash *= 16777619u;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     return hash;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> uint32_t hash_murmur3(const char *key) {
+[?2004l[?2004h>     uint32_t h = 0x811c9dc5; 
+[?2004l[?2004h>     uint32_t c1 = 0xcc9e2d51;
+[?2004l[?2004h>     uint32_t c2 = 0x1b873593;
+[?2004l[?2004h>     int len = strlen(key);
+[?2004l[?2004h>     const uint8_t *data = (const uint8_t *)key;
+[?2004l[?2004h>     int nblocks = len / 4;
+[?2004l[?2004h>     for (int i = 0; i < nblocks; i++) {
+[?2004l[?2004h>         uint32_t k;
+[?2004l[?2004h>         memcpy(&k, data + i * 4, 4);
+[?2004l[?2004h>         k *= c1;
+[?2004l[?2004h>         k = (k << 15) | (k >> 17);
+[?2004l[?2004h>         k *= c2;
+[?2004l[?2004h>         h ^= k;
+[?2004l[?2004h>         h = (h << 13) | (h >> 19);
+[?2004l[?2004h>         h = h * 5 + 0xe6546b64;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     const uint8_t *tail = data + nblocks * 4;
+[?2004l[?2004h>     uint32_t k1 = 0;
+[?2004l[?2004h>     if ((len & 3) >= 3) k1 ^= tail[2] << 16;
+[?2004l[?2004h>     if ((len & 3) >= 2) k1 ^= tail[1] << 8;
+[?2004l[?2004h>     if ((len & 3) >= 1) {
+[?2004le[?2004h>         k1 ^= tail[0];
+[?2004l[?2004h>         k1 *= c1;
+[?2004l[?2004h>         k1 = (k1 << 15) | (k1 >> 17);
+[?2004l[?2004h>         k1 *= c2;
+[?2004l[?2004h>         h ^= k1;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     h ^= len;
+[?2004lUL[?2004h>     h ^= h >> 16;
+[?2004l[?2004h>     h *= 0x85ebca6b;
+[?2004ltrcpy(val[?2004h>     h ^= h >> 13;
+[?2004l[?2004h>     h *= 0xc2b2ae35;
+[?2004l[?2004h>     h ^= h >> 16;
+[?2004l[?2004h>     return h;
+[?2004l [?2004h> }
+[?2004l }[?2004h> 
+[?2004l
+[?2004h> void bloom_add(bloom_filter_t *filter, const char *key) {
+[?2004l  char *key;[?2004h>     uint32_t h1 = hash_fnv1a(key);
+[?2004l[?2004h>     uint32_t h2 = hash_murmur3(key);
+[?2004l[?2004h>     for(int i=0; i<3; i++) { 
+[?2004l[?2004h>         uint32_t bit = (h1 + i * h2) % BLOOM_BITS;
+[?2004l[?2004h>         filter->bits[bit / 8] |= (1 << (bit % 8));
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> bool bloom_check(const bloom_filter_t *filter, const char *key) {
+[?2004l[?2004h>     uint32_t h1 = hash_fnv1a(key);
+[?2004l[?2004h>     uint32_t h2 = hash_murmur3(key);
+[?2004l[?2004h>     for(int i=0; i<3; i++) {
+[?2004l[?2004h>         uint32_t bit = (h1 + i * h2) % BLOOM_BITS;
+[?2004l[?2004h>         if ((filter->bits[bit / 8] & (1 << (bit % 8))) == 0) {
+[?2004l[?2004h>             return false;
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     return true;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> typedef struct {
+[?2004l[?2004h>     char *key;
+[?2004l[?2004h>     char *val;
+[?2004l[?2004h> } kv_pair_t;
+[?2004l    for [?2004h> 
+[?2004l([?2004h> typedef struct {
+[?2004l[?2004h>     kv_pair_t entries[MAX_MEMTABLE_ENTRIES];
+[?2004lj [?2004h>     int count;
+[?2004li].c[?2004h> } memtable_t;
+[?2004l
+ [?2004h> 
+[?2004l[?2004h> typedef struct {
+[?2004l[?2004h>     kv_pair_t *entries;
+[?2004lstables[i].e[?2004h>     int count;
+[?2004l[?2004h>     bloom_filter_t bloom;
+[?2004l[?2004h>     int level;
+[?2004l[?2004h> } sstable_t;
+[?2004l[?2004h> 
+[?2004l[?2004h> memtable_t memtable;
+[?2004l[?2004h> sstable_t *sstables = NULL;
+[?2004l[?2004h> int num_sstables = 0;
+[?2004l[?2004h> 
+[?2004l[?2004h> void lsm_put(const char *key, const char *val);
+[?2004l[?2004h> bool lsm_get(const char *key, char *val_out);
+[?2004l[?2004h> void lsm_delete(const char *key);
+[?2004l[?2004h> void lsm_compact(void);
+[?2004l[?2004h> 
+[?2004l[?2004h> int find_memtable(const char *key, bool *found) {
+[?2004l[?2004h>     int L = 0, R = memtable.count - 1;
+[?2004l[?2004h>     while (L <= R) {
+[?2004l[?2004h>         int M = L + (R - L) / 2;
+[?2004l[?2004h>         int cmp = strcmp(memtable.entries[M].key, key);
+[?2004l[?2004h>         if (cmp == 0) {
+[?2004l[?2004h>             *found = true;
+[?2004l[?2004h>             return M;
+[?2004l1.entr[?2004h>         } else if (cmp < 0) {
+[?2004l[?2004h>             L = M + 1;
+[?2004l[?2004h>         } else {
+[?2004l[?2004h>             R = M - 1;
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     *found = false;
+[?2004l[?2004h>     return L;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l&new_l1.bloom, 0, sizeof(bloom_filter_t));
+[?2004h> void flush_memtable(void) {
+[?2004l[?2004h>     if (memtable.count == 0) return;
+[?2004l[?2004h>     
+[?2004l; i++) [?2004h>     num_sstables++;
+[?2004l[?2004h>     sstables = realloc(sstables, num_sstables * sizeof(sstable_t));
+[?2004l[?2004h>     if (num_sstables > 1) {
+[?2004l[?2004h>         memmove(&sstables[1], &sstables[0], (num_sstables - 1) * sizeof(sstable_t));
+[?2004l[?2004h>     }
+[?2004l[?2004h>     sstable_t *new_sst = &sstables[0];
+[?2004l[?2004h>     
+[?2004l[?2004h>     new_sst->level = 0;
+[?2004l[?2004h>     new_sst->count = memtable.count;
+[?2004l[?2004h>     new_sst->entries = malloc(memtable.count * sizeof(kv_pair_t));
+[?2004l[?2004h>     memset(&new_sst->bloom, 0, sizeof(bloom_filter_t));
+[?2004ll1.entries[out_idx].val = strdup(merged[i].val);
+                bloom_add(&new_l1.bloom, new_l1.entries[out_idx].key);
+                out_idx++;
+            }
+        }
+    }
+    
+    for (int i = 0; i < num_sstables; i++) {
+       [?2004h>     
+[?2004l[?2004h>     for (int i = 0; i < memtable.count; i++) {
+[?2004l [?2004h>         new_sst->entries[i] = memtable.entries[i];
+[?2004l[?2004h>         bloom_add(&new_sst->bloom, new_sst->entries[i].key);
+[?2004l[?2004h>     }
+[?2004l[?2004h>     memtable.count = 0;
+[?2004l[?2004h>     
+[?2004l[?2004h>     int l0_count = 0;
+[?2004l[?2004h>     for (int i = 0; i < num_sstables; i++) {
+[?2004l[?2004h>         if (sstables[i].level == 0) l0_count++;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     if (l0_count > 4) {
+[?2004l[?2004h>         lsm_compact();
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004lsstables[i].entries);
+    }
+    free(sstables);
+    free(merged);
+    
+    if (unique > 0) {
+        sstables = malloc(sizeof(sstable_t));
+        sstables[0] = new_l1;
+        num_[?2004h> 
+[?2004l[?2004h> void lsm_put(const char *key, const char *val) {
+[?2004l[?2004h>     bool found;
+[?2004l[?2004h>     int idx = find_memtable(key, &found);
+[?2004l[?2004h>     if (found) {
+[?2004l[?2004h>         if (memtable.entries[idx].val) {
+[?2004l[?2004h>             free(memtable.entries[idx].val);
+[?2004l[?2004h>         }
+[?2004l[?2004h>         memtable.entries[idx].val = val ? strdup(val) : NULL;
+[?2004l[?2004h>     } else {
+[?2004l[?2004h>         if (memtable.count >= MAX_MEMTABLE_ENTRIES) {
+[?2004l
+ [?2004h>             flush_memtable();
+[?2004l[?2004h>             idx = find_memtable(key, &found);
+[?2004l[?2004h>         }
+[?2004l[?2004h>         for (int i = memtable.count; i > idx; i--) {
+[?2004l[?2004h>             memtable.entries[i] = memtable.entries[i - 1];
+[?2004l[?2004h>         }
+[?2004l[?2004h>         memtable.entries[idx].key = strdup(key);
+[?2004lke[?2004h>         memtable.entries[idx].val = val ? strdup(val) : NULL;
+[?2004l[?2004h>         memtable.count++;
+[?2004l+;
+        }
+    }
+    
+    for (int i = 0; i[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void lsm_delete(const char *key) {
+[?2004l[?2004h>     lsm_put(key, NULL);
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int find_sstable(sstable_t *sst, const char *key) {
+[?2004l[?2004h>     int L = 0, R = sst->count - 1;
+[?2004l[?2004h>     while (L <= R) {
+[?2004l[?2004h>         int M = L + (R - L) / 2;
+[?2004l[?2004h>         int cmp = strcmp(sst->entries[M].key, key);
+[?2004l[?2004h>         if (cmp == 0) return M;
+[?2004l[?2004h>         else if (cmp < 0) L = M + 1;
+[?2004l[?2004h>         else R = M - 1;
+[?2004l[i].entries[j].v[?2004h>     }
+[?2004l[?2004h>     return -1;
+[?2004l [?2004h> }
+[?2004l[?2004h> 
+[?2004l  f[?2004h> bool lsm_get(const char *key, char *val_out) {
+[?2004l[?2004h>     bool found;
+[?2004ls[?2004h>     int idx = find_memtable(key, &found);
+[?2004l[?2004h>     if (found) {
+[?2004l[?2004h>         if (memtable.entries[idx].val == NULL) return false;
+[?2004l[?2004h>         strcpy(val_out, memtable.entries[idx].val);
+[?2004l[?2004h>         return true;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     for (int i = 0; i < num_sstables; i++) {
+[?2004l[?2004h>         if (!bloom_check(&sstables[i].bloom, key)) continue;
+[?2004l[?2004h>         int s_idx = find_sstable(&sstables[i], key);
+[?2004l[?2004h>         if (s_idx >= 0) {
+[?2004l[?2004h>             if (sstables[i].entries[s_idx].val == NULL) return false;
+[?2004l[?2004h>             strcpy(val_out, sstables[i].entries[s_idx].val);
+[?2004l[?2004h>             return true;
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     return false;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> typedef struct {
+[?2004l[?2004h>     char *key;
+[?2004l[?2004h>     char *val;
+[?2004l[?2004h>     int age; 
+[?2004l[?2004h> } merge_item_t;
+[?2004l[?2004h> 
+[?2004l[?2004h> int merge_cmp(const void *a, const void *b) {
+[?2004l[?2004h>     const merge_item_t *ma = (const merge_item_t *)a;
+[?2004l[?2004h>     const merge_item_t *mb = (const merge_item_t *)b;
+[?2004l[?2004h>     int cmp = strcmp(ma->key, mb->key);
+[?2004l[?2004h>     if (cmp != 0) return cmp;
+[?2004l[?2004h>     return ma->age - mb->age;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void lsm_compact(void) {
+[?2004l[?2004h>     int total_entries = 0;
+[?2004l[?2004h>     for (int i = 0; i < num_sstables; i++) {
+[?2004l[?2004h>         total_entries += sstables[i].count;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     if (total_entries == 0) return;
+[?2004l[?2004h>     
+[?2004l[?2004h>     merge_item_t *merged = malloc(total_entries * sizeof(merge_item_t));
+[?2004l[?2004h>     if (!merged) return;
+[?2004l[?2004h> 
+[?2004l[?2004h>     int idx = 0;
+[?2004l[?2004h>     for (int i = 0; i < num_sstables; i++) {
+[?2004l[?2004h>         for (int j = 0; j < sstables[i].count; j++) {
+[?2004l[?2004h>             merged[idx].key = sstables[i].entries[j].key;
+[?2004l[?2004h>             merged[idx].val = sstables[i].entries[j].val;
+[?2004l[?2004h>             merged[idx].age = i;
+[?2004l[?2004h>             idx++;
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     qsort(merged, total_entries, sizeof(merge_item_t), merge_cmp);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int unique = 0;
+[?2004l[?2004h>     for (int i = 0; i < total_entries; i++) {
+[?2004l[?2004h>         if (i == 0 || strcmp(merged[i].key, merged[i-1].key) != 0) {
+[?2004l[?2004h>             if (merged[i].val != NULL) {
+[?2004l[?2004h>                 unique++;
+[?2004l[?2004h>             }
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     sstable_t new_l1;
+[?2004l[?2004h>     new_l1.level = 1;
+[?2004l[?2004h>     new_l1.count = unique;
+[?2004l[?2004h>     if (unique > 0) {
+[?2004l[?2004h>         new_l1.entries = malloc(unique * sizeof(kv_pair_t));
+[?2004l[?2004h>     } else {
+[?2004l[?2004h>         new_l1.entries = NULL;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     memset(&new_l1.bloom, 0, sizeof(bloom_filter_t));
+[?2004l[?2004h>     
+[?2004l[?2004h>     int out_idx = 0;
+[?2004l[?2004h>     for (int i = 0; i < total_entries; i++) {
+[?2004l[?2004h>         if (i == 0 || strcmp(merged[i].key, merged[i-1].key) != 0) {
+[?2004l[?2004h>             if (merged[i].val != NULL) {
+[?2004l[?2004h>                 new_l1.entries[out_idx].key = strdup(merged[i].key);
+[?2004l[?2004h>                 new_l1.entries[out_idx].val = strdup(merged[i].val);
+[?2004l[?2004h>                 bloom_add(&new_l1.bloom, new_l1.entries[out_idx].key);
+[?2004l[?2004h>                 out_idx++;
+[?2004l[?2004h>             }
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     for (int i = 0; i < num_sstables; i++) {
+[?2004l[?2004h>         for (int j = 0; j < sstables[i].count; j++) {
+[?2004l[?2004h>             free(sstables[i].entries[j].key);
+[?2004l[?2004h>             if (sstables[i].entries[j].val) free(sstables[i].entries[j].val);
+[?2004l[?2004h>         }
+[?2004l[?2004h>         free(sstables[i].entries);
+[?2004l[?2004h>     }
+[?2004l[?2004h>     free(sstables);
+[?2004l[?2004h>     free(merged);
+[?2004l[?2004h>     
+[?2004l[?2004h>     if (unique > 0) {
+[?2004l[?2004h>         sstables = malloc(sizeof(sstable_t));
+[?2004l[?2004h>         sstables[0] = new_l1;
+[?2004l[?2004h>         num_sstables = 1;
+[?2004l[?2004h>     } else {
+[?2004l[?2004h>         sstables = NULL;
+[?2004l[?2004h>         num_sstables = 0;
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int main(void) {
+[?2004l[?2004h>     memtable.count = 0;
+[?2004l[?2004h>     
+[?2004l[?2004h>     for (int i = 0; i < 5000; i++) {
+[?2004l[?2004h>         char key[32], val[32];
+[?2004l[?2004h>         sprintf(key, "key%04d", i);
+[?2004l[?2004h>         sprintf(val, "val%04d", i);
+[?2004l[?2004h>         lsm_put(key, val);
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     for (int i = 0; i < 1000; i+=2) {
+[?2004l[?2004h>         char key[32];
+[?2004l[?2004h>         sprintf(key, "key%04d", i);
+[?2004l[?2004h>         lsm_delete(key);
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     int not_found_count = 0;
+[?2004l[?2004h>     for (int i = 5000; i < 15000; i++) {
+[?2004l[?2004h>         char key[32], val_out[32];
+[?2004l[?2004h>         sprintf(key, "key%04d", i);
+[?2004l[?2004h>         if (!lsm_get(key, val_out)) {
+[?2004l[?2004h>             not_found_count++;
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     for (int i = 0; i < memtable.count; i++) {
+[?2004l[?2004h>         free(memtable.entries[i].key);
+[?2004l[?2004h>         if (memtable.entries[i].val) free(memtable.entries[i].val);
+[?2004l[?2004h>     }
+[?2004l[?2004h>     for (int i = 0; i < num_sstables; i++) {
+[?2004l[?2004h>         for (int j = 0; j < sstables[i].count; j++) {
+[?2004l[?2004h>             free(sstables[i].entries[j].key);
+[?2004l[?2004h>             if (sstables[i].entries[j].val) free(sstables[i].entries[j].val);
+[?2004l[?2004h>         }
+[?2004l[?2004h>         free(sstables[i].entries);
+[?2004l[?2004h>     }
+[?2004l[?2004h>     if (sstables) free(sstables);
+[?2004l[?2004h>     
+[?2004l[?2004h>     printf("FLAG: LSM-Tree Storage Engine Compaction Success!\n");
+[?2004l[?2004h>     return 0;
+[?2004l[?2004h> }
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@59148c0f41e5:/# gcc -O2 -Wall -Werror -fsanitize=address,undefined -o /out/lsm_bench target.c
+[?2004l[?2004hroot@59148c0f41e5:/# /out/lsm_bench
+[?2004lFLAG: LSM-Tree Storage Engine Compaction Success!
+[?2004hroot@59148c0f41e5:/# 

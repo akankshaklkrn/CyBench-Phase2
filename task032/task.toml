@@ -1,0 +1,26 @@
+version = "1.0"
+
+[metadata]
+bundle_id = "user-net-stack-l0"
+id = "cyber-bench/user_net_stack_l0"
+name = "user_net_stack_l0"
+category = "Systems Programming / Network Packet Processing"
+difficulty = "Level 0 - High Headroom Challenge"
+tags = ["c", "networking", "ring-buffer", "packet-processing", "checksum", "asan"]
+author = "CyberBench / Harbor Team"
+description = """
+Implement a zero-copy circular ring buffer packet pipeline in C.
+The engine must parse Ethernet/IPv4/UDP headers, calculate RFC-compliant Internet checksums,
+handle ring-buffer wrap-around arithmetic without buffer overflows under AddressSanitizer,
+and aggregate flow routing metrics into an order-independent state hash.
+"""
+
+[verifier]
+type = "cybench"
+service_id = "user_net_stack"
+timeout_sec = 60
+memory_limit_mb = 2048
+
+[environment]
+type = "docker"
+build_timeout_sec = 180

@@ -1,0 +1,68 @@
+Trial task007__ZQo3Fvt failed: Docker compose command failed for environment vm_emulation_l0. Command: docker compose --project-name task007__zqo3fvt__env --project-directory /Users/jatinjena/Downloads/tasknew/task007/environment -f /private/var/folders/dr/z8_nw0rn619_kmd5rtq3dpf40000gn/T/tmpxw4emmzv/task007__ZQo3Fvt__env-docker-compose-resources.json -f /Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /private/var/folders/dr/z8_nw0rn619_kmd5rtq3dpf40000gn/T/tmp__j16pc9/docker-compose-mounts.json build. Return code: 1. Stdout:  Image task007__zqo3fvt__env-main Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 605B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 346B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/ubuntu:22.04
+#3 DONE 1.8s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [1/6] FROM docker.io/library/ubuntu:22.04@sha256:4f838adc7181d9039ac795a7d0aba05a9bd9ecd480d294483169c5def983b64d
+#5 resolve docker.io/library/ubuntu:22.04@sha256:4f838adc7181d9039ac795a7d0aba05a9bd9ecd480d294483169c5def983b64d 0.0s done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 97B done
+#6 DONE 0.0s
+
+#7 [2/6] RUN apt-get update && apt-get install -y gcc python3 python3-pip gdb strace binutils tmux asciinema && rm -rf /var/lib/apt/lists/*
+#7 CACHED
+
+#8 [3/6] COPY target.c /src/target.c
+#8 DONE 0.0s
+
+#9 [4/6] RUN mkdir -p /out && gcc -O2 -Wall -Werror -o /out/cvm /src/target.c
+#9 0.075 /usr/bin/ld: /usr/lib/gcc/aarch64-linux-gnu/11/../../../aarch64-linux-gnu/Scrt1.o: in function `_start':
+#9 0.075 (.text+0x1c): undefined reference to `main'
+#9 0.075 /usr/bin/ld: (.text+0x20): undefined reference to `main'
+#9 0.076 collect2: error: ld returned 1 exit status
+#9 ERROR: process "/bin/sh -c mkdir -p /out && gcc -O2 -Wall -Werror -o /out/cvm /src/target.c" did not complete successfully: exit code: 1
+------
+ > [4/6] RUN mkdir -p /out && gcc -O2 -Wall -Werror -o /out/cvm /src/target.c:
+0.075 /usr/bin/ld: /usr/lib/gcc/aarch64-linux-gnu/11/../../../aarch64-linux-gnu/Scrt1.o: in function `_start':
+0.075 (.text+0x1c): undefined reference to `main'
+0.075 /usr/bin/ld: (.text+0x20): undefined reference to `main'
+0.076 collect2: error: ld returned 1 exit status
+------
+Dockerfile:5
+
+--------------------
+
+   3 |     RUN apt-get update && apt-get install -y gcc python3 python3-pip gdb strace binutils tmux asciinema && rm -rf /var/lib/apt/lists/*
+
+   4 |     COPY target.c /src/target.c
+
+   5 | >>> RUN mkdir -p /out && gcc -O2 -Wall -Werror -o /out/cvm /src/target.c
+
+   6 |     RUN rm -rf /src
+
+   7 |     WORKDIR /
+
+--------------------
+
+failed to solve: process "/bin/sh -c mkdir -p /out && gcc -O2 -Wall -Werror -o /out/cvm /src/target.c" did not complete successfully: exit code: 1
+
+
+
+View build details: docker-desktop://dashboard/build/default/default/ylmnqba9fip7mjujq5ud1reyk
+
+. Stderr: None. 
+Collecting main service artifacts
+Not retrying trial because the maximum number of retries has been reached

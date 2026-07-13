@@ -1,0 +1,28 @@
+schema_version = "1.1"
+
+[task]
+name = "algorithmic-bench/lockfree_skiplist_l0"
+description = "Implement a Lock-Free Concurrent Skip List using C11 atomic operations. You must implement probabilistic multi-level node splicing and logical marking for deletions without mutexes."
+authors = [{ name = "PilotCrew", email = "devnull@example.invalid" }]
+keywords = ["algorithmic", "c", "concurrency", "lock-free", "atomics", "skip-list"]
+
+[metadata]
+category = "algorithmic"
+arvo_id = "lockfree_skiplist_l0"
+program = "skiplist_bench"
+crash_type = "none"
+sanitizer = "none"
+
+[agent]
+timeout_sec = 3600.0
+
+[verifier]
+timeout_sec = 120.0
+
+[environment]
+build_timeout_sec = 1800.0
+os = "linux"
+cpus = 4
+memory_mb = 2048
+storage_mb = 10240
+allow_internet = true

@@ -1,0 +1,28 @@
+schema_version = "1.1"
+
+[task]
+name = "algorithmic-bench/vm_emulation_l0"
+description = "Implement missing VM opcodes to successfully execute the custom bytecode programs without errors."
+authors = [{ name = "PilotCrew", email = "devnull@example.invalid" }]
+keywords = ["algorithmic", "c", "virtual-machine", "emulation", "pointers"]
+
+[metadata]
+category = "algorithmic"
+arvo_id = "vm_emulation_l0"
+program = "cvm"
+crash_type = "none"
+sanitizer = "none"
+
+[agent]
+timeout_sec = 600.0
+
+[verifier]
+timeout_sec = 120.0
+
+[environment]
+build_timeout_sec = 1800.0
+os = "linux"
+cpus = 1
+memory_mb = 2048
+storage_mb = 10240
+allow_internet = true

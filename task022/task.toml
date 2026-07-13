@@ -1,0 +1,28 @@
+schema_version = "1.1"
+
+[task]
+name = "algorithmic-bench/concurrent_llrb_tsan_l0"
+description = "Implement a Concurrent Left-Leaning Red-Black (LLRB) Tree in C using fine-grained mutex locking, compiled with ThreadSanitizer (-fsanitize=thread). You must maintain LLRB invariants and avoid data races or deadlocks under multi-threaded execution."
+authors = [{ name = "PilotCrew", email = "devnull@example.invalid" }]
+keywords = ["algorithmic", "c", "concurrency", "tsan", "llrb-tree", "red-black-tree", "mutex"]
+
+[metadata]
+category = "algorithmic"
+arvo_id = "concurrent_llrb_tsan_l0"
+program = "llrb_bench"
+crash_type = "none"
+sanitizer = "thread"
+
+[agent]
+timeout_sec = 3600.0
+
+[verifier]
+timeout_sec = 120.0
+
+[environment]
+build_timeout_sec = 1800.0
+os = "linux"
+cpus = 4
+memory_mb = 2048
+storage_mb = 10240
+allow_internet = true

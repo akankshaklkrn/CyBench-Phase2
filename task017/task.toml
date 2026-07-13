@@ -1,0 +1,28 @@
+schema_version = "1.1"
+
+[task]
+name = "algorithmic-bench/hazard_stack_l0"
+description = "Implement a Lock-Free Concurrent Stack (Treiber Stack) using C11 atomic operations and Hazard Pointers for safe memory reclamation under heavy multi-threaded execution."
+authors = [{ name = "PilotCrew", email = "devnull@example.invalid" }]
+keywords = ["algorithmic", "c", "concurrency", "lock-free", "atomics", "hazard-pointers", "stack"]
+
+[metadata]
+category = "algorithmic"
+arvo_id = "hazard_stack_l0"
+program = "stack_bench"
+crash_type = "none"
+sanitizer = "none"
+
+[agent]
+timeout_sec = 3600.0
+
+[verifier]
+timeout_sec = 120.0
+
+[environment]
+build_timeout_sec = 1800.0
+os = "linux"
+cpus = 4
+memory_mb = 2048
+storage_mb = 10240
+allow_internet = true

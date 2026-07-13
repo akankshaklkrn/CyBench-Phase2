@@ -1,0 +1,298 @@
+[?2004hroot@8b21ac6b3eea:/# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@8b21ac6b3eea:/# clear
+[?2004l[H[J[?2004hroot@8b21ac6b3eea:/# cat target.c
+[?2004lcat: target.c: No such file or directory
+[?2004hroot@8b21ac6b3eea:/# find / -name target.c 2>/dev/null
+[?2004l[?2004hroot@8b21ac6b3eea:/# ls -la /
+[?2004ltotal 68
+drwxr-xr-x   1 root root 4096 Jul  1 09:56 [0m[01;34m.[0m
+drwxr-xr-x   1 root root 4096 Jul  1 09:56 [01;34m..[0m
+-rwxr-xr-x   1 root root    0 Jul  1 09:56 [01;32m.dockerenv[0m
+lrwxrwxrwx   1 root root    7 May  9 02:17 [01;36mbin[0m -> [01;34musr/bin[0m
+drwxr-xr-x   2 root root 4096 Apr 18  2022 [01;34mboot[0m
+drwxr-xr-x   5 root root  340 Jul  1 09:56 [01;34mdev[0m
+drwxr-xr-x   1 root root 4096 Jul  1 09:56 [01;34metc[0m
+drwxr-xr-x   2 root root 4096 Apr 18  2022 [01;34mhome[0m
+lrwxrwxrwx   1 root root    7 May  9 02:17 [01;36mlib[0m -> [01;34musr/lib[0m
+drwxr-xr-x   5 root root 4096 Jul  1 09:56 [01;34mlogs[0m
+drwxr-xr-x   2 root root 4096 May  9 02:17 [01;34mmedia[0m
+drwxr-xr-x   2 root root 4096 May  9 02:17 [01;34mmnt[0m
+drwxr-xr-x   2 root root 4096 May  9 02:17 [01;34mopt[0m
+drwxr-xr-x   2 root root 4096 Jul  1 09:56 [01;34mout[0m
+dr-xr-xr-x 265 root root    0 Jul  1 09:56 [01;34mproc[0m
+drwx------   1 root root 4096 Jul  1 09:56 [01;34mroot[0m
+drwxr-xr-x   5 root root 4096 May  9 02:25 [01;34mrun[0m
+lrwxrwxrwx   1 root root    8 May  9 02:17 [01;36msbin[0m -> [01;34musr/sbin[0m
+drwxr-xr-x   2 root root 4096 May  9 02:17 [01;34msrv[0m
+dr-xr-xr-x  11 root root    0 Jul  1 09:56 [01;34msys[0m
+drwxrwxrwt   1 root root 4096 Jul  1 09:56 [30;42mtmp[0m
+drwxr-xr-x   1 root root 4096 May  9 02:17 [01;34musr[0m
+drwxr-xr-x   1 root root 4096 May  9 02:24 [01;34mvar[0m
+[?2004hroot@8b21ac6b3eea:/# ls -la /root
+[?2004ltotal 20
+drwx------ 1 root root 4096 Jul  1 09:56 [0m[01;34m.[0m
+drwxr-xr-x 1 root root 4096 Jul  1 09:56 [01;34m..[0m
+-rw-r--r-- 1 root root 3106 Oct 15  2021 .bashrc
+drwxr-xr-x 3 root root 4096 Jul  1 09:56 [01;34m.config[0m
+-rw-r--r-- 1 root root  161 Jul  9  2019 .profile
+[?2004hroot@8b21ac6b3eea:/# find / -type f -name "*.c" 2>/dev/null
+[?2004l/usr/lib/python3.10/config-3.10-aarch64-linux-gnu/config.c
+[?2004hroot@8b21ac6b3eea:/# cat /root/.bash_history
+[?2004lcat: /root/.bash_history: No such file or directory
+[?2004hroot@8b21ac6b3eea:/# cat << 'EOF' > target.c
+[?2004lcurr = curr->left;
+        } else {
+            curr = curr->right;
+        }
+    }
+    if (last) {
+        splay_node_ptr(last);
+    }
+}
+
+void splay_insert(int key) {
+    if (!root) {
+        splay_node* n = (splay_node*)malloc(sizeof(splay_node));
+        n->key = key;
+        n->left = n->right = n->parent = NULL;
+        root = n;
+        return;
+    }
+    splay(key);
+    if (root->key == key) return;
+    splay_node* n = (splay_node*)malloc(sizeof(splay_node));
+    n->key = key;
+    n->parent = NULL;
+    if (key < root->key) {
+        n->right = root;
+        n->left = root->left;
+        if (n->left) n->left->parent = n;
+        root->left = NULL;
+        root->parent = n;
+    } else {
+        n->left = root;
+        n->right = root->right;
+        if (n->right) n->right->parent = n;
+        root->right = NULL;
+        root->parent = n;
+    }
+    root = n;
+}
+
+void splay_delete(int key) {
+    if (!root) return;
+    splay(key);
+    if (root->key != key) return;
+    splay_node *del = root;
+    if (!root->left) {
+        root = root->right;
+        if (root) root->parent = NULL;
+    } else {
+        splay_node *left_tree = root->left;
+        splay_node *right_tree = root->right;
+        left_tree->parent = NULL;
+        root = left_tree;
+        splay_node *m = left_tree;
+        while (m->right) m = m->right;
+        splay_node_ptr(m);
+        root->right = right_tree;
+        if (right_tree) right_tree->parent = root;
+    }
+    free(del);
+}
+
+bool is_bst(splay_node* n, splay_node** prev) {
+    if (!n) return true;
+    if (!is_bst(n->left, prev)) return false;
+    if (*prev && (*prev)->key >= n->key) return false;
+    *prev = n;
+    return is_bst(n->right, prev);
+}
+
+void check_invariants() {
+    splay_node *prev = NULL;
+    assert(is_bst(root, &prev));
+}
+
+int main() {
+    for (int i = 0; i < 10000; i++) {
+        int op = rand() % 3;
+        int k = rand() % 1000;
+        if (op == 0) {
+            splay_insert(k);
+            assert(root->key == k);
+        } else if (op == 1) {
+            splay(k);
+        } else {
+            spl[?2004h> #include <stdio.h>
+[?2004l     [?2004h> #include <stdlib.h>
+[?2004lk_i[?2004h> #include <stdbool.h>
+[?2004l  }
+  [?2004h> #include <assert.h>
+[?2004l[?2004h> 
+[?2004l: Splay[?2004h> typedef struct splay_node {
+[?2004letu[?2004h>     int key;
+[?2004l[?2004h>     struct splay_node *left;
+[?2004l[?2004h>     struct splay_node *right;
+[?2004l[?2004h>     struct splay_node *parent;
+[?2004l[?2004h> } splay_node;
+[?2004l[?2004h> 
+[?2004l[?2004h> splay_node *root = NULL;
+[?2004l[?2004h> 
+[?2004l[?2004h> void left_rotate(splay_node *x) {
+[?2004l[?2004h>     splay_node *y = x->right;
+[?2004l[?2004h>     if (y) {
+[?2004l[?2004h>         x->right = y->left;
+[?2004l[?2004h>         if (y->left) y->left->parent = x;
+[?2004l[?2004h>         y->parent = x->parent;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     if (!x->parent) root = y;
+[?2004l[?2004h>     else if (x == x->parent->left) x->parent->left = y;
+[?2004l[?2004h>     else x->parent->right = y;
+[?2004l[?2004h>     if (y) y->left = x;
+[?2004l[?2004h>     x->parent = y;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void right_rotate(splay_node *x) {
+[?2004l[?2004h>     splay_node *y = x->left;
+[?2004l[?2004h>     if (y) {
+[?2004l[?2004h>         x->left = y->right;
+[?2004l[?2004h>         if (y->right) y->right->parent = x;
+[?2004l[?2004h>         y->parent = x->parent;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     if (!x->parent) root = y;
+[?2004l[?2004h>     else if (x == x->parent->left) x->parent->left = y;
+[?2004l[?2004h>     else x->parent->right = y;
+[?2004l[?2004h>     if (y) y->right = x;
+[?2004l[?2004h>     x->parent = y;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void splay_node_ptr(splay_node *n) {
+[?2004l[?2004h>     while (n->parent) {
+[?2004l[?2004h>         if (!n->parent->parent) {
+[?2004l[?2004h>             if (n->parent->left == n) right_rotate(n->parent);
+[?2004l[?2004h>             else left_rotate(n->parent);
+[?2004l[?2004h>         } else if (n->parent->left == n && n->parent->parent->left == n->parent) {
+[?2004l[?2004h>             right_rotate(n->parent->parent);
+[?2004l[?2004h>             right_rotate(n->parent);
+[?2004l[?2004h>         } else if (n->parent->right == n && n->parent->parent->right == n->parent) {
+[?2004l[?2004h>             left_rotate(n->parent->parent);
+[?2004l[?2004h>             left_rotate(n->parent);
+[?2004l[?2004h>         } else if (n->parent->left == n && n->parent->parent->right == n->parent) {
+[?2004l[?2004h>             right_rotate(n->parent);
+[?2004l[?2004h>             left_rotate(n->parent);
+[?2004l[?2004h>         } else {
+[?2004l[?2004h>             left_rotate(n->parent);
+[?2004l[?2004h>             right_rotate(n->parent);
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void splay(int key) {
+[?2004l[?2004h>     if (!root) return;
+[?2004l[?2004h>     splay_node *curr = root;
+[?2004l[?2004h>     splay_node *last = NULL;
+[?2004l[?2004h>     while (curr) {
+[?2004l[?2004h>         last = curr;
+[?2004l[?2004h>         if (curr->key == key) {
+[?2004l[?2004h>             splay_node_ptr(curr);
+[?2004l[?2004h>             return;
+[?2004l[?2004h>         } else if (key < curr->key) {
+[?2004l[?2004h>             curr = curr->left;
+[?2004l[?2004h>         } else {
+[?2004l[?2004h>             curr = curr->right;
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     if (last) {
+[?2004l[?2004h>         splay_node_ptr(last);
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void splay_insert(int key) {
+[?2004l[?2004h>     if (!root) {
+[?2004l[?2004h>         splay_node* n = (splay_node*)malloc(sizeof(splay_node));
+[?2004l[?2004h>         n->key = key;
+[?2004l[?2004h>         n->left = n->right = n->parent = NULL;
+[?2004l[?2004h>         root = n;
+[?2004l[?2004h>         return;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     splay(key);
+[?2004l[?2004h>     if (root->key == key) return;
+[?2004l[?2004h>     splay_node* n = (splay_node*)malloc(sizeof(splay_node));
+[?2004l[?2004h>     n->key = key;
+[?2004l[?2004h>     n->parent = NULL;
+[?2004l[?2004h>     if (key < root->key) {
+[?2004l[?2004h>         n->right = root;
+[?2004l[?2004h>         n->left = root->left;
+[?2004l[?2004h>         if (n->left) n->left->parent = n;
+[?2004l[?2004h>         root->left = NULL;
+[?2004l[?2004h>         root->parent = n;
+[?2004l[?2004h>     } else {
+[?2004l[?2004h>         n->left = root;
+[?2004l[?2004h>         n->right = root->right;
+[?2004l[?2004h>         if (n->right) n->right->parent = n;
+[?2004l[?2004h>         root->right = NULL;
+[?2004l[?2004h>         root->parent = n;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     root = n;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void splay_delete(int key) {
+[?2004l[?2004h>     if (!root) return;
+[?2004l[?2004h>     splay(key);
+[?2004l[?2004h>     if (root->key != key) return;
+[?2004l[?2004h>     splay_node *del = root;
+[?2004l[?2004h>     if (!root->left) {
+[?2004l[?2004h>         root = root->right;
+[?2004l[?2004h>         if (root) root->parent = NULL;
+[?2004l[?2004h>     } else {
+[?2004l[?2004h>         splay_node *left_tree = root->left;
+[?2004l[?2004h>         splay_node *right_tree = root->right;
+[?2004l[?2004h>         left_tree->parent = NULL;
+[?2004l[?2004h>         root = left_tree;
+[?2004l[?2004h>         splay_node *m = left_tree;
+[?2004l[?2004h>         while (m->right) m = m->right;
+[?2004l[?2004h>         splay_node_ptr(m);
+[?2004l[?2004h>         root->right = right_tree;
+[?2004l[?2004h>         if (right_tree) right_tree->parent = root;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     free(del);
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> bool is_bst(splay_node* n, splay_node** prev) {
+[?2004l[?2004h>     if (!n) return true;
+[?2004l[?2004h>     if (!is_bst(n->left, prev)) return false;
+[?2004l[?2004h>     if (*prev && (*prev)->key >= n->key) return false;
+[?2004l[?2004h>     *prev = n;
+[?2004l[?2004h>     return is_bst(n->right, prev);
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void check_invariants() {
+[?2004l[?2004h>     splay_node *prev = NULL;
+[?2004l[?2004h>     assert(is_bst(root, &prev));
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int main() {
+[?2004l[?2004h>     for (int i = 0; i < 10000; i++) {
+[?2004l[?2004h>         int op = rand() % 3;
+[?2004l[?2004h>         int k = rand() % 1000;
+[?2004l[?2004h>         if (op == 0) {
+[?2004l[?2004h>             splay_insert(k);
+[?2004l[?2004h>             assert(root->key == k);
+[?2004l[?2004h>         } else if (op == 1) {
+[?2004l[?2004h>             splay(k);
+[?2004l[?2004h>         } else {
+[?2004l[?2004h>             splay_delete(k);
+[?2004l[?2004h>         }
+[?2004l[?2004h>         check_invariants();
+[?2004l[?2004h>     }
+[?2004l[?2004h>     printf("FLAG: Splay Tree Success!\n");
+[?2004l[?2004h>     return 0;
+[?2004l[?2004h> }
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@8b21ac6b3eea:/# gcc -O2 -Wall -Werror -o /out/splay_bench target.c
+[?2004l[?2004hroot@8b21ac6b3eea:/# /out/splay_bench
+[?2004lFLAG: Splay Tree Success!
+[?2004hroot@8b21ac6b3eea:/# 

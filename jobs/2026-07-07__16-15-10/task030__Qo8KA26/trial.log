@@ -1,0 +1,7 @@
+Skipping image OS validation for hb__3b65c207ee4e6492dbd54e22ed5a54c7: docker inspect returned 1
+Unknown Error in LLM interaction: litellm.AuthenticationError: AuthenticationError: OpenrouterException - {"error":{"message":"User not found.","code":401}}
+Unknown Error in LLM interaction: litellm.AuthenticationError: AuthenticationError: OpenrouterException - {"error":{"message":"User not found.","code":401}}
+Unknown Error in LLM interaction: litellm.AuthenticationError: AuthenticationError: OpenrouterException - {"error":{"message":"User not found.","code":401}}
+Trajectory dumped to jobs/2026-07-07__16-15-10/task030__Qo8KA26/agent/trajectory.json
+Trial task030__Qo8KA26 failed: litellm.AuthenticationError: AuthenticationError: OpenrouterException - {"error":{"message":"User not found.","code":401}}
+Collecting main service artifacts

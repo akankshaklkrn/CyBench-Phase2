@@ -1,0 +1,6 @@
+{"version": 2, "width": 160, "height": 40, "timestamp": 1783420545, "env": {"SHELL": "/bin/bash", "TERM": "screen"}}
+[0.003414, "o", "\u001b[?2004hroot@07cf8030c8c7:/# "]
+[0.951201, "i", "clear\r"]
+[0.951384, "o", "clear\r\n\u001b[?2004l\r"]
+[0.954005, "o", "\u001b[H\u001b[J"]
+[0.954215, "o", "\u001b[?2004hroot@07cf8030c8c7:/# "]

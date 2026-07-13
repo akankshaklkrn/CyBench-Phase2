@@ -1,0 +1,22 @@
+version = "1.0"
+name = "cyber-bench/cuckoo_hash_engine_l0"
+bundle_id = "cuckoo-hash-engine"
+description = "Implement a high-performance concurrent Striped Cuckoo Hash Table with bounded relocation BFS path kicks under ThreadSanitizer (-fsanitize=thread) enforcement and dynamic state-hash verification."
+difficulty = "hard"
+category = "systems / concurrent data structures / memory safety"
+tags = ["c", "concurrency", "cuckoo-hashing", "tsan", "pthreads"]
+timeout_sec = 3600.0
+scored_service_count = 1
+
+[author]
+name = "Antigravity CyBench Team"
+email = "cybench@antigravity.dev"
+
+[environment]
+type = "docker"
+image = "ubuntu:22.04"
+
+[verifier]
+type = "python"
+script = "tests/grade_flags.py"
+timeout_sec = 300.0

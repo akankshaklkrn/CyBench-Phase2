@@ -1,0 +1,27 @@
+version = "1.0"
+
+[metadata]
+bundle_id = "ebpf-verifier-engine-l0"
+id = "cyber-bench/ebpf_verifier_engine_l0"
+name = "ebpf_verifier_engine_l0"
+category = "Systems Programming / Operating System Virtual Machines & Security Verifiers"
+difficulty = "Level 0 - High Headroom Challenge"
+tags = ["c", "ebpf", "verifier", "static-analysis", "interpreter", "asan"]
+author = "CyberBench / Harbor Team"
+description = """
+Implement a User-Space eBPF Static Bytecode Verifier and Abstract Execution Engine in C.
+The verifier performs abstract interpretation over instructions to check register initialization,
+prevent division-by-zero, validate stack/context memory accesses, and enforce jump safety.
+The execution engine runs verified bytecode over user context buffers.
+Verified under AddressSanitizer with dynamic state-hash flag output.
+"""
+
+[verifier]
+type = "cybench"
+service_id = "ebpf_verifier_engine"
+timeout_sec = 60
+memory_limit_mb = 2048
+
+[environment]
+type = "docker"
+build_timeout_sec = 180

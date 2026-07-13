@@ -1,0 +1,71 @@
+{
+    "schema_version": 1,
+    "created_at": "2026-06-30T17:58:00.219898Z",
+    "harbor": {
+        "version": "0.16.1",
+        "is_editable": false
+    },
+    "invocation": [
+        "/Users/jatinjena/Downloads/tasknew/.venv/bin/harbor",
+        "run",
+        "--path",
+        "task009",
+        "--agent",
+        "terminus-2",
+        "--model",
+        "openrouter/google/gemini-3.1-pro-preview",
+        "--force-build"
+    ],
+    "n_concurrent_trials": 4,
+    "retry": {
+        "max_retries": 0,
+        "exclude_exceptions": [
+            "RewardFileNotFoundError",
+            "ApiUsageLimitError",
+            "VerifierTimeoutError",
+            "VerifierOutputParseError",
+            "RewardFileEmptyError",
+            "AgentTimeoutError"
+        ],
+        "wait_multiplier": 1.0,
+        "min_wait_sec": 1.0,
+        "max_wait_sec": 60.0
+    },
+    "trials": [
+        {
+            "task": {
+                "name": "task009",
+                "type": "local",
+                "digest": "sha256:a7fc42e2e55d3e595b29c89250304c0305386cc60687348ef5a065ee316a900a",
+                "path": "task009"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "name": "terminus-2",
+                "model_name": "openrouter/google/gemini-3.1-pro-preview",
+                "skills": [],
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": true,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        }
+    ]
+}

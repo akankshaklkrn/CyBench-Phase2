@@ -1,0 +1,29 @@
+schema_version = "1.1"
+
+[task]
+name = "cyber-bench/adaptive_radix_tree_l0"
+description = "Implement an Adaptive Radix Tree (ART) indexing engine in C featuring polymorphic node layouts (Node4, Node16, Node48, Node256), path compression, lazy expansion prefix splitting, and strict memory safety under AddressSanitizer."
+authors = [{ name = "Cyber-Bench", email = "devnull@example.invalid" }]
+keywords = ["cybersecurity", "ctf", "miscellaneous", "terminal-bench", "adaptive-radix-tree", "indexing", "database", "trie"]
+
+[metadata]
+category = "miscellaneous"
+bundle_id = "adaptive-radix-tree"
+scored_service_count = 1
+decoy_service_count = 0
+target_ports = []
+hint_level = 0
+
+[agent]
+timeout_sec = 3600.0
+
+[verifier]
+timeout_sec = 120.0
+
+[environment]
+build_timeout_sec = 1800.0
+os = "linux"
+cpus = 4
+memory_mb = 2048
+storage_mb = 10240
+allow_internet = true

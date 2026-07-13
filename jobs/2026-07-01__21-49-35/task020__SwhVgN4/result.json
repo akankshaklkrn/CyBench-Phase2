@@ -1,0 +1,125 @@
+{
+    "id": "df1befaf-bed1-4951-8df9-7f9b5e2f167a",
+    "task_name": "algorithmic-bench/treap_implementation_l0",
+    "trial_name": "task020__SwhVgN4",
+    "trial_uri": "file:///Users/jatinjena/Downloads/tasknew/jobs/2026-07-01__21-49-35/task020__SwhVgN4",
+    "task_id": {
+        "path": "task020"
+    },
+    "source": null,
+    "task_checksum": "1bbf8e124c487b2afcef880bb3dd106e1ab96f8904e55a084085217ec9b4a562",
+    "config": {
+        "task": {
+            "path": "task020",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "task020__SwhVgN4",
+        "trials_dir": "jobs/2026-07-01__21-49-35",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "terminus-2",
+            "import_path": null,
+            "model_name": "openrouter/google/gemini-3.1-pro-preview",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "env": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": true,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": null,
+            "extra_docker_compose": [],
+            "env": {},
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {},
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "job_id": "7ad57744-39c2-4a3e-8075-82f15096ce47"
+    },
+    "agent_info": {
+        "name": "terminus-2",
+        "version": "2.0.0",
+        "model_info": {
+            "name": "google/gemini-3.1-pro-preview",
+            "provider": "openrouter"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 19005,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 18573,
+        "cost_usd": 0.260886,
+        "rollout_details": [],
+        "metadata": {
+            "n_episodes": 6,
+            "api_request_times_msec": [
+                5877.335071563721,
+                5125.734806060791,
+                40819.9348449707,
+                63700.066804885864,
+                10940.4878616333,
+                35590.35801887512
+            ],
+            "summarization_count": 0
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-07-01T16:19:38.456736Z",
+    "finished_at": "2026-07-01T16:22:39.595021Z",
+    "environment_setup": {
+        "started_at": "2026-07-01T16:19:38.508131Z",
+        "finished_at": "2026-07-01T16:19:45.556839Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-07-01T16:19:45.556975Z",
+        "finished_at": "2026-07-01T16:19:47.539861Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-07-01T16:19:47.540129Z",
+        "finished_at": "2026-07-01T16:22:36.310952Z"
+    },
+    "verifier": {
+        "started_at": "2026-07-01T16:22:36.823893Z",
+        "finished_at": "2026-07-01T16:22:37.344060Z"
+    },
+    "step_results": null
+}

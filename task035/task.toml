@@ -1,0 +1,26 @@
+version = "1.0"
+
+[metadata]
+bundle_id = "raft-consensus-engine-l0"
+id = "cyber-bench/raft_consensus_engine_l0"
+name = "raft_consensus_engine_l0"
+category = "Systems Programming / Distributed Consensus Protocols"
+difficulty = "Level 0 - High Headroom Challenge"
+tags = ["c", "distributed-systems", "raft", "consensus", "replicated-log", "asan"]
+author = "CyberBench / Harbor Team"
+description = """
+Implement a 5-node Distributed Raft Consensus Replicated Log & State Machine Engine in C.
+The engine must manage leader election voting rules, AppendEntries log replication consistency checks,
+conflicting entry truncation, majority commit advancement, and deterministic state machine execution
+without memory leaks under AddressSanitizer.
+"""
+
+[verifier]
+type = "cybench"
+service_id = "raft_consensus_engine"
+timeout_sec = 60
+memory_limit_mb = 2048
+
+[environment]
+type = "docker"
+build_timeout_sec = 180

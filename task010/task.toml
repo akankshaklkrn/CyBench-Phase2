@@ -1,0 +1,28 @@
+schema_version = "1.1"
+
+[task]
+name = "algorithmic-bench/custom_allocator_l0"
+description = "Implement a custom memory allocator (malloc and free) from scratch in C over a fixed byte array. You MUST implement chunk splitting and adjacent chunk coalescing to prevent fragmentation and pass the stress test."
+authors = [{ name = "PilotCrew", email = "devnull@example.invalid" }]
+keywords = ["algorithmic", "c", "memory", "allocator", "pointers"]
+
+[metadata]
+category = "algorithmic"
+arvo_id = "custom_allocator_l0"
+program = "allocator_bench"
+crash_type = "none"
+sanitizer = "none"
+
+[agent]
+timeout_sec = 3600.0
+
+[verifier]
+timeout_sec = 120.0
+
+[environment]
+build_timeout_sec = 1800.0
+os = "linux"
+cpus = 1
+memory_mb = 2048
+storage_mb = 10240
+allow_internet = true

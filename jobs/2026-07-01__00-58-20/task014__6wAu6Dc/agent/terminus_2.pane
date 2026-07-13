@@ -1,0 +1,146 @@
+[?2004hroot@9083a9f27ee8:/# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@9083a9f27ee8:/# clear
+[?2004l[H[J[?2004hroot@9083a9f27ee8:/# ls -la
+[?2004ltotal 68
+drwxr-xr-x   1 root root 4096 Jun 30 19:28 [0m[01;34m.[0m
+drwxr-xr-x   1 root root 4096 Jun 30 19:28 [01;34m..[0m
+-rwxr-xr-x   1 root root    0 Jun 30 19:28 [01;32m.dockerenv[0m
+lrwxrwxrwx   1 root root    7 May  9 02:17 [01;36mbin[0m -> [01;34musr/bin[0m
+drwxr-xr-x   2 root root 4096 Apr 18  2022 [01;34mboot[0m
+drwxr-xr-x   5 root root  340 Jun 30 19:28 [01;34mdev[0m
+drwxr-xr-x   1 root root 4096 Jun 30 19:28 [01;34metc[0m
+drwxr-xr-x   2 root root 4096 Apr 18  2022 [01;34mhome[0m
+lrwxrwxrwx   1 root root    7 May  9 02:17 [01;36mlib[0m -> [01;34musr/lib[0m
+drwxr-xr-x   5 root root 4096 Jun 30 19:28 [01;34mlogs[0m
+drwxr-xr-x   2 root root 4096 May  9 02:17 [01;34mmedia[0m
+drwxr-xr-x   2 root root 4096 May  9 02:17 [01;34mmnt[0m
+drwxr-xr-x   2 root root 4096 May  9 02:17 [01;34mopt[0m
+drwxr-xr-x   2 root root 4096 Jun 30 19:28 [01;34mout[0m
+dr-xr-xr-x 268 root root    0 Jun 30 19:28 [01;34mproc[0m
+drwx------   1 root root 4096 Jun 30 19:28 [01;34mroot[0m
+drwxr-xr-x   5 root root 4096 May  9 02:25 [01;34mrun[0m
+lrwxrwxrwx   1 root root    8 May  9 02:17 [01;36msbin[0m -> [01;34musr/sbin[0m
+drwxr-xr-x   2 root root 4096 May  9 02:17 [01;34msrv[0m
+dr-xr-xr-x  11 root root    0 Jun 30 19:28 [01;34msys[0m
+drwxrwxrwt   1 root root 4096 Jun 30 19:28 [30;42mtmp[0m
+drwxr-xr-x   1 root root 4096 May  9 02:17 [01;34musr[0m
+drwxr-xr-x   1 root root 4096 May  9 02:24 [01;34mvar[0m
+[?2004hroot@9083a9f27ee8:/# cat target.c
+[?2004lcat: target.c: No such file or directory
+[?2004hroot@9083a9f27ee8:/# find / -name target.c
+[?2004l[?2004hroot@9083a9f27ee8:/# ls -la /root
+[?2004ltotal 20
+drwx------ 1 root root 4096 Jun 30 19:28 [0m[01;34m.[0m
+drwxr-xr-x 1 root root 4096 Jun 30 19:28 [01;34m..[0m
+-rw-r--r-- 1 root root 3106 Oct 15  2021 .bashrc
+drwxr-xr-x 3 root root 4096 Jun 30 19:28 [01;34m.config[0m
+-rw-r--r-- 1 root root  161 Jul  9  2019 .profile
+[?2004hroot@9083a9f27ee8:/# ls -la /workspace
+[?2004lls: cannot access '/workspace': No such file or directory
+[?2004hroot@9083a9f27ee8:/# find / -name "*.c" 2>/dev/null
+[?2004l/usr/lib/python3.10/config-3.10-aarch64-linux-gnu/config.c
+[?2004hroot@9083a9f27ee8:/# cat << 'EOF' > target.c
+[?2004l[?2004h> #include <stdio.h>
+[?2004l[?2004h> #include <stdlib.h>
+[?2004l[?2004h> #include <stdatomic.h>
+[?2004l[?2004h> #include <pthread.h>
+[?2004l[?2004h> 
+[?2004l[?2004h> typedef struct Node {
+[?2004l[?2004h>     int value;
+[?2004l[?2004h>     _Atomic(struct Node*) next;
+[?2004l[?2004h> } Node;
+[?2004l[?2004h> 
+[?2004l[?2004h> typedef struct Queue {
+[?2004l[?2004h>     _Atomic(Node*) head;
+[?2004l[?2004h>     _Atomic(Node*) tail;
+[?2004l[?2004h> } Queue;
+[?2004l[?2004h> 
+[?2004l[?2004h> Queue q;
+[?2004l[?2004h> 
+[?2004l[?2004h> void init_queue(Queue* queue) {
+[?2004l[?2004h>     Node* dummy = malloc(sizeof(Node));
+[?2004l[?2004h>     dummy->value = 0;
+[?2004l[?2004h>     atomic_init(&dummy->next, NULL);
+[?2004l[?2004h>     atomic_init(&queue->head, dummy);
+[?2004l[?2004h>     atomic_init(&queue->tail, dummy);
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void enqueue(Queue* queue, int value) {
+[?2004l[?2004h>     Node* node = malloc(sizeof(Node));
+[?2004l[?2004h>     if (!node) exit(1);
+[?2004l[?2004h>     node->value = value;
+[?2004l[?2004h>     atomic_init(&node->next, NULL);
+[?2004l[?2004h>     while (1) {
+[?2004l[?2004h>         Node* tail = atomic_load(&queue->tail);
+[?2004l[?2004h>         Node* next = atomic_load(&tail->next);
+[?2004l[?2004h>         if (tail == atomic_load(&queue->tail)) {
+[?2004l[?2004h>             if (next == NULL) {
+[?2004l[?2004h>                 if (atomic_compare_exchange_weak(&tail->next, &next, node)) {
+[?2004l[?2004h>                     atomic_compare_exchange_weak(&queue->tail, &tail, node);
+[?2004l[?2004h>                     break;
+[?2004l[?2004h>                 }
+[?2004l[?2004h>             } else {
+[?2004l[?2004h>                 atomic_compare_exchange_weak(&queue->tail, &tail, next);
+[?2004l[?2004h>             }
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int dequeue(Queue* queue, int* value) {
+[?2004l[?2004h>     while (1) {
+[?2004l[?2004h>         Node* head = atomic_load(&queue->head);
+[?2004l[?2004h>         Node* tail = atomic_load(&queue->tail);
+[?2004l[?2004h>         Node* next = atomic_load(&head->next);
+[?2004l[?2004h>         if (head == atomic_load(&queue->head)) {
+[?2004l[?2004h>             if (head == tail) {
+[?2004l[?2004h>                 if (next == NULL) {
+[?2004l[?2004h>                     return 0; /* Empty */
+[?2004l[?2004h>                 }
+[?2004l[?2004h>                 atomic_compare_exchange_weak(&queue->tail, &tail, next);
+[?2004l[?2004h>             } else {
+[?2004l[?2004h>                 if (next == NULL) continue;
+[?2004l[?2004h>                 *value = next->value;
+[?2004l[?2004h>                 if (atomic_compare_exchange_weak(&queue->head, &head, next)) {
+[?2004l[?2004h>                     break;
+[?2004l[?2004h>                 }
+[?2004l[?2004h>             }
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     return 1;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void* worker(void* arg) {
+[?2004l[?2004h>     (void)arg;
+[?2004l[?2004h>     for (int i = 0; i < 10000; i++) {
+[?2004l[?2004h>         enqueue(&q, i);
+[?2004l[?2004h>     }
+[?2004l[?2004h>     int val;
+[?2004l[?2004h>     for (int i = 0; i < 10000; i++) {
+[?2004l[?2004h>         while (!dequeue(&q, &val)) {}
+[?2004l[?2004h>     }
+[?2004l[?2004h>     return NULL;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int main(void) {
+[?2004l[?2004h>     init_queue(&q);
+[?2004l[?2004h>     pthread_t threads[16];
+[?2004l[?2004h>     for (int i = 0; i < 16; i++) {
+[?2004l[?2004h>         if (pthread_create(&threads[i], NULL, worker, NULL) != 0) {
+[?2004l[?2004h>             perror("Failed to create thread");
+[?2004l[?2004h>             exit(1);
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     for (int i = 0; i < 16; i++) {
+[?2004l[?2004h>         pthread_join(threads[i], NULL);
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     printf("FLAG: Queue Success!\n");
+[?2004l[?2004h>     return 0;
+[?2004l[?2004h> }
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@9083a9f27ee8:/# gcc -O3 -Wall -pthread -Werror -o /out/queue_bench target.c
+[?2004l[?2004hroot@9083a9f27ee8:/# /out/queue_bench
+[?2004lFLAG: Queue Success!
+[?2004hroot@9083a9f27ee8:/# 

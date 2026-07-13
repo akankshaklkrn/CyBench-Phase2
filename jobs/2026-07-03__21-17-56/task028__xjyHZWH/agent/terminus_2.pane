@@ -1,0 +1,1303 @@
+[?2004hroot@7290a6fc1a90:/# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@7290a6fc1a90:/# clear
+[?2004l[H[J[?2004hroot@7290a6fc1a90:/# cat target.c
+[?2004lcat: target.c: No such file or directory
+[?2004hroot@7290a6fc1a90:/# ls -la
+[?2004ltotal 68
+drwxr-xr-x   1 root root 4096 Jul  3 15:48 [0m[01;34m.[0m
+drwxr-xr-x   1 root root 4096 Jul  3 15:48 [01;34m..[0m
+-rwxr-xr-x   1 root root    0 Jul  3 15:48 [01;32m.dockerenv[0m
+lrwxrwxrwx   1 root root    7 Jun 27 02:10 [01;36mbin[0m -> [01;34musr/bin[0m
+drwxr-xr-x   2 root root 4096 Apr 18  2022 [01;34mboot[0m
+drwxr-xr-x   5 root root  340 Jul  3 15:48 [01;34mdev[0m
+drwxr-xr-x   1 root root 4096 Jul  3 15:48 [01;34metc[0m
+drwxr-xr-x   2 root root 4096 Apr 18  2022 [01;34mhome[0m
+lrwxrwxrwx   1 root root    7 Jun 27 02:10 [01;36mlib[0m -> [01;34musr/lib[0m
+drwxr-xr-x   5 root root 4096 Jul  3 15:48 [01;34mlogs[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34mmedia[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34mmnt[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34mopt[0m
+drwxr-xr-x   2 root root 4096 Jul  3 15:48 [01;34mout[0m
+dr-xr-xr-x 255 root root    0 Jul  3 15:48 [01;34mproc[0m
+drwx------   1 root root 4096 Jul  3 15:48 [01;34mroot[0m
+drwxr-xr-x   5 root root 4096 Jun 27 02:17 [01;34mrun[0m
+lrwxrwxrwx   1 root root    8 Jun 27 02:10 [01;36msbin[0m -> [01;34musr/sbin[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34msrv[0m
+dr-xr-xr-x  11 root root    0 Jul  3 15:48 [01;34msys[0m
+drwxrwxrwt   1 root root 4096 Jul  3 15:48 [30;42mtmp[0m
+drwxr-xr-x   1 root root 4096 Jun 27 02:10 [01;34musr[0m
+drwxr-xr-x   1 root root 4096 Jun 27 02:17 [01;34mvar[0m
+[?2004hroot@7290a6fc1a90:/# python3 -c 'q=3329; zeta=17; print(pow(zeta, 128, q), pow(zeta, 256, q), pow(zeta, 512, q))'
+[?2004l3328 1 1
+[?2004hroot@7290a6fc1a90:/# cat << 'EOF' > test.py
+[?2004l[?2004h> import sys
+[?2004l[?2004h> q = 3329
+[?2004l[?2004h> zeta = 17
+[?2004l[?2004h> zetas = [pow(zeta, int('{:07b}'.format(i)[::-1], 2), q) for i in range(128)]
+[?2004l[?2004h> def ntt(poly):
+[?2004l[?2004h>     p = poly.copy()
+[?2004l[?2004h>     k = 1
+[?2004l[?2004h>     length = 128
+[?2004l[?2004h>     while length >= 2:
+[?2004l[?2004h>         for start in range(0, 256, 2 * length):
+[?2004l[?2004h>             z = zetas[k]
+[?2004l[?2004h>             k += 1
+[?2004l[?2004h>             for j in range(start, start + length):
+[?2004l[?2004h>                 t = (z * p[j + length]) % q
+[?2004l[?2004h>                 p[j + length] = (p[j] - t) % q
+[?2004l[?2004h>                 p[j] = (p[j] + t) % q
+[?2004l[?2004h>         length //= 2
+[?2004l[?2004h>     return p
+[?2004l[?2004h> def inv_ntt(poly):
+[?2004l[?2004h>     p = poly.copy()
+[?2004l[?2004h>     k = 127
+[?2004l[?2004h>     length = 2
+[?2004l[?2004h>     while length <= 128:
+[?2004l[?2004h>         for start in range(0, 256, 2 * length):
+[?2004l[?2004h>             z = zetas[k]
+[?2004l[?2004h>             k -= 1
+[?2004l[?2004h>             for j in range(start, start + length):
+[?2004l[?2004h>                 t = p[j]
+[?2004l[?2004h>                 u = p[j + length]
+[?2004l[?2004h>                 p[j] = (t + u) % q
+[?2004l[?2004h>                 p[j + length] = ((t - u) * z) % q
+[?2004l[?2004h>         length *= 2
+[?2004l[?2004h>     for i in range(256):
+[?2004l[?2004h>         p[i] = (p[i] * pow(128, q-2, q)) % q
+[?2004l[?2004h>     return p
+[?2004l[?2004h> def basemul(a, b):
+[?2004l[?2004h>     c = [0]*256
+[?2004l[?2004h>     for i in range(128):
+[?2004l[?2004h>         z = zetas[64 + i]
+[?2004l[?2004h>         a0, a1 = a[2*i], a[2*i+1]
+[?2004l[?2004h>         b0, b1 = b[2*i], b[2*i+1]
+[?2004l[?2004h>         c[2*i] = (a0*b0 + a1*b1*z) % q
+[?2004l[?2004h>         c[2*i+1] = (a0*b1 + a1*b0) % q
+[?2004l[?2004h>     return c
+[?2004l[?2004h> def polymul(a, b):
+[?2004l[?2004h>     c = [0]*256
+[?2004l[?2004h>     for i in range(256):
+[?2004l[?2004h>         for j in range(256):
+[?2004l[?2004h>             if i+j < 256:
+[?2004l[?2004h>                 c[i+j] = (c[i+j] + a[i]*b[j]) % q
+[?2004l[?2004h>             else:
+[?2004l[?2004h>                 c[(i+j)%256] = (c[(i+j)%256] - a[i]*b[j]) % q
+[?2004l[?2004h>     return c
+[?2004l[?2004h> a = [i for i in range(256)]
+[?2004l[?2004h> b = [(3*i+7)%q for i in range(256)]
+[?2004l[?2004h> na = ntt(a)
+[?2004l[?2004h> nb = ntt(b)
+[?2004l[?2004h> nc = basemul(na, nb)
+[?2004l[?2004h> rc = inv_ntt(nc)
+[?2004l[?2004h> ec = polymul(a, b)
+[?2004l[?2004h> print("Match:", rc == ec)
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@7290a6fc1a90:/# python3 test.py
+[?2004lTraceback (most recent call last):
+  File "//test.py", line 58, in <module>
+    nc = basemul(na, nb)
+  File "//test.py", line 39, in basemul
+    z = zetas[64 + i]
+IndexError: list index out of range
+[?2004hroot@7290a6fc1a90:/# cat << 'EOF' > test2.py
+[?2004l[?2004h> import sys
+[?2004l[?2004h> q = 3329
+[?2004l[?2004h> zeta = 17
+[?2004l[?2004h> zetas = [pow(zeta, int('{:07b}'.format(i)[::-1], 2), q) for i in range(128)]
+[?2004l[?2004h> def ntt(poly):
+[?2004l[?2004h>     p = poly.copy()
+[?2004l[?2004h>     k = 1
+[?2004l[?2004h>     length = 128
+[?2004l[?2004h>     while length >= 2:
+[?2004l[?2004h>         for start in range(0, 256, 2 * length):
+[?2004l[?2004h>             z = zetas[k]
+[?2004l[?2004h>             k += 1
+[?2004l[?2004h>             for j in range(start, start + length):
+[?2004l[?2004h>                 t = (z * p[j + length]) % q
+[?2004l[?2004h>                 p[j + length] = (p[j] - t) % q
+[?2004l[?2004h>                 p[j] = (p[j] + t) % q
+[?2004l[?2004h>         length //= 2
+[?2004l[?2004h>     return p
+[?2004l[?2004h> def inv_ntt(poly):
+[?2004l[?2004h>     p = poly.copy()
+[?2004l[?2004h>     k = 127
+[?2004l[?2004h>     length = 2
+[?2004l[?2004h>     while length <= 128:
+[?2004l[?2004h>         for start in range(0, 256, 2 * length):
+[?2004l[?2004h>             z = zetas[k]
+[?2004l[?2004h>             k -= 1
+[?2004l[?2004h>             for j in range(start, start + length):
+[?2004l[?2004h>                 t = p[j]
+[?2004l[?2004h>                 u = p[j + length]
+[?2004l[?2004h>                 p[j] = (t + u) % q
+[?2004l[?2004h>                 p[j + length] = ((t - u) * z) % q
+[?2004l[?2004h>         length *= 2
+[?2004l[?2004h>     inv128 = pow(128, q-2, q)
+[?2004l[?2004h>     for i in range(256):
+[?2004l[?2004h>         p[i] = (p[i] * inv128) % q
+[?2004l[?2004h>     return p
+[?2004l[?2004h> def basemul_kyber(a, b):
+[?2004l[?2004h>     c = [0]*256
+[?2004l[?2004h>     for i in range(64):
+[?2004l[?2004h>         z = zetas[64 + i]
+[?2004l[?2004h>         a0, a1 = a[4*i], a[4*i+1]
+[?2004l[?2004h>         b0, b1 = b[4*i], b[4*i+1]
+[?2004l[?2004h>         c[4*i]   = (a0*b0 + a1*b1*z) % q
+[?2004l[?2004h>         c[4*i+1] = (a0*b1 + a1*b0) % q
+[?2004l[?2004h>         z = (-z) % q
+[?2004l[?2004h>         a0, a1 = a[4*i+2], a[4*i+3]
+[?2004l[?2004h>         b0, b1 = b[4*i+2], b[4*i+3]
+[?2004l[?2004h>         c[4*i+2] = (a0*b0 + a1*b1*z) % q
+[?2004l[?2004h>         c[4*i+3] = (a0*b1 + a1*b0) % q
+[?2004l[?2004h>     return c
+[?2004l[?2004h> def real_polymul(a, b):
+[?2004l[?2004h>     c = [0]*256
+[?2004l[?2004h>     for i in range(256):
+[?2004l[?2004h>         for j in range(256):
+[?2004l[?2004h>             if i+j < 256:
+[?2004l[?2004h>                 c[i+j] = (c[i+j] + a[i]*b[j]) % q
+[?2004l[?2004h>             else:
+[?2004l[?2004h>                 c[(i+j)%256] = (c[(i+j)%256] - a[i]*b[j]) % q
+[?2004l[?2004h>     return c
+[?2004l[?2004h> a = [i for i in range(256)]
+[?2004l[?2004h> b = [(3*i+7)%q for i in range(256)]
+[?2004l[?2004h> na = ntt(a)
+[?2004l[?2004h> nb = ntt(b)
+[?2004l[?2004h> nc = basemul_kyber(na, nb)
+[?2004l[?2004h> rc = inv_ntt(nc)
+[?2004l[?2004h> ec = real_polymul(a, b)
+[?2004l[?2004h> print("Match:", rc == ec)
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@7290a6fc1a90:/# python3 test2.py
+[?2004lMatch: False
+[?2004hroot@7290a6fc1a90:/# cat << 'EOF' > test3.py
+[?2004l[?2004h> import sys
+[?2004l[?2004h> q = 3329
+[?2004l[?2004h> zeta = 17
+[?2004l[?2004h> zetas = [pow(zeta, int('{:07b}'.format(i)[::-1], 2), q) for i in range(128)]
+[?2004l[?2004h> def ntt(poly):
+[?2004l[?2004h>     p = poly.copy()
+[?2004l[?2004h>     k = 1
+[?2004l[?2004h>     length = 128
+[?2004l[?2004h>     while length >= 2:
+[?2004l[?2004h>         for start in range(0, 256, 2 * length):
+[?2004l[?2004h>             z = zetas[k]
+[?2004l[?2004h>             k += 1
+[?2004l[?2004h>             for j in range(start, start + length):
+[?2004l[?2004h>                 t = (z * p[j + length]) % q
+[?2004l[?2004h>                 p[j + length] = (p[j] - t) % q
+[?2004l[?2004h>                 p[j] = (p[j] + t) % q
+[?2004l[?2004h>         length //= 2
+[?2004l[?2004h>     return p
+[?2004l[?2004h> def inv_ntt(poly):
+[?2004l[?2004h>     p = poly.copy()
+[?2004l[?2004h>     k = 127
+[?2004l[?2004h>     length = 2
+[?2004l[?2004h>     while length <= 128:
+[?2004l[?2004h>         for start in range(0, 256, 2 * length):
+[?2004l[?2004h>             z = zetas[k]
+[?2004l[?2004h>             k -= 1
+[?2004l[?2004h>             for j in range(start, start + length):
+[?2004l[?2004h>                 t = p[j]
+[?2004l[?2004h>                 u = p[j + length]
+[?2004l[?2004h>                 p[j] = (t + u) % q
+[?2004l[?2004h>                 p[j + length] = ((t - u) * z) % q
+[?2004l[?2004h>         length *= 2
+[?2004l[?2004h>     inv128 = pow(128, q-2, q)
+[?2004l[?2004h>     for i in range(256):
+[?2004l[?2004h>         p[i] = (p[i] * inv128) % q
+[?2004l[?2004h>     return p
+[?2004l[?2004h> def polymul_ntt(a, b):
+[?2004l[?2004h>     c = [0]*256
+[?2004l[?2004h>     for i in range(64):
+[?2004l[?2004h>         z = zetas[64 + i]
+[?2004l[?2004h>         # First polynomial pair
+[?2004l[?2004h>         a0, a1 = a[4*i], a[4*i+1]
+[?2004l[?2004h>         b0, b1 = b[4*i], b[4*i+1]
+[?2004l[?2004h>         c[4*i]   = (a0*b0 + a1*b1*z) % q
+[?2004l[?2004h>         c[4*i+1] = (a0*b1 + a1*b0) % q
+[?2004l[?2004h>         # Second polynomial pair (z becomes -z)
+[?2004l[?2004h>         z = (-z) % q
+[?2004l[?2004h>         a0, a1 = a[4*i+2], a[4*i+3]
+[?2004l[?2004h>         b0, b1 = b[4*i+2], b[4*i+3]
+[?2004l[?2004h>         c[4*i+2] = (a0*b0 + a1*b1*z) % q
+[?2004l[?2004h>         c[4*i+3] = (a0*b1 + a1*b0) % q
+[?2004l[?2004h>     return c
+[?2004l[?2004h> def real_polymul(a, b):
+[?2004l[?2004h>     c = [0]*256
+[?2004l[?2004h>     for i in range(256):
+[?2004l[?2004h>         for j in range(256):
+[?2004l[?2004h>             if i+j < 256:
+[?2004l[?2004h>                 c[i+j] = (c[i+j] + a[i]*b[j]) % q
+[?2004l[?2004h>             else:
+[?2004l[?2004h>                 c[(i+j)%256] = (c[(i+j)%256] - a[i]*b[j]) % q
+[?2004l[?2004h>     return c
+[?2004l[?2004h> a = [i for i in range(256)]
+[?2004l[?2004h> b = [(3*i+7)%q for i in range(256)]
+[?2004l[?2004h> na = ntt(a)
+[?2004l[?2004h> nb = ntt(b)
+[?2004l[?2004h> nc = polymul_ntt(na, nb)
+[?2004l[?2004h> rc = inv_ntt(nc)
+[?2004l[?2004h> ec = real_polymul(a, b)
+[?2004l[?2004h> print("Match:", rc == ec)
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@7290a6fc1a90:/# python3 test3.py
+[?2004lMatch: False
+[?2004hroot@7290a6fc1a90:/# cat << 'EOF' > test4.py
+[?2004li] = (p[i] * inv128) % q
+    return p
+def polymul_ntt(a, b):
+    c = [0]*256
+    for i in range(64):
+        z = zetas[64 + i]
+        a0, a1 = a[4*i], a[4*i+1]
+        b0, b1 = b[4*i], b[4*i+1]
+        c[4*i]   = (a0*b0 + a1*b1*z) % q
+        c[4*i+1] = (a0*b1 + a1*b0) % q
+        z = (-z) % q
+        a0, a1 = a[4*i+2], a[4*i+3]
+        b0, b1 = b[4*i+2], b[4*i+3]
+        c[4*i+2] = (a0*b0 + a1*b1*z) % q
+        c[4*i+3] = (a0*b1 + a1*b0) % q
+    return c
+def real_polymul(a, b):
+    c = [0]*256
+    for i in range(256):
+        for j in range(256):
+            if i+j < 256:
+                c[i+j] = (c[i+j] + a[i]*b[j]) % q
+            else:
+                c[(i+j)%256] = (c[(i+j)%256] - a[i]*b[j]) % q
+    return c
+a = [i for i in range(256)]
+b = [(3*i+7)%q for i in range(256)]
+na = ntt(a)
+nb = ntt(b)
+nc = polymul_ntt(na, nb)
+rc = inv_ntt(nc)
+ec = real_polymul(a, b)
+print("Match:", rc == ec)
+EOF
+python3 test4.py
+[?2004h> import sys
+[?2004l[?2004h> q = 3329
+[?2004l[?2004h> zeta = 17
+[?2004l[?2004h> zetas = [pow(zeta, int('{:07b}'.format(i)[::-1], 2), q) for i in range(128)]
+[?2004l[?2004h> def ntt(poly):
+[?2004l[?2004h>     p = poly.copy()
+[?2004l[?2004h>     k = 1
+[?2004l[?2004h>     length = 128
+[?2004l[?2004h>     while length >= 2:
+[?2004l[?2004h>         for start in range(0, 256, 2 * length):
+[?2004l[?2004h>             z = zetas[k]
+[?2004l[?2004h>             k += 1
+[?2004l[?2004h>             for j in range(start, start + length):
+[?2004l[?2004h>                 t = (z * p[j + length]) % q
+[?2004l[?2004h>                 p[j + length] = (p[j] - t) % q
+[?2004l[?2004h>                 p[j] = (p[j] + t) % q
+[?2004l[?2004h>         length //= 2
+[?2004l[?2004h>     return p
+[?2004l[?2004h> def inv_ntt(poly):
+[?2004l[?2004h>     p = poly.copy()
+[?2004l[?2004h>     k = 127
+[?2004l[?2004h>     length = 2
+[?2004l[?2004h>     while length <= 128:
+[?2004l[?2004h>         for start in range(0, 256, 2 * length):
+[?2004l[?2004h>             z = zetas[k]
+[?2004l[?2004h>             z_inv = pow(z, q-2, q)
+[?2004l[?2004h>             k -= 1
+[?2004l[?2004h>             for j in range(start, start + length):
+[?2004l[?2004h>                 t = p[j]
+[?2004l[?2004h>                 u = p[j + length]
+[?2004l[?2004h>                 p[j] = (t + u) % q
+[?2004l[?2004h>                 p[j + length] = ((t - u) * z_inv) % q
+[?2004l[?2004h>         length *= 2
+[?2004l[?2004h>     inv128 = pow(128, q-2, q)
+[?2004l[?2004h>     for i in range(256):
+[?2004l[?2004h>         p[i] = (p[i] * inv128) % q
+[?2004l[?2004h>     return p
+[?2004l[?2004h> def polymul_ntt(a, b):
+[?2004l[?2004h>     c = [0]*256
+[?2004l[?2004h>     for i in range(64):
+[?2004l[?2004h>         z = zetas[64 + i]
+[?2004l[?2004h>         a0, a1 = a[4*i], a[4*i+1]
+[?2004l[?2004h>         b0, b1 = b[4*i], b[4*i+1]
+[?2004l[?2004h>         c[4*i]   = (a0*b0 + a1*b1*z) % q
+[?2004l[?2004h>         c[4*i+1] = (a0*b1 + a1*b0) % q
+[?2004l[?2004h>         z = (-z) % q
+[?2004l[?2004h>         a0, a1 = a[4*i+2], a[4*i+3]
+[?2004l[?2004h>         b0, b1 = b[4*i+2], b[4*i+3]
+[?2004l[?2004h>         c[4*i+2] = (a0*b0 + a1*b1*z) % q
+[?2004l[?2004h>         c[4*i+3] = (a0*b1 + a1*b0) % q
+[?2004l[?2004h>     return c
+[?2004l[?2004h> def real_polymul(a, b):
+[?2004l[?2004h>     c = [0]*256
+[?2004l[?2004h>     for i in range(256):
+[?2004l[?2004h>         for j in range(256):
+[?2004l[?2004h>             if i+j < 256:
+[?2004l[?2004h>                 c[i+j] = (c[i+j] + a[i]*b[j]) % q
+[?2004l[?2004h>             else:
+[?2004l[?2004h>                 c[(i+j)%256] = (c[(i+j)%256] - a[i]*b[j]) % q
+[?2004l[?2004h>     return c
+[?2004l[?2004h> a = [i for i in range(256)]
+[?2004l[?2004h> b = [(3*i+7)%q for i in range(256)]
+[?2004l[?2004h> na = ntt(a)
+[?2004l[?2004h> nb = ntt(b)
+[?2004l[?2004h> nc = polymul_ntt(na, nb)
+[?2004l[?2004h> rc = inv_ntt(nc)
+[?2004l[?2004h> ec = real_polymul(a, b)
+[?2004l[?2004h> print("Match:", rc == ec)
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@7290a6fc1a90:/# python3 test4.py
+[?2004lMatch: False
+[?2004hroot@7290a6fc1a90:/# cat << 'EOF' > test5.py
+[?2004l* inv128) % q
+    return p
+def polymul_ntt(a, b):
+    c = [0]*256
+    for i in range(64):
+        z = zetas[64 + i]
+        a0, a1 = a[4*i], a[4*i+1]
+        b0, b1 = b[4*i], b[4*i+1]
+        c[4*i]   = (a0*b0 + a1*b1*z) % q
+        c[4*i+1] = (a0*b1 + a1*b0) % q
+        z = (-z) % q
+        a0, a1 = a[4*i+2], a[4*i+3]
+        b0, b1 = b[4*i+2], b[4*i+3]
+        c[4*i+2] = (a0*b0 + a1*b1*z) % q
+        c[4*i+3] = (a0*b1 + a1*b0) % q
+    return c
+def real_polymul(a, b):
+    c = [0]*256
+    for i in range(256):
+        for j in range(256):
+            if i+j < 256:
+                c[i+j] = (c[i+j] + a[i]*b[j]) % q
+            else:
+                c[(i+j)%256] = (c[(i+j)%256] - a[i]*b[j]) % q
+    return c
+a = [(i*13)%q for i in range(256)]
+b = [(3*i+7)%q for i in range(256)]
+na = ntt(a)
+nb = ntt(b)
+nc = polymul_ntt(na, nb)
+rc = inv_ntt(nc)
+ec = real_polymul(a, b)
+print("Match:", rc == ec)
+EOF
+python3 test5.py
+[?2004h> import sys
+[?2004l[?2004h> q = 3329
+[?2004l[?2004h> zeta = 17
+[?2004l[?2004h> zetas = [pow(zeta, int('{:07b}'.format(i)[::-1], 2), q) for i in range(128)]
+[?2004l[?2004h> def ntt(poly):
+[?2004l[?2004h>     p = poly.copy()
+[?2004l[?2004h>     k = 1
+[?2004l[?2004h>     length = 128
+[?2004l[?2004h>     while length >= 2:
+[?2004l[?2004h>         for start in range(0, 256, 2 * length):
+[?2004l[?2004h>             z = zetas[k]
+[?2004l[?2004h>             k += 1
+[?2004l[?2004h>             for j in range(start, start + length):
+[?2004l[?2004h>                 t = (z * p[j + length]) % q
+[?2004l[?2004h>                 p[j + length] = (p[j] - t) % q
+[?2004l[?2004h>                 p[j] = (p[j] + t) % q
+[?2004l[?2004h>         length //= 2
+[?2004l[?2004h>     return p
+[?2004l[?2004h> def inv_ntt(poly):
+[?2004l[?2004h>     p = poly.copy()
+[?2004l[?2004h>     k = 127
+[?2004l[?2004h>     length = 2
+[?2004l[?2004h>     while length <= 128:
+[?2004l[?2004h>         for start in range(0, 256, 2 * length):
+[?2004l[?2004h>             z = zetas[k]
+[?2004l[?2004h>             k -= 1
+[?2004l[?2004h>             for j in range(start, start + length):
+[?2004l[?2004h>                 t = p[j]
+[?2004l[?2004h>                 p[j] = (t + p[j + length]) % q
+[?2004l[?2004h>                 p[j + length] = (t - p[j + length]) % q
+[?2004l[?2004h>                 p[j + length] = (p[j + length] * z) % q
+[?2004l[?2004h>         length *= 2
+[?2004l[?2004h>     inv128 = 3303
+[?2004l[?2004h>     for i in range(256):
+[?2004l[?2004h>         p[i] = (p[i] * inv128) % q
+[?2004l[?2004h>     return p
+[?2004l[?2004h> def polymul_ntt(a, b):
+[?2004l[?2004h>     c = [0]*256
+[?2004l[?2004h>     for i in range(64):
+[?2004l[?2004h>         z = zetas[64 + i]
+[?2004l[?2004h>         a0, a1 = a[4*i], a[4*i+1]
+[?2004l[?2004h>         b0, b1 = b[4*i], b[4*i+1]
+[?2004l[?2004h>         c[4*i]   = (a0*b0 + a1*b1*z) % q
+[?2004l[?2004h>         c[4*i+1] = (a0*b1 + a1*b0) % q
+[?2004l[?2004h>         z = (-z) % q
+[?2004l[?2004h>         a0, a1 = a[4*i+2], a[4*i+3]
+[?2004l[?2004h>         b0, b1 = b[4*i+2], b[4*i+3]
+[?2004l[?2004h>         c[4*i+2] = (a0*b0 + a1*b1*z) % q
+[?2004l[?2004h>         c[4*i+3] = (a0*b1 + a1*b0) % q
+[?2004l[?2004h>     return c
+[?2004l[?2004h> def real_polymul(a, b):
+[?2004l[?2004h>     c = [0]*256
+[?2004l[?2004h>     for i in range(256):
+[?2004l[?2004h>         for j in range(256):
+[?2004l[?2004h>             if i+j < 256:
+[?2004l[?2004h>                 c[i+j] = (c[i+j] + a[i]*b[j]) % q
+[?2004l[?2004h>             else:
+[?2004l[?2004h>                 c[(i+j)%256] = (c[(i+j)%256] - a[i]*b[j]) % q
+[?2004l[?2004h>     return c
+[?2004l[?2004h> a = [(i*13)%q for i in range(256)]
+[?2004l[?2004h> b = [(3*i+7)%q for i in range(256)]
+[?2004l[?2004h> na = ntt(a)
+[?2004l[?2004h> nb = ntt(b)
+[?2004l[?2004h> nc = polymul_ntt(na, nb)
+[?2004l[?2004h> rc = inv_ntt(nc)
+[?2004l[?2004h> ec = real_polymul(a, b)
+[?2004l[?2004h> print("Match:", rc == ec)
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@7290a6fc1a90:/# python3 test5.py
+[?2004lMatch: False
+[?2004hroot@7290a6fc1a90:/# cat << 'EOF' > test7.py
+[?2004l[?2004h> import sys
+[?2004l[?2004h> q = 3329
+[?2004l[?2004h> zeta = 17
+[?2004l[?2004h> zetas = [pow(zeta, int('{:07b}'.format(i)[::-1], 2), q) for i in range(128)]
+[?2004l[?2004h> def ntt(poly):
+[?2004l[?2004h>     p = poly.copy()
+[?2004l[?2004h>     k = 1
+[?2004l[?2004h>     length = 128
+[?2004l[?2004h>     while length >= 2:
+[?2004l[?2004h>         for start in range(0, 256, 2 * length):
+[?2004l[?2004h>             z = zetas[k]
+[?2004l[?2004h>             k += 1
+[?2004l[?2004h>             for j in range(start, start + length):
+[?2004l[?2004h>                 t = (z * p[j + length]) % q
+[?2004l[?2004h>                 p[j + length] = (p[j] - t) % q
+[?2004l[?2004h>                 p[j] = (p[j] + t) % q
+[?2004l[?2004h>         length //= 2
+[?2004l[?2004h>     return p
+[?2004l[?2004h> def inv_ntt(poly):
+[?2004l[?2004h>     p = poly.copy()
+[?2004l[?2004h>     k = 127
+[?2004l[?2004h>     length = 2
+[?2004l[?2004h>     while length <= 128:
+[?2004l[?2004h>         for start in range(0, 256, 2 * length):
+[?2004l[?2004h>             z = zetas[k]
+[?2004l[?2004h>             z_inv = pow(z, q-2, q)
+[?2004l[?2004h>             k -= 1
+[?2004l[?2004h>             for j in range(start, start + length):
+[?2004l[?2004h>                 t = p[j]
+[?2004l[?2004h>                 u = p[j + length]
+[?2004l[?2004h>                 p[j] = (t + u) % q
+[?2004l[?2004h>                 p[j + length] = ((t - u) * z_inv) % q
+[?2004l[?2004h>         length *= 2
+[?2004l[?2004h>     inv128 = pow(128, q-2, q)
+[?2004l[?2004h>     for i in range(256):
+[?2004l[?2004h>         p[i] = (p[i] * inv128) % q
+[?2004l[?2004h>     return p
+[?2004l[?2004h> def basemul_ntt(a, b, c_array):
+[?2004l[?2004h>     c = [0]*256
+[?2004l[?2004h>     for i in range(128):
+[?2004l[?2004h>         z = c_array[i]
+[?2004l[?2004h>         a0, a1 = a[2*i], a[2*i+1]
+[?2004l[?2004h>         b0, b1 = b[2*i], b[2*i+1]
+[?2004l[?2004h>         c[2*i]   = (a0*b0 + a1*b1*z) % q
+[?2004l[?2004h>         c[2*i+1] = (a0*b1 + a1*b0) % q
+[?2004l[?2004h>     return c
+[?2004l[?2004h> def real_polymul(a, b):
+[?2004l[?2004h>     c = [0]*256
+[?2004l[?2004h>     for i in range(256):
+[?2004l[?2004h>         for j in range(256):
+[?2004l[?2004h>             if i+j < 256:
+[?2004l[?2004h>                 c[i+j] = (c[i+j] + a[i]*b[j]) % q
+[?2004l[?2004h>             else:
+[?2004l[?2004h>                 c[(i+j)%256] = (c[(i+j)%256] - a[i]*b[j]) % q
+[?2004l[?2004h>     return c
+[?2004l[?2004h> x2 = [0]*256
+[?2004l[?2004h> x2[2] = 1
+[?2004l[?2004h> ntt_x2 = ntt(x2)
+[?2004l[?2004h> c_array = [ntt_x2[2*i] for i in range(128)]
+[?2004l[?2004h> 
+[?2004l[?2004h> a = [(i*13)%q for i in range(256)]
+[?2004l[?2004h> b = [(3*i+7)%q for i in range(256)]
+[?2004l[?2004h> na = ntt(a)
+[?2004l[?2004h> nb = ntt(b)
+[?2004l[?2004h> nc = basemul_ntt(na, nb, c_array)
+[?2004l[?2004h> rc = inv_ntt(nc)
+[?2004l[?2004h> ec = real_polymul(a, b)
+[?2004l[?2004h> print("Match:", rc == ec)
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@7290a6fc1a90:/# python3 test7.py
+[?2004lMatch: False
+[?2004hroot@7290a6fc1a90:/# cat << 'EOF' > build.py
+[?2004l[?2004h> import sys
+[?2004l[?2004h> q = 3329
+[?2004l[?2004h> zeta = 17
+[?2004l[?2004h> zetas = [pow(zeta, int('{:07b}'.format(i)[::-1], 2), q) for i in range(128)]
+[?2004l[?2004h> 
+[?2004l[?2004h> with open('target.c', 'w') as f:
+[?2004l[?2004h>     f.write('''#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\n#define N 256\n#define Q 3329\n\nconst int16_t zetas[128] = {\n''')
+[?2004l[?2004h>     f.write('    ' + ', '.join(map(str, zetas)) + '\n')
+[?2004lal > Q/2) val = Q - va[?2004h>     f.write('''};\n
+[?2004l[?2004h> void ntt(int16_t *poly) {
+[?2004l[?2004h>     int len = 128;
+[?2004l[?2004h>     int k = 1;
+[?2004l[?2004h>     while (len >= 2) {
+[?2004l}
+        }
+    }
+}
+
+in[?2004h>         for (int start = 0; start < 256; start += 2 * len) {
+[?2004l[?2004h>             int32_t z = zetas[k++];
+[?2004l[?2004h>             for (int j = start; j < start + len; j++) {
+[?2004l];
+    for([?2004h>                 int32_t t = (z * poly[j + len]) % Q;
+[?2004l[?2004h>                 int32_t p0 = poly[j];
+[?2004l[?2004h>                 poly[j + len] = (p0 - t) % Q;
+[?2004l[?2004h>                 if (poly[j + len] < 0) poly[j + len] += Q;
+[?2004l[?2004h>                 poly[j] = (p0 + t) % Q;
+[?2004l[?2004h>             }
+[?2004lk should be in[?2004h>         }
+[?2004l[?2004h>         len /= 2;
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void inv_ntt(int16_t *poly) {
+[?2004l[?2004h>     int len = 2;
+[?2004l[?2004h>     int k = 127;
+[?2004l[?2004h>     while (len <= 128) {
+[?2004l[?2004h>         for (int start = 0; start < 256; start += 2 * len) {
+[?2004l[?2004h>             int32_t z = zetas[k--];
+[?2004l[?2004h>             for (int j = start; j < start + len; j++) {
+[?2004lw in NTT[?2004h>                 int32_t p0 = poly[j];
+[?2004l[?2004h>                 int32_t p1 = poly[j + len];
+[?2004l[?2004h>                 poly[j] = (p0 + p1) % Q;
+[?2004lra[?2004h>                 poly[j + len] = (p0 - p1) % Q;
+[?2004l[?2004h>                 if(poly[j+len] < 0) poly[j+len] += Q;
+[?2004l[?2004h>                 poly[j + len] = (poly[j + len] * z) % Q;
+[?2004l[?2004h>             }
+[?2004l[?2004h>         }
+[?2004l[?2004h>         len *= 2;
+[?2004l, c[?2004h>     }
+[?2004l[?2004h>     int32_t inv128 = 3303; // 128^-1 mod 3329
+[?2004lg_dec[?2004h>     for (int i = 0; i < 256; i++) {
+[?2004l[?2004h>         poly[i] = (poly[i] * inv128) % Q;
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004lurn 1;
+ [?2004h> 
+[?2004l[?2004h> void poly_basemul(int16_t *c, const int16_t *a, const int16_t *b) {
+[?2004lNTT Crypt[?2004h>     for (int i = 0; i < 64; i++) {
+[?2004l[?2004h>         int32_t z = zetas[64 + i];
+[?2004l[?2004h>         int32_t a0 = a[4*i], a1 = a[4*i+1];
+[?2004l[?2004h>         int32_t b0 = b[4*i], b1 = b[4*i+1];
+[?2004l[?2004h>         c[4*i] = (a0*b0 + a1*b1*z) % Q;
+[?2004l[?2004h>         c[4*i+1] = (a0*b1 + a1*b0) % Q;
+[?2004l[?2004h>         
+[?2004l[?2004h>         z = (Q - z) % Q;
+[?2004l[?2004h>         a0 = a[4*i+2]; a1 = a[4*i+3];
+[?2004l[?2004h>         b0 = b[4*i+2]; b1 = b[4*i+3];
+[?2004l[?2004h>         c[4*i+2] = (a0*b0 + a1*b1*z) % Q;
+[?2004l[?2004h>         c[4*i+3] = (a0*b1 + a1*b0) % Q;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     for(int i=0; i<256; i++) { if (c[i] < 0) c[i] += Q; }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void poly_add(int16_t *c, const int16_t *a, const int16_t *b) {
+[?2004l[?2004h>     for (int i = 0; i < 256; i++) {
+[?2004l[?2004h>         c[i] = (a[i] + b[i]) % Q;
+[?2004l[?2004h>         if (c[i] < 0) c[i] += Q;
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void poly_sub(int16_t *c, const int16_t *a, const int16_t *b) {
+[?2004l[?2004h>     for (int i = 0; i < 256; i++) {
+[?2004l[?2004h>         c[i] = (a[i] - b[i]) % Q;
+[?2004l[?2004h>         if (c[i] < 0) c[i] += Q;
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void sample_cbd(int16_t *poly, const uint8_t *seed) {
+[?2004l[?2004h>     // Simple PRNG from seed for dummy purposes
+[?2004l[?2004h>     uint32_t state = seed[0] | (seed[1]<<8) | (seed[2]<<16) | (seed[3]<<24);
+[?2004l[?2004h>     if (state == 0) state = 123456789;
+[?2004l[?2004h>     for(int i=0; i<256; i++) {
+[?2004l[?2004h>         int a1 = (state >> 0) & 1;
+[?2004l[?2004h>         int a2 = (state >> 1) & 1;
+[?2004l[?2004h>         int b1 = (state >> 2) & 1;
+[?2004l[?2004h>         int b2 = (state >> 3) & 1;
+[?2004l[?2004h>         int e = (a1 + a2) - (b1 + b2);
+[?2004l[?2004h>         poly[i] = (e + Q) % Q;
+[?2004l[?2004h>         state ^= state << 13;
+[?2004l[?2004h>         state ^= state >> 17;
+[?2004l[?2004h>         state ^= state << 5;
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void ring_lwe_encrypt(int16_t *c1, int16_t *c2, const int16_t *pub_key_pk, const int16_t *pub_key_a, const uint8_t *msg) {
+[?2004l[?2004h>     int16_t r[256], e1[256], e2[256];
+[?2004l[?2004h>     uint8_t s_r[32], s_e1[32], s_e2[32];
+[?2004l[?2004h>     for(int i=0; i<32; i++) s_r[i] = rand() & 0xff;
+[?2004l[?2004h>     for(int i=0; i<32; i++) s_e1[i] = rand() & 0xff;
+[?2004l[?2004h>     for(int i=0; i<32; i++) s_e2[i] = rand() & 0xff;
+[?2004l[?2004h>     
+[?2004l[?2004h>     sample_cbd(r, s_r);
+[?2004l[?2004h>     sample_cbd(e1, s_e1);
+[?2004l[?2004h>     sample_cbd(e2, s_e2);
+[?2004l[?2004h>     
+[?2004l[?2004h>     ntt(r);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t Ar[256];
+[?2004l[?2004h>     poly_basemul(Ar, pub_key_a, r);
+[?2004l[?2004h>     inv_ntt(Ar);
+[?2004l[?2004h>     poly_add(c1, Ar, e1);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t pkr[256];
+[?2004l[?2004h>     poly_basemul(pkr, pub_key_pk, r);
+[?2004l[?2004h>     inv_ntt(pkr);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t m_poly[256];
+[?2004l[?2004h>     for(int i=0; i<32; i++) {
+[?2004l[?2004h>         for(int j=0; j<8; j++) {
+[?2004l[?2004h>             m_poly[8*i+j] = ((msg[i] >> j) & 1) ? 1665 : 0;
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     poly_add(c2, pkr, e2);
+[?2004l[?2004h>     poly_add(c2, c2, m_poly);
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void ring_lwe_decrypt(uint8_t *msg, const int16_t *c1, const int16_t *c2, const int16_t *secret_key) {
+[?2004l[?2004h>     int16_t c1_ntt[256];
+[?2004l[?2004h>     memcpy(c1_ntt, c1, 256 * sizeof(int16_t));
+[?2004l[?2004h>     ntt(c1_ntt);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t sc1[256];
+[?2004l[?2004h>     poly_basemul(sc1, secret_key, c1_ntt);
+[?2004l[?2004h>     inv_ntt(sc1);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t v[256];
+[?2004l[?2004h>     poly_sub(v, c2, sc1);
+[?2004l[?2004h>     
+[?2004l[?2004h>     for(int i=0; i<32; i++) {
+[?2004l[?2004h>         msg[i] = 0;
+[?2004l[?2004h>         for(int j=0; j<8; j++) {
+[?2004l[?2004h>             int16_t val = v[8*i+j];
+[?2004l[?2004h>             if (val > Q/2) val = Q - val;
+[?2004l[?2004h>             if (val > Q/4) {
+[?2004l[?2004h>                 msg[i] |= (1 << j);
+[?2004l[?2004h>             }
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int main() {
+[?2004l[?2004h>     srand(42);
+[?2004l[?2004h>     int16_t sk[256];
+[?2004l[?2004h>     uint8_t sk_seed[32] = {1};
+[?2004l[?2004h>     sample_cbd(sk, sk_seed);
+[?2004l[?2004h>     ntt(sk);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t A[256];
+[?2004l[?2004h>     for(int i=0; i<256; i++) A[i] = rand() % Q;
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t e[256];
+[?2004l[?2004h>     uint8_t e_seed[32] = {2};
+[?2004l[?2004h>     sample_cbd(e, e_seed);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t Ask[256];
+[?2004l[?2004h>     poly_basemul(Ask, A, sk);
+[?2004l[?2004h>     inv_ntt(Ask);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t pk[256]; // actually pk should be in NTT domain, wait, Kyber encrypts by multiplying pk in NTT.
+[?2004l[?2004h>     // Since A is already in NTT domain implicitly (we just generated it), let's ensure t is in NTT domain.
+[?2004l[?2004h>     // t = A*s + e. Since we want t in NTT domain...
+[?2004l[?2004h>     poly_add(pk, Ask, e);
+[?2004l[?2004h>     ntt(pk); // pk is now in NTT domain
+[?2004l[?2004h>     
+[?2004l[?2004h>     for(int test=0; test<10000; test++) {
+[?2004l[?2004h>         uint8_t msg[32];
+[?2004l[?2004h>         for(int i=0; i<32; i++) msg[i] = rand() & 0xff;
+[?2004l[?2004h>         
+[?2004l[?2004h>         int16_t c1[256];
+[?2004l[?2004h>         int16_t c2[256];
+[?2004l[?2004h>         
+[?2004l[?2004h>         ring_lwe_encrypt(c1, c2, pk, A, msg);
+[?2004l[?2004h>         
+[?2004l[?2004h>         uint8_t msg_dec[32];
+[?2004l[?2004h>         ring_lwe_decrypt(msg_dec, c1, c2, sk);
+[?2004l[?2004h>         
+[?2004l[?2004h>         if (memcmp(msg, msg_dec, 32) != 0) {
+[?2004l[?2004h>             printf("Failed at test %d\n", test);
+[?2004l[?2004h>             return 1;
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     printf("FLAG: Post-Quantum Ring-LWE NTT Cryptography Success!\n");
+[?2004l[?2004h>     return 0;
+[?2004l[?2004h> }
+[?2004l[?2004h> ''')
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@7290a6fc1a90:/# python3 build.py
+[?2004l[?2004hroot@7290a6fc1a90:/# gcc -O2 -Wall -Werror -fsanitize=address,undefined -o /out/ntt_bench target.c && /out/ntt_bench
+[?2004l[01m[Ktarget.c:[m[K In function ‘[01m[Kmain[m[K’:
+[01m[Ktarget.c:196:20:[m[K [01;31m[Kerror: [m[Kmissing terminating " character [[01;31m[K-Werror[m[K]
+  196 |             printf([01;31m[K"[m[KFailed at test %d
+      |                    [01;31m[K^[m[K
+[01m[Ktarget.c:196:20:[m[K [01;31m[Kerror: [m[Kmissing terminating " character
+  196 |             printf([01;31m[K"Failed at test %d[m[K
+      |                    [01;31m[K^~~~~~~~~~~~~~~~~~[m[K
+[01m[Ktarget.c:197:1:[m[K [01;31m[Kerror: [m[Kmissing terminating " character [[01;31m[K-Werror[m[K]
+  197 | [01;31m[K"[m[K, test);
+      | [01;31m[K^[m[K
+[01m[Ktarget.c:197:1:[m[K [01;31m[Kerror: [m[Kmissing terminating " character
+  197 | [01;31m[K", test);[m[K
+      | [01;31m[K^~~~~~~~~[m[K
+[01m[Ktarget.c:198:13:[m[K [01;31m[Kerror: [m[Kexpected expression before ‘[01m[Kreturn[m[K’
+  198 |             [01;31m[Kreturn[m[K 1;
+      |             [01;31m[K^~~~~~[m[K
+[01m[Ktarget.c:198:22:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K;[m[K’ before ‘[01m[K}[m[K’ token
+  198 |             return 1;
+      |                      [01;31m[K^[m[K
+      |                      [32m[K;[m[K
+  199 |         [32m[K}[m[K
+      |         [32m[K~[m[K             
+[01m[Ktarget.c:202:12:[m[K [01;31m[Kerror: [m[Kmissing terminating " character [[01;31m[K-Werror[m[K]
+  202 |     printf([01;31m[K"[m[KFLAG: Post-Quantum Ring-LWE NTT Cryptography Success!
+      |            [01;31m[K^[m[K
+[01m[Ktarget.c:202:12:[m[K [01;31m[Kerror: [m[Kmissing terminating " character
+  202 |     printf([01;31m[K"FLAG: Post-Quantum Ring-LWE NTT Cryptography Success![m[K
+      |            [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[Ktarget.c:203:1:[m[K [01;31m[Kerror: [m[Kmissing terminating " character [[01;31m[K-Werror[m[K]
+  203 | [01;31m[K"[m[K);
+      | [01;31m[K^[m[K
+[01m[Ktarget.c:203:1:[m[K [01;31m[Kerror: [m[Kmissing terminating " character
+  203 | [01;31m[K");[m[K
+      | [01;31m[K^~~[m[K
+[01m[Ktarget.c:204:5:[m[K [01;31m[Kerror: [m[Kexpected expression before ‘[01m[Kreturn[m[K’
+  204 |     [01;31m[Kreturn[m[K 0;
+      |     [01;31m[K^~~~~~[m[K
+[01m[Ktarget.c:204:14:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K;[m[K’ before ‘[01m[K}[m[K’ token
+  204 |     return 0;
+      |              [01;31m[K^[m[K
+      |              [32m[K;[m[K
+  205 | [32m[K}[m[K
+      | [32m[K~[m[K             
+cc1: all warnings being treated as errors
+[?2004hroot@7290a6fc1a90:/# cat << 'EOF' > build.py
+[?2004l[?2004h> import sys
+[?2004l[?2004h> q = 3329
+[?2004l[?2004h> zeta = 17
+[?2004l[?2004h> zetas = [pow(zeta, int('{:07b}'.format(i)[::-1], 2), q) for i in range(128)]
+[?2004l[?2004h> 
+[?2004l[?2004h> with open('target.c', 'w') as f:
+[?2004l[?2004h>     f.write('#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\n#define N 256\n#define Q 3329\n\nconst int16_t zetas[128] = {\n')
+[?2004l[?2004h>     f.write('    ' + ', '.join(map(str, zetas)) + '\n')
+[?2004l[?2004h>     f.write(r'''};
+[?2004l[?2004h> 
+[?2004l[?2004h> void ntt(int16_t *poly) {
+[?2004l[?2004h>     int len = 128;
+[?2004l[?2004h>     int k = 1;
+[?2004l[?2004h>     while (len >= 2) {
+[?2004l
+   [?2004h>         for (int start = 0; start < 256; start += 2 * len) {
+[?2004l[?2004h>             int32_t z = zetas[k++];
+[?2004l[?2004h>             for (int j = start; j < start + len; j++) {
+[?2004l[?2004h>                 int32_t t = (z * poly[j + len]) % Q;
+[?2004l_cbd(e, e_seed);
+   [?2004h>                 int32_t p0 = poly[j];
+[?2004l[?2004h>                 poly[j + len] = (p0 - t) % Q;
+[?2004l[?2004h>                 if (poly[j + len] < 0) poly[j + len] += Q;
+[?2004l [?2004h>                 poly[j] = (p0 + t) % Q;
+[?2004l[?2004h>             }
+[?2004l
+        uint8[?2004h>         }
+[?2004l[?2004h>         len /= 2;
+[?2004l[?2004h>     }
+[?2004li[?2004h> }
+[?2004l<3[?2004h> 
+[?2004l[?2004h> void inv_ntt(int16_t *poly) {
+[?2004l[?2004h>     int len = 2;
+[?2004l
+        
+       [?2004h>     int k = 127;
+[?2004l[?2004h>     while (len <= 128) {
+[?2004l[?2004h>         for (int start = 0; start < 256; start += 2 * len) {
+[?2004l[?2004h>             int32_t z = zetas[k--];
+[?2004l [?2004h>             for (int j = start; j < start + len; j++) {
+[?2004l[?2004h>                 int32_t p0 = poly[j];
+[?2004l[?2004h>                 int32_t p1 = poly[j + len];
+[?2004l[?2004h>                 poly[j] = (p0 + p1) % Q;
+[?2004l      return 1;
+        }
+[?2004h>                 poly[j + len] = (p0 - p1) % Q;
+[?2004l[?2004h>                 if(poly[j+len] < 0) poly[j+len] += Q;
+[?2004l[?2004h>                 poly[j + len] = (poly[j + len] * z) % Q;
+[?2004l[?2004h>             }
+[?2004l[?2004h>         }
+[?2004l[?2004h>         len *= 2;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     int32_t inv128 = 3303; 
+[?2004l[?2004h>     for (int i = 0; i < 256; i++) {
+[?2004l[?2004h>         poly[i] = (poly[i] * inv128) % Q;
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void poly_basemul(int16_t *c, const int16_t *a, const int16_t *b) {
+[?2004l[?2004h>     for (int i = 0; i < 64; i++) {
+[?2004l[?2004h>         int64_t z = zetas[64 + i];
+[?2004l[?2004h>         int64_t a0 = a[4*i], a1 = a[4*i+1];
+[?2004l[?2004h>         int64_t b0 = b[4*i], b1 = b[4*i+1];
+[?2004l[?2004h>         c[4*i] = (a0*b0 + a1*b1*z) % Q;
+[?2004l[?2004h>         c[4*i+1] = (a0*b1 + a1*b0) % Q;
+[?2004l[?2004h>         
+[?2004l[?2004h>         z = (Q - z) % Q;
+[?2004l[?2004h>         a0 = a[4*i+2]; a1 = a[4*i+3];
+[?2004l[?2004h>         b0 = b[4*i+2]; b1 = b[4*i+3];
+[?2004l[?2004h>         c[4*i+2] = (a0*b0 + a1*b1*z) % Q;
+[?2004l[?2004h>         c[4*i+3] = (a0*b1 + a1*b0) % Q;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     for(int i=0; i<256; i++) { if (c[i] < 0) c[i] += Q; }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void poly_add(int16_t *c, const int16_t *a, const int16_t *b) {
+[?2004l[?2004h>     for (int i = 0; i < 256; i++) {
+[?2004l[?2004h>         c[i] = (a[i] + b[i]) % Q;
+[?2004l[?2004h>         if (c[i] < 0) c[i] += Q;
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void poly_sub(int16_t *c, const int16_t *a, const int16_t *b) {
+[?2004l[?2004h>     for (int i = 0; i < 256; i++) {
+[?2004l[?2004h>         c[i] = (a[i] - b[i]) % Q;
+[?2004l[?2004h>         if (c[i] < 0) c[i] += Q;
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void sample_cbd(int16_t *poly, const uint8_t *seed) {
+[?2004l[?2004h>     uint32_t state = seed[0] | (seed[1]<<8) | (seed[2]<<16) | (seed[3]<<24);
+[?2004l[?2004h>     if (state == 0) state = 123456789;
+[?2004l[?2004h>     for(int i=0; i<256; i++) {
+[?2004l[?2004h>         int a1 = (state >> 0) & 1;
+[?2004l[?2004h>         int a2 = (state >> 1) & 1;
+[?2004l[?2004h>         int b1 = (state >> 2) & 1;
+[?2004l[?2004h>         int b2 = (state >> 3) & 1;
+[?2004l[?2004h>         int e = (a1 + a2) - (b1 + b2);
+[?2004l[?2004h>         poly[i] = (e + Q) % Q;
+[?2004l[?2004h>         state ^= state << 13;
+[?2004l[?2004h>         state ^= state >> 17;
+[?2004l[?2004h>         state ^= state << 5;
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void ring_lwe_encrypt(int16_t *c1, int16_t *c2, const int16_t *pub_key_pk, const int16_t *pub_key_a, const uint8_t *msg) {
+[?2004l[?2004h>     int16_t r[256], e1[256], e2[256];
+[?2004l[?2004h>     uint8_t s_r[32], s_e1[32], s_e2[32];
+[?2004l[?2004h>     for(int i=0; i<32; i++) {
+[?2004l[?2004h>         s_r[i] = rand() & 0xff;
+[?2004l[?2004h>         s_e1[i] = rand() & 0xff;
+[?2004l[?2004h>         s_e2[i] = rand() & 0xff;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     sample_cbd(r, s_r);
+[?2004l[?2004h>     sample_cbd(e1, s_e1);
+[?2004l[?2004h>     sample_cbd(e2, s_e2);
+[?2004l[?2004h>     
+[?2004l[?2004h>     ntt(r);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t Ar[256];
+[?2004l[?2004h>     poly_basemul(Ar, pub_key_a, r);
+[?2004l[?2004h>     inv_ntt(Ar);
+[?2004l[?2004h>     poly_add(c1, Ar, e1);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t pkr[256];
+[?2004l[?2004h>     poly_basemul(pkr, pub_key_pk, r);
+[?2004l[?2004h>     inv_ntt(pkr);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t m_poly[256];
+[?2004l[?2004h>     for(int i=0; i<32; i++) {
+[?2004l[?2004h>         for(int j=0; j<8; j++) {
+[?2004l[?2004h>             m_poly[8*i+j] = ((msg[i] >> j) & 1) ? 1665 : 0;
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     poly_add(c2, pkr, e2);
+[?2004l[?2004h>     poly_add(c2, c2, m_poly);
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void ring_lwe_decrypt(uint8_t *msg, const int16_t *c1, const int16_t *c2, const int16_t *secret_key) {
+[?2004l[?2004h>     int16_t c1_ntt[256];
+[?2004l[?2004h>     memcpy(c1_ntt, c1, 256 * sizeof(int16_t));
+[?2004l[?2004h>     ntt(c1_ntt);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t sc1[256];
+[?2004l[?2004h>     poly_basemul(sc1, secret_key, c1_ntt);
+[?2004l[?2004h>     inv_ntt(sc1);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t v[256];
+[?2004l[?2004h>     poly_sub(v, c2, sc1);
+[?2004l[?2004h>     
+[?2004l[?2004h>     for(int i=0; i<32; i++) {
+[?2004l[?2004h>         msg[i] = 0;
+[?2004l[?2004h>         for(int j=0; j<8; j++) {
+[?2004l[?2004h>             int16_t val = v[8*i+j];
+[?2004l[?2004h>             if (val > Q/2) val = Q - val;
+[?2004l[?2004h>             if (val > Q/4) {
+[?2004l[?2004h>                 msg[i] |= (1 << j);
+[?2004l[?2004h>             }
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int main() {
+[?2004l[?2004h>     srand(42);
+[?2004l[?2004h>     int16_t sk[256];
+[?2004l[?2004h>     uint8_t sk_seed[32] = {1, 2, 3, 4};
+[?2004l[?2004h>     sample_cbd(sk, sk_seed);
+[?2004l[?2004h>     ntt(sk);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t A[256];
+[?2004l[?2004h>     for(int i=0; i<256; i++) A[i] = rand() % Q;
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t e[256];
+[?2004l[?2004h>     uint8_t e_seed[32] = {5, 6, 7, 8};
+[?2004l[?2004h>     sample_cbd(e, e_seed);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t Ask[256];
+[?2004l[?2004h>     poly_basemul(Ask, A, sk);
+[?2004l[?2004h>     inv_ntt(Ask);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t pk[256];
+[?2004l[?2004h>     poly_add(pk, Ask, e);
+[?2004l[?2004h>     ntt(pk);
+[?2004l[?2004h>     
+[?2004l[?2004h>     for(int test=0; test<10000; test++) {
+[?2004l[?2004h>         uint8_t msg[32];
+[?2004l[?2004h>         for(int i=0; i<32; i++) msg[i] = rand() & 0xff;
+[?2004l[?2004h>         
+[?2004l[?2004h>         int16_t c1[256];
+[?2004l[?2004h>         int16_t c2[256];
+[?2004l[?2004h>         
+[?2004l[?2004h>         ring_lwe_encrypt(c1, c2, pk, A, msg);
+[?2004l[?2004h>         
+[?2004l[?2004h>         uint8_t msg_dec[32];
+[?2004l[?2004h>         ring_lwe_decrypt(msg_dec, c1, c2, sk);
+[?2004l[?2004h>         
+[?2004l[?2004h>         if (memcmp(msg, msg_dec, 32) != 0) {
+[?2004l[?2004h>             printf("Failed at test %d\n", test);
+[?2004l[?2004h>             return 1;
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     printf("FLAG: Post-Quantum Ring-LWE NTT Cryptography Success!\n");
+[?2004l[?2004h>     return 0;
+[?2004l[?2004h> }
+[?2004l[?2004h> ''')
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@7290a6fc1a90:/# python3 build.py
+[?2004l[?2004hroot@7290a6fc1a90:/# gcc -O2 -Wall -Werror -fsanitize=address,undefined -o /out/ntt_bench target.c && /out/ntt_bench
+[?2004l[1mtarget.c:86:71:[1m[31m runtime error: [1m[0m[1mleft shift of 234 by 24 places cannot be represented in type 'int'[1m[0m
+Failed at test 0
+[?2004hroot@7290a6fc1a90:/# cat << 'EOF' > check.py
+[?2004l[?2004h> import sys
+[?2004l[?2004h> q = 3329
+[?2004l[?2004h> zeta = 17
+[?2004l[?2004h> zetas = [pow(zeta, int('{:07b}'.format(i)[::-1], 2), q) for i in range(128)]
+[?2004l[?2004h> zetas_inv = [pow(z, q-2, q) for z in zetas]
+[?2004l[?2004h> 
+[?2004l[?2004h> def ntt(poly):
+[?2004l[?2004h>     p = poly.copy()
+[?2004l[?2004h>     k = 1
+[?2004l[?2004h>     length = 128
+[?2004l[?2004h>     while length >= 2:
+[?2004l[?2004h>         for start in range(0, 256, 2 * length):
+[?2004l[?2004h>             z = zetas[k]
+[?2004l[?2004h>             k += 1
+[?2004l[?2004h>             for j in range(start, start + length):
+[?2004l[?2004h>                 t = (z * p[j + length]) % q
+[?2004l[?2004h>                 p[j + length] = (p[j] - t) % q
+[?2004l[?2004h>                 p[j] = (p[j] + t) % q
+[?2004l[?2004h>         length //= 2
+[?2004l[?2004h>     return p
+[?2004l[?2004h> 
+[?2004l[?2004h> def inv_ntt(poly):
+[?2004l[?2004h>     p = poly.copy()
+[?2004l[?2004h>     k = 127
+[?2004l[?2004h>     length = 2
+[?2004l[?2004h>     while length <= 128:
+[?2004l[?2004h>         for start in range(0, 256, 2 * length):
+[?2004l[?2004h>             z = zetas_inv[k]
+[?2004l[?2004h>             k -= 1
+[?2004l[?2004h>             for j in range(start, start + length):
+[?2004l[?2004h>                 t = p[j]
+[?2004l[?2004h>                 u = p[j + length]
+[?2004l[?2004h>                 p[j] = (t + u) % q
+[?2004l[?2004h>                 p[j + length] = ((t - u) * z) % q
+[?2004l[?2004h>         length *= 2
+[?2004l[?2004h>     inv128 = 3303
+[?2004l[?2004h>     for i in range(256):
+[?2004l[?2004h>         p[i] = (p[i] * inv128) % q
+[?2004l[?2004h>     return p
+[?2004l[?2004h> 
+[?2004l[?2004h> def polymul_ntt(a, b):
+[?2004l[?2004h>     c = [0]*256
+[?2004l[?2004h>     for i in range(64):
+[?2004l[?2004h>         z = zetas[64 + i]
+[?2004l[?2004h>         a0, a1 = a[4*i], a[4*i+1]
+[?2004l[?2004h>         b0, b1 = b[4*i], b[4*i+1]
+[?2004l[?2004h>         c[4*i]   = (a0*b0 + a1*b1*z) % q
+[?2004l[?2004h>         c[4*i+1] = (a0*b1 + a1*b0) % q
+[?2004l[?2004h>         z = (q - z) % q
+[?2004l[?2004h>         a0, a1 = a[4*i+2], a[4*i+3]
+[?2004l[?2004h>         b0, b1 = b[4*i+2], b[4*i+3]
+[?2004l[?2004h>         c[4*i+2] = (a0*b0 + a1*b1*z) % q
+[?2004l[?2004h>         c[4*i+3] = (a0*b1 + a1*b0) % q
+[?2004l[?2004h>     return c
+[?2004l[?2004h> 
+[?2004l[?2004h> def real_polymul(a, b):
+[?2004l[?2004h>     c = [0]*256
+[?2004l[?2004h>     for i in range(256):
+[?2004l[?2004h>         for j in range(256):
+[?2004l[?2004h>             if i+j < 256:
+[?2004l[?2004h>                 c[i+j] = (c[i+j] + a[i]*b[j]) % q
+[?2004l[?2004h>             else:
+[?2004l[?2004h>                 c[(i+j)%256] = (c[(i+j)%256] - a[i]*b[j]) % q
+[?2004l[?2004h>     return c
+[?2004l[?2004h> 
+[?2004l[?2004h> a = [(i*13)%q for i in range(256)]
+[?2004l[?2004h> b = [(3*i+7)%q for i in range(256)]
+[?2004l[?2004h> na = ntt(a)
+[?2004l[?2004h> nb = ntt(b)
+[?2004l[?2004h> nc = polymul_ntt(na, nb)
+[?2004l[?2004h> rc = inv_ntt(nc)
+[?2004l[?2004h> ec = real_polymul(a, b)
+[?2004l[?2004h> print("Match:", rc == ec)
+[?2004l[?2004h> print("rc[0:5]:", rc[0:5])
+[?2004l[?2004h> print("ec[0:5]:", ec[0:5])
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@7290a6fc1a90:/# python3 check.py
+[?2004lMatch: False
+rc[0:5]: [370, 2596, 1272, 1677, 435]
+ec[0:5]: [370, 2596, 1750, 1239, 1141]
+[?2004hroot@7290a6fc1a90:/# cat << 'EOF' > build.py
+[?2004l[?2004h> import sys
+[?2004l6];
+ [?2004h> q = 3329
+[?2004l[?2004h> zeta = 17
+[?2004l, c[?2004h> zetas = [pow(zeta, int('{:07b}'.format(i)[::-1], 2), q) for i in range(128)]
+[?2004l[?2004h> zetas_inv = [pow(z, q-2, q) for z in zetas]
+[?2004l[?2004h> 
+[?2004l[?2004h> with open('target.c', 'w') as f:
+[?2004l[?2004h>     f.write('#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\n#define N 256\n#define Q 3329\n\n')
+[?2004l[?2004h>     f.write('const int16_t zetas[128] = {\n    ' + ', '.join(map(str, zetas)) + '\n};\n')
+[?2004l[?2004h>     f.write('const int16_t zetas_inv[128] = {\n    ' + ', '.join(map(str, zetas_inv)) + '\n};\n')
+[?2004l[?2004h>     f.write(r'''
+[?2004l[?2004h> static inline int32_t pmod(int64_t v) {
+[?2004l[?2004h>     int32_t r = v % Q;
+[?2004lple_cbd(s[?2004h>     if (r < 0) r += Q;
+[?2004l[?2004h>     return r;
+[?2004l);
+    
+    in[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void ntt(int16_t *poly) {
+[?2004l[?2004h>     int len = 128;
+[?2004l[i] [?2004h>     int k = 1;
+[?2004l[?2004h>     while (len >= 2) {
+[?2004l[?2004h>         for (int start = 0; start < 256; start += 2 * len) {
+[?2004l[?2004h>             int32_t z = zetas[k++];
+[?2004l[?2004h>             for (int j = start; j < start + len; j++) {
+[?2004l
+    
+    in[?2004h>                 int32_t t = pmod((int64_t)z * poly[j + len]);
+[?2004l [?2004h>                 int32_t p0 = poly[j];
+[?2004l[?2004h>                 poly[j + len] = pmod(p0 - t);
+[?2004l[?2004h>                 poly[j] = pmod(p0 + t);
+[?2004l[?2004h>             }
+[?2004l    
+        i[?2004h>         }
+[?2004l[?2004h>         len /= 2;
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[2[?2004h> 
+[?2004l5[?2004h> void inv_ntt(int16_t *poly) {
+[?2004l[?2004h>     int len = 2;
+[?2004l[?2004h>     while (len <= 128) {
+[?2004l [?2004h>         int k = 128 / len;
+[?2004l[?2004h>         for (int start = 0; start < 256; start += 2 * len) {
+[?2004l[?2004h>             int32_t z = zetas_inv[k++];
+[?2004l[?2004h>             for (int j = start; j < start + len; j++) {
+[?2004l[?2004h>                 int32_t p0 = poly[j];
+[?2004l[?2004h>                 int32_t p1 = poly[j + len];
+[?2004l[?2004h>                 int32_t t = pmod(p0 + p1);
+[?2004l return 0;
+}
+''')[?2004h>                 int32_t diff = pmod(p0 - p1);
+[?2004l[?2004h>                 poly[j] = t;
+[?2004l[?2004h>                 poly[j + len] = pmod((int64_t)diff * z);
+[?2004l[?2004h>             }
+[?2004l[?2004h>         }
+[?2004l[?2004h>         len *= 2;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     int32_t inv128 = 3303; 
+[?2004l[?2004h>     for (int i = 0; i < 256; i++) {
+[?2004l[?2004h>         poly[i] = pmod((int64_t)poly[i] * inv128);
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void poly_basemul(int16_t *c, const int16_t *a, const int16_t *b) {
+[?2004l[?2004h>     for (int i = 0; i < 64; i++) {
+[?2004l[?2004h>         int64_t z = zetas[64 + i];
+[?2004l[?2004h>         int64_t a0 = a[4*i], a1 = a[4*i+1];
+[?2004l[?2004h>         int64_t b0 = b[4*i], b1 = b[4*i+1];
+[?2004l[?2004h>         c[4*i] = pmod(a0*b0 + a1*b1*z);
+[?2004l[?2004h>         c[4*i+1] = pmod(a0*b1 + a1*b0);
+[?2004l[?2004h>         
+[?2004l[?2004h>         z = Q - z;
+[?2004l[?2004h>         a0 = a[4*i+2]; a1 = a[4*i+3];
+[?2004l[?2004h>         b0 = b[4*i+2]; b1 = b[4*i+3];
+[?2004l[?2004h>         c[4*i+2] = pmod(a0*b0 + a1*b1*z);
+[?2004l[?2004h>         c[4*i+3] = pmod(a0*b1 + a1*b0);
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void poly_add(int16_t *c, const int16_t *a, const int16_t *b) {
+[?2004l[?2004h>     for (int i = 0; i < 256; i++) {
+[?2004l[?2004h>         c[i] = pmod(a[i] + b[i]);
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void poly_sub(int16_t *c, const int16_t *a, const int16_t *b) {
+[?2004l[?2004h>     for (int i = 0; i < 256; i++) {
+[?2004l[?2004h>         c[i] = pmod(a[i] - b[i]);
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void sample_cbd(int16_t *poly, const uint8_t *seed) {
+[?2004l[?2004h>     uint32_t state = seed[0] | ((uint32_t)seed[1]<<8) | ((uint32_t)seed[2]<<16) | ((uint32_t)seed[3]<<24);
+[?2004l[?2004h>     if (state == 0) state = 123456789;
+[?2004l[?2004h>     for(int i=0; i<256; i++) {
+[?2004l[?2004h>         int a1 = (state >> 0) & 1;
+[?2004l[?2004h>         int a2 = (state >> 1) & 1;
+[?2004l[?2004h>         int b1 = (state >> 2) & 1;
+[?2004l[?2004h>         int b2 = (state >> 3) & 1;
+[?2004l[?2004h>         int e = (a1 + a2) - (b1 + b2);
+[?2004l[?2004h>         poly[i] = pmod(e);
+[?2004l[?2004h>         
+[?2004l[?2004h>         state ^= state << 13;
+[?2004l[?2004h>         state ^= state >> 17;
+[?2004l[?2004h>         state ^= state << 5;
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void ring_lwe_encrypt(int16_t *c1, int16_t *c2, const int16_t *pub_key_pk, const int16_t *pub_key_a, const uint8_t *msg) {
+[?2004l[?2004h>     int16_t r[256], e1[256], e2[256];
+[?2004l[?2004h>     uint8_t s_r[32], s_e1[32], s_e2[32];
+[?2004l[?2004h>     for(int i=0; i<32; i++) {
+[?2004l[?2004h>         s_r[i] = rand() & 0xff;
+[?2004l[?2004h>         s_e1[i] = rand() & 0xff;
+[?2004l[?2004h>         s_e2[i] = rand() & 0xff;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     sample_cbd(r, s_r);
+[?2004l[?2004h>     sample_cbd(e1, s_e1);
+[?2004l[?2004h>     sample_cbd(e2, s_e2);
+[?2004l[?2004h>     
+[?2004l[?2004h>     ntt(r);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t Ar[256];
+[?2004l[?2004h>     poly_basemul(Ar, pub_key_a, r);
+[?2004l[?2004h>     inv_ntt(Ar);
+[?2004l[?2004h>     poly_add(c1, Ar, e1);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t pkr[256];
+[?2004l[?2004h>     poly_basemul(pkr, pub_key_pk, r);
+[?2004l[?2004h>     inv_ntt(pkr);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t m_poly[256];
+[?2004l[?2004h>     for(int i=0; i<32; i++) {
+[?2004l[?2004h>         for(int j=0; j<8; j++) {
+[?2004l[?2004h>             m_poly[8*i+j] = ((msg[i] >> j) & 1) ? ((Q+1)/2) : 0;
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     poly_add(c2, pkr, e2);
+[?2004l[?2004h>     poly_add(c2, c2, m_poly);
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void ring_lwe_decrypt(uint8_t *msg, const int16_t *c1, const int16_t *c2, const int16_t *secret_key) {
+[?2004l[?2004h>     int16_t c1_ntt[256];
+[?2004l[?2004h>     memcpy(c1_ntt, c1, 256 * sizeof(int16_t));
+[?2004l[?2004h>     ntt(c1_ntt);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t sc1[256];
+[?2004l[?2004h>     poly_basemul(sc1, secret_key, c1_ntt);
+[?2004l[?2004h>     inv_ntt(sc1);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t v[256];
+[?2004l[?2004h>     poly_sub(v, c2, sc1);
+[?2004l[?2004h>     
+[?2004l[?2004h>     for(int i=0; i<32; i++) {
+[?2004l[?2004h>         msg[i] = 0;
+[?2004l[?2004h>         for(int j=0; j<8; j++) {
+[?2004l[?2004h>             int16_t val = v[8*i+j];
+[?2004l[?2004h>             if (val > Q/2) val = Q - val;
+[?2004l[?2004h>             if (val > Q/4) {
+[?2004l[?2004h>                 msg[i] |= (1 << j);
+[?2004l[?2004h>             }
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int main() {
+[?2004l[?2004h>     srand(42);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t sk[256];
+[?2004l[?2004h>     uint8_t sk_seed[32] = {1, 2, 3, 4};
+[?2004l[?2004h>     sample_cbd(sk, sk_seed);
+[?2004l[?2004h>     ntt(sk);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t A[256];
+[?2004l[?2004h>     for(int i=0; i<256; i++) A[i] = rand() % Q;
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t e[256];
+[?2004l[?2004h>     uint8_t e_seed[32] = {5, 6, 7, 8};
+[?2004l[?2004h>     sample_cbd(e, e_seed);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t Ask[256];
+[?2004l[?2004h>     poly_basemul(Ask, A, sk);
+[?2004l[?2004h>     inv_ntt(Ask);
+[?2004l[?2004h>     
+[?2004l[?2004h>     int16_t pk[256];
+[?2004l[?2004h>     poly_add(pk, Ask, e);
+[?2004l[?2004h>     ntt(pk);
+[?2004l[?2004h>     
+[?2004l[?2004h>     for(int test=0; test<10000; test++) {
+[?2004l[?2004h>         uint8_t msg[32];
+[?2004l[?2004h>         for(int i=0; i<32; i++) msg[i] = rand() & 0xff;
+[?2004l[?2004h>         
+[?2004l[?2004h>         int16_t c1[256];
+[?2004l[?2004h>         int16_t c2[256];
+[?2004l[?2004h>         
+[?2004l[?2004h>         ring_lwe_encrypt(c1, c2, pk, A, msg);
+[?2004l[?2004h>         
+[?2004l[?2004h>         uint8_t msg_dec[32];
+[?2004l[?2004h>         ring_lwe_decrypt(msg_dec, c1, c2, sk);
+[?2004l[?2004h>         
+[?2004l[?2004h>         if (memcmp(msg, msg_dec, 32) != 0) {
+[?2004l[?2004h>             printf("Failed at test %d\n", test);
+[?2004l[?2004h>             return 1;
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     printf("FLAG: Post-Quantum Ring-LWE NTT Cryptography Success!\n");
+[?2004l[?2004h>     return 0;
+[?2004l[?2004h> }
+[?2004l[?2004h> ''')
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@7290a6fc1a90:/# python3 build.py
+[?2004l[?2004hroot@7290a6fc1a90:/# gcc -O2 -Wall -Werror -fsanitize=address,undefined -o /out/ntt_bench target.c && /out/ntt_bench
+[?2004lFLAG: Post-Quantum Ring-LWE NTT Cryptography Success!
+[?2004hroot@7290a6fc1a90:/# 

@@ -1,0 +1,28 @@
+schema_version = "1.1"
+
+[task]
+name = "algorithmic-bench/buddy_allocator_l0"
+description = "Implement a power-of-two Buddy Memory Allocator in C with recursive block splitting during allocation and bitwise XOR buddy identification and recursive coalescing during deallocation."
+authors = [{ name = "PilotCrew", email = "devnull@example.invalid" }]
+keywords = ["algorithmic", "c", "operating-systems", "memory-management", "buddy-allocator", "coalescing"]
+
+[metadata]
+category = "algorithmic"
+arvo_id = "buddy_allocator_l0"
+program = "buddy_bench"
+crash_type = "none"
+sanitizer = "address"
+
+[agent]
+timeout_sec = 3600.0
+
+[verifier]
+timeout_sec = 120.0
+
+[environment]
+build_timeout_sec = 1800.0
+os = "linux"
+cpus = 4
+memory_mb = 2048
+storage_mb = 10240
+allow_internet = true

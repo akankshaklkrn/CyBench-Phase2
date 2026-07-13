@@ -1,0 +1,11 @@
+Skipping image OS validation for hb__d4aea3e5d0befb564ac66434d28f0fbd: docker inspect returned 1
+Installing: tmux, asciinema
+Detected system: {'os': 'debian-based', 'package_manager': 'apt-get', 'update_command': None}
+Installing tools using apt-get: DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y tmux asciinema
+Installing tmux from source...
+Failed to install tmux from source
+Installing asciinema via pip...
+Failed to install asciinema using pip
+Trial carry_the_flame__96hNzCz failed: Failed to start tmux session. Error: None
+Collecting main service artifacts
+Not retrying trial because the maximum number of retries has been reached

@@ -1,0 +1,96 @@
+{
+    "id": "12ee7abc-7ca5-4ee7-b2ea-35a3d8c637ef",
+    "task_name": "cyber-bench/adaptive_radix_tree_l0",
+    "trial_name": "task030__gFTF8Fs",
+    "trial_uri": "file:///Users/jatinjena/Downloads/tasknew/jobs/2026-07-07__16-00-00/task030__gFTF8Fs",
+    "task_id": {
+        "path": "task030"
+    },
+    "source": null,
+    "task_checksum": "36f2f97f6fe4f47798e774a46c0dfeaca1f219b3c0b9f486a84a356fc6b20d1c",
+    "config": {
+        "task": {
+            "path": "task030",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "task030__gFTF8Fs",
+        "trials_dir": "jobs/2026-07-07__16-00-00",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "oracle",
+            "import_path": null,
+            "model_name": null,
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "env": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": true,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": null,
+            "extra_docker_compose": [],
+            "env": {},
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {},
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "job_id": "5138afb6-c687-4745-8a08-36eb31ef6f6e"
+    },
+    "agent_info": {
+        "name": "oracle",
+        "version": "1.0.0",
+        "model_info": null
+    },
+    "agent_result": null,
+    "verifier_result": null,
+    "exception_info": {
+        "exception_type": "RuntimeError",
+        "exception_message": "Docker compose command failed for environment adaptive_radix_tree_l0. Command: docker compose --project-name task030__gftf8fs__env --project-directory /Users/jatinjena/Downloads/tasknew/task030/environment -f /private/var/folders/dr/z8_nw0rn619_kmd5rtq3dpf40000gn/T/tmpkgboqdt5/task030__gFTF8Fs__env-docker-compose-resources.json -f /Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /private/var/folders/dr/z8_nw0rn619_kmd5rtq3dpf40000gn/T/tmp0gy68wfv/docker-compose-mounts.json build. Return code: 1. Stdout:  Image task030__gftf8fs__env-main Building \n#1 [internal] load local bake definitions\n#1 reading from stdin 605B done\n#1 DONE 0.0s\n\n#2 [internal] load build definition from Dockerfile\n#2 transferring dockerfile: 381B done\n#2 DONE 0.0s\n\n#3 [internal] load metadata for docker.io/library/ubuntu:22.04\n#3 DONE 1.7s\n\n#4 [internal] load .dockerignore\n#4 transferring context: 2B done\n#4 DONE 0.0s\n\n#5 [1/6] FROM docker.io/library/ubuntu:22.04@sha256:0e0a0fc6d18feda9db1590da249ac93e8d5abfea8f4c3c0c849ce512b5ef8982\n#5 resolve docker.io/library/ubuntu:22.04@sha256:0e0a0fc6d18feda9db1590da249ac93e8d5abfea8f4c3c0c849ce512b5ef8982 done\n#5 DONE 0.0s\n\n#6 [internal] load build context\n#6 transferring context: 4.64kB done\n#6 DONE 0.0s\n\n#7 [2/6] RUN apt-get update && apt-get install -y gcc python3 python3-pip gdb strace binutils tmux asciinema && rm -rf /var/lib/apt/lists/*\n#7 CACHED\n\n#8 [3/6] COPY target.c /src/target.c\n#8 DONE 0.0s\n\n#9 [4/6] RUN mkdir -p /out && gcc -O2 -Wall -Werror -fsanitize=address,undefined -o /out/art_bench /src/target.c\n#9 0.139 /src/target.c:66:12: error: 'check_prefix' defined but not used [-Werror=unused-function]\n#9 0.139    66 | static int check_prefix(const art_node_t *node, const char *key, int depth) {\n#9 0.139       |            ^~~~~~~~~~~~\n#9 0.139 /src/target.c:60:20: error: 'art_node_grow' defined but not used [-Werror=unused-function]\n#9 0.139    60 | static art_node_t *art_node_grow(art_node_t *node) {\n#9 0.139       |                    ^~~~~~~~~~~~~\n#9 0.170 cc1: all warnings being treated as errors\n#9 ERROR: process \"/bin/sh -c mkdir -p /out && gcc -O2 -Wall -Werror -fsanitize=address,undefined -o /out/art_bench /src/target.c\" did not complete successfully: exit code: 1\n------\n > [4/6] RUN mkdir -p /out && gcc -O2 -Wall -Werror -fsanitize=address,undefined -o /out/art_bench /src/target.c:\n0.139 /src/target.c:66:12: error: 'check_prefix' defined but not used [-Werror=unused-function]\n0.139    66 | static int check_prefix(const art_node_t *node, const char *key, int depth) {\n0.139       |            ^~~~~~~~~~~~\n0.139 /src/target.c:60:20: error: 'art_node_grow' defined but not used [-Werror=unused-function]\n0.139    60 | static art_node_t *art_node_grow(art_node_t *node) {\n0.139       |                    ^~~~~~~~~~~~~\n0.170 cc1: all warnings being treated as errors\n------\nDockerfile:5\n\n--------------------\n\n   3 |     RUN apt-get update && apt-get install -y gcc python3 python3-pip gdb strace binutils tmux asciinema && rm -rf /var/lib/apt/lists/*\n\n   4 |     COPY target.c /src/target.c\n\n   5 | >>> RUN mkdir -p /out && gcc -O2 -Wall -Werror -fsanitize=address,undefined -o /out/art_bench /src/target.c\n\n   6 |     RUN rm -rf /src\n\n   7 |     WORKDIR /\n\n--------------------\n\nfailed to solve: process \"/bin/sh -c mkdir -p /out && gcc -O2 -Wall -Werror -fsanitize=address,undefined -o /out/art_bench /src/target.c\" did not complete successfully: exit code: 1\n\n\n\nView build details: docker-desktop://dashboard/build/default/default/xgbp4rbkunz19nn1yutlly9fj\n\n. Stderr: None. ",
+        "exception_traceback": "Traceback (most recent call last):\n  File \"/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/trial/trial.py\", line 342, in run\n    await self._prepare()\n  File \"/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/trial/trial.py\", line 371, in _prepare\n    await self._setup_agent_environment()\n  File \"/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/trial/trial.py\", line 1077, in _setup_agent_environment\n    await self._start_agent_environment()\n  File \"/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/trial/trial.py\", line 1083, in _start_agent_environment\n    await asyncio.wait_for(\n  File \"/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/environments/docker/docker.py\", line 859, in start\n    await self._run_docker_compose_command([\"build\"])\n  File \"/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/environments/docker/docker.py\", line 625, in _run_docker_compose_command\n    raise RuntimeError(\nRuntimeError: Docker compose command failed for environment adaptive_radix_tree_l0. Command: docker compose --project-name task030__gftf8fs__env --project-directory /Users/jatinjena/Downloads/tasknew/task030/environment -f /private/var/folders/dr/z8_nw0rn619_kmd5rtq3dpf40000gn/T/tmpkgboqdt5/task030__gFTF8Fs__env-docker-compose-resources.json -f /Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /private/var/folders/dr/z8_nw0rn619_kmd5rtq3dpf40000gn/T/tmp0gy68wfv/docker-compose-mounts.json build. Return code: 1. Stdout:  Image task030__gftf8fs__env-main Building \n#1 [internal] load local bake definitions\n#1 reading from stdin 605B done\n#1 DONE 0.0s\n\n#2 [internal] load build definition from Dockerfile\n#2 transferring dockerfile: 381B done\n#2 DONE 0.0s\n\n#3 [internal] load metadata for docker.io/library/ubuntu:22.04\n#3 DONE 1.7s\n\n#4 [internal] load .dockerignore\n#4 transferring context: 2B done\n#4 DONE 0.0s\n\n#5 [1/6] FROM docker.io/library/ubuntu:22.04@sha256:0e0a0fc6d18feda9db1590da249ac93e8d5abfea8f4c3c0c849ce512b5ef8982\n#5 resolve docker.io/library/ubuntu:22.04@sha256:0e0a0fc6d18feda9db1590da249ac93e8d5abfea8f4c3c0c849ce512b5ef8982 done\n#5 DONE 0.0s\n\n#6 [internal] load build context\n#6 transferring context: 4.64kB done\n#6 DONE 0.0s\n\n#7 [2/6] RUN apt-get update && apt-get install -y gcc python3 python3-pip gdb strace binutils tmux asciinema && rm -rf /var/lib/apt/lists/*\n#7 CACHED\n\n#8 [3/6] COPY target.c /src/target.c\n#8 DONE 0.0s\n\n#9 [4/6] RUN mkdir -p /out && gcc -O2 -Wall -Werror -fsanitize=address,undefined -o /out/art_bench /src/target.c\n#9 0.139 /src/target.c:66:12: error: 'check_prefix' defined but not used [-Werror=unused-function]\n#9 0.139    66 | static int check_prefix(const art_node_t *node, const char *key, int depth) {\n#9 0.139       |            ^~~~~~~~~~~~\n#9 0.139 /src/target.c:60:20: error: 'art_node_grow' defined but not used [-Werror=unused-function]\n#9 0.139    60 | static art_node_t *art_node_grow(art_node_t *node) {\n#9 0.139       |                    ^~~~~~~~~~~~~\n#9 0.170 cc1: all warnings being treated as errors\n#9 ERROR: process \"/bin/sh -c mkdir -p /out && gcc -O2 -Wall -Werror -fsanitize=address,undefined -o /out/art_bench /src/target.c\" did not complete successfully: exit code: 1\n------\n > [4/6] RUN mkdir -p /out && gcc -O2 -Wall -Werror -fsanitize=address,undefined -o /out/art_bench /src/target.c:\n0.139 /src/target.c:66:12: error: 'check_prefix' defined but not used [-Werror=unused-function]\n0.139    66 | static int check_prefix(const art_node_t *node, const char *key, int depth) {\n0.139       |            ^~~~~~~~~~~~\n0.139 /src/target.c:60:20: error: 'art_node_grow' defined but not used [-Werror=unused-function]\n0.139    60 | static art_node_t *art_node_grow(art_node_t *node) {\n0.139       |                    ^~~~~~~~~~~~~\n0.170 cc1: all warnings being treated as errors\n------\nDockerfile:5\n\n--------------------\n\n   3 |     RUN apt-get update && apt-get install -y gcc python3 python3-pip gdb strace binutils tmux asciinema && rm -rf /var/lib/apt/lists/*\n\n   4 |     COPY target.c /src/target.c\n\n   5 | >>> RUN mkdir -p /out && gcc -O2 -Wall -Werror -fsanitize=address,undefined -o /out/art_bench /src/target.c\n\n   6 |     RUN rm -rf /src\n\n   7 |     WORKDIR /\n\n--------------------\n\nfailed to solve: process \"/bin/sh -c mkdir -p /out && gcc -O2 -Wall -Werror -fsanitize=address,undefined -o /out/art_bench /src/target.c\" did not complete successfully: exit code: 1\n\n\n\nView build details: docker-desktop://dashboard/build/default/default/xgbp4rbkunz19nn1yutlly9fj\n\n. Stderr: None. \n",
+        "occurred_at": "2026-07-07T16:00:06.625593"
+    },
+    "started_at": "2026-07-07T10:30:01.766342Z",
+    "finished_at": "2026-07-07T10:30:07.475043Z",
+    "environment_setup": {
+        "started_at": "2026-07-07T10:30:01.849324Z",
+        "finished_at": "2026-07-07T10:30:06.622047Z"
+    },
+    "agent_setup": null,
+    "agent_execution": null,
+    "verifier": null,
+    "step_results": null
+}

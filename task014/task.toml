@@ -1,0 +1,28 @@
+schema_version = "1.1"
+
+[task]
+name = "algorithmic-bench/lockfree_queue_l0"
+description = "Implement a Concurrent Lock-Free Queue using C11 atomic operations. You must implement the Michael-Scott queue algorithm to perfectly prevent deadlocks and race conditions under massive multi-threaded load."
+authors = [{ name = "PilotCrew", email = "devnull@example.invalid" }]
+keywords = ["algorithmic", "c", "concurrency", "lock-free", "atomics", "queue"]
+
+[metadata]
+category = "algorithmic"
+arvo_id = "lockfree_queue_l0"
+program = "queue_bench"
+crash_type = "none"
+sanitizer = "none"
+
+[agent]
+timeout_sec = 3600.0
+
+[verifier]
+timeout_sec = 120.0
+
+[environment]
+build_timeout_sec = 1800.0
+os = "linux"
+cpus = 4
+memory_mb = 2048
+storage_mb = 10240
+allow_internet = true

@@ -1,0 +1,172 @@
+[?2004hroot@bccbb7f16bef:/# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@bccbb7f16bef:/# clear
+[?2004l[H[J[?2004hroot@bccbb7f16bef:/# ls -la
+[?2004ltotal 68
+drwxr-xr-x   1 root root 4096 Jul  1 16:19 [0m[01;34m.[0m
+drwxr-xr-x   1 root root 4096 Jul  1 16:19 [01;34m..[0m
+-rwxr-xr-x   1 root root    0 Jul  1 16:19 [01;32m.dockerenv[0m
+lrwxrwxrwx   1 root root    7 May  9 02:17 [01;36mbin[0m -> [01;34musr/bin[0m
+drwxr-xr-x   2 root root 4096 Apr 18  2022 [01;34mboot[0m
+drwxr-xr-x   5 root root  340 Jul  1 16:19 [01;34mdev[0m
+drwxr-xr-x   1 root root 4096 Jul  1 16:19 [01;34metc[0m
+drwxr-xr-x   2 root root 4096 Apr 18  2022 [01;34mhome[0m
+lrwxrwxrwx   1 root root    7 May  9 02:17 [01;36mlib[0m -> [01;34musr/lib[0m
+drwxr-xr-x   5 root root 4096 Jul  1 16:19 [01;34mlogs[0m
+drwxr-xr-x   2 root root 4096 May  9 02:17 [01;34mmedia[0m
+drwxr-xr-x   2 root root 4096 May  9 02:17 [01;34mmnt[0m
+drwxr-xr-x   2 root root 4096 May  9 02:17 [01;34mopt[0m
+drwxr-xr-x   2 root root 4096 Jul  1 16:19 [01;34mout[0m
+dr-xr-xr-x 269 root root    0 Jul  1 16:19 [01;34mproc[0m
+drwx------   1 root root 4096 Jul  1 16:19 [01;34mroot[0m
+drwxr-xr-x   5 root root 4096 May  9 02:25 [01;34mrun[0m
+lrwxrwxrwx   1 root root    8 May  9 02:17 [01;36msbin[0m -> [01;34musr/sbin[0m
+drwxr-xr-x   2 root root 4096 May  9 02:17 [01;34msrv[0m
+dr-xr-xr-x  11 root root    0 Jul  1 16:19 [01;34msys[0m
+drwxrwxrwt   1 root root 4096 Jul  1 16:19 [30;42mtmp[0m
+drwxr-xr-x   1 root root 4096 May  9 02:17 [01;34musr[0m
+drwxr-xr-x   1 root root 4096 May  9 02:24 [01;34mvar[0m
+[?2004hroot@bccbb7f16bef:/# cat target.c
+[?2004lcat: target.c: No such file or directory
+[?2004hroot@bccbb7f16bef:/# find / -type f -name target.c 2>/dev/null
+[?2004l[?2004hroot@bccbb7f16bef:/# find / -type f -name "*.c" -not -path "*/sys/*" -not -path "*/proc/*"
+[?2004l/usr/lib/python3.10/config-3.10-aarch64-linux-gnu/config.c
+[?2004hroot@bccbb7f16bef:/# cat << 'EOF' > target.c
+[?2004l[?2004h> #include <stdio.h>
+[?2004l[?2004h> #include <stdlib.h>
+[?2004l[?2004h> 
+[?2004l[?2004h> struct treap_node {
+[?2004l[?2004h>     int key;
+[?2004l[?2004h>     int priority;
+[?2004l[?2004h>     struct treap_node *left;
+[?2004l[?2004h>     struct treap_node *right;
+[?2004l[?2004h> };
+[?2004l[?2004h> 
+[?2004l[?2004h> struct treap_node *root = NULL;
+[?2004l[?2004h> 
+[?2004l[?2004h> struct treap_node* create_node(int key, int priority) {
+[?2004l[?2004h>     struct treap_node *n = (struct treap_node*)malloc(sizeof(struct treap_node));
+[?2004l[?2004h>     if(!n) exit(1);
+[?2004l[?2004h>     n->key = key;
+[?2004l[?2004h>     n->priority = priority;
+[?2004l[?2004h>     n->left = NULL;
+[?2004l[?2004h>     n->right = NULL;
+[?2004l[?2004h>     return n;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> struct treap_node* right_rotate(struct treap_node *y) {
+[?2004l[?2004h>     struct treap_node *x = y->left;
+[?2004l[?2004h>     struct treap_node *T2 = x->right;
+[?2004l[?2004h>     x->right = y;
+[?2004l[?2004h>     y->left = T2;
+[?2004l[?2004h>     return x;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> struct treap_node* left_rotate(struct treap_node *x) {
+[?2004l[?2004h>     struct treap_node *y = x->right;
+[?2004l[?2004h>     struct treap_node *T2 = y->left;
+[?2004l[?2004h>     y->left = x;
+[?2004l[?2004h>     x->right = T2;
+[?2004l[?2004h>     return y;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> struct treap_node* insert_node(struct treap_node *node, int key, int priority) {
+[?2004l[?2004h>     if (!node) return create_node(key, priority);
+[?2004l[?2004h>     if (key < node->key) {
+[?2004l[?2004h>         node->left = insert_node(node->left, key, priority);
+[?2004l[?2004h>         if (node->left->priority > node->priority) {
+[?2004l[?2004h>             node = right_rotate(node);
+[?2004l[?2004h>         }
+[?2004l[?2004h>     } else if (key > node->key) {
+[?2004l[?2004h>         node->right = insert_node(node->right, key, priority);
+[?2004l[?2004h>         if (node->right->priority > node->priority) {
+[?2004l[?2004h>             node = left_rotate(node);
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     return node;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void treap_insert(int key, int priority) {
+[?2004l[?2004h>     root = insert_node(root, key, priority);
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> struct treap_node* delete_node(struct treap_node *node, int key) {
+[?2004l[?2004h>     if (!node) return node;
+[?2004l[?2004h> 
+[?2004l[?2004h>     if (key < node->key) {
+[?2004l[?2004h>         node->left = delete_node(node->left, key);
+[?2004l[?2004h>     } else if (key > node->key) {
+[?2004l[?2004h>         node->right = delete_node(node->right, key);
+[?2004l[?2004h>     } else {
+[?2004l[?2004h>         if (!node->left && !node->right) {
+[?2004l[?2004h>             free(node);
+[?2004l[?2004h>             return NULL;
+[?2004l[?2004h>         }
+[?2004l[?2004h>         else if (node->left && !node->right) {
+[?2004l[?2004h>             node = right_rotate(node);
+[?2004l[?2004h>             node->right = delete_node(node->right, key);
+[?2004l[?2004h>         }
+[?2004l[?2004h>         else if (!node->left && node->right) {
+[?2004l[?2004h>             node = left_rotate(node);
+[?2004l[?2004h>             node->left = delete_node(node->left, key);
+[?2004l[?2004h>         }
+[?2004l[?2004h>         else {
+[?2004l[?2004h>             if (node->left->priority > node->right->priority) {
+[?2004l[?2004h>                 node = right_rotate(node);
+[?2004l[?2004h>                 node->right = delete_node(node->right, key);
+[?2004l[?2004h>             } else {
+[?2004l[?2004h>                 node = left_rotate(node);
+[?2004l[?2004h>                 node->left = delete_node(node->left, key);
+[?2004l[?2004h>             }
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     return node;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void treap_delete(int key) {
+[?2004l[?2004h>     root = delete_node(root, key);
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int validate_bst(struct treap_node *node, long long min, long long max) {
+[?2004l[?2004h>     if (!node) return 1;
+[?2004l[?2004h>     if (node->key <= min || node->key >= max) return 0;
+[?2004l[?2004h>     return validate_bst(node->left, min, node->key) && validate_bst(node->right, node->key, max);
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int validate_heap(struct treap_node *node) {
+[?2004l[?2004h>     if (!node) return 1;
+[?2004l[?2004h>     if (node->left && node->left->priority > node->priority) return 0;
+[?2004l[?2004h>     if (node->right && node->right->priority > node->priority) return 0;
+[?2004l[?2004h>     return validate_heap(node->left) && validate_heap(node->right);
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int main() {
+[?2004l[?2004h>     srand(42);
+[?2004l[?2004h>     int keys[5000];
+[?2004l[?2004h>     for (int i = 0; i < 5000; i++) keys[i] = i;
+[?2004l[?2004h>     for (int i = 4999; i > 0; i--) {
+[?2004l[?2004h>         int j = rand() % (i + 1);
+[?2004l[?2004h>         int t = keys[i];
+[?2004l[?2004h>         keys[i] = keys[j];
+[?2004l[?2004h>         keys[j] = t;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     for (int i = 0; i < 5000; i++) {
+[?2004l[?2004h>         treap_insert(keys[i], rand());
+[?2004l[?2004h>     }
+[?2004l[?2004h>     for (int i = 0; i < 2500; i++) {
+[?2004l[?2004h>         treap_delete(keys[i]);
+[?2004l[?2004h>     }
+[?2004l[?2004h>     if (validate_bst(root, -10000000000LL, 10000000000LL) && validate_heap(root)) {
+[?2004l[?2004h>         printf("FLAG: Treap Success!\n");
+[?2004l[?2004h>     } else {
+[?2004l[?2004h>         printf("FAILED\n");
+[?2004l[?2004h>         return 1;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     return 0;
+[?2004l[?2004h> }
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@bccbb7f16bef:/# gcc -O2 -Wall -Werror -o /out/treap_bench target.c
+[?2004l[?2004hroot@bccbb7f16bef:/# /out/treap_bench
+[?2004lFLAG: Treap Success!
+[?2004hroot@bccbb7f16bef:/# 

@@ -1,0 +1,132 @@
+{
+    "id": "4c46e71b-b108-42d2-a912-18c235579fbc",
+    "task_name": "algorithmic-bench/bplus_tree_l0",
+    "trial_name": "task013__oUhKM3f",
+    "trial_uri": "file:///Users/jatinjena/Downloads/tasknew/jobs/2026-07-01__00-52-04/task013__oUhKM3f",
+    "task_id": {
+        "path": "task013"
+    },
+    "source": null,
+    "task_checksum": "5a7474929787be114b89357f333e68acd38ad6e3fa66688ea6a4ca7bdd189ee0",
+    "config": {
+        "task": {
+            "path": "task013",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "task013__oUhKM3f",
+        "trials_dir": "jobs/2026-07-01__00-52-04",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "terminus-2",
+            "import_path": null,
+            "model_name": "openrouter/google/gemini-3.1-pro-preview",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "env": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": true,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": null,
+            "extra_docker_compose": [],
+            "env": {},
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {},
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "job_id": "b1aae145-942b-42f3-a150-fa9f331d8753"
+    },
+    "agent_info": {
+        "name": "terminus-2",
+        "version": "2.0.0",
+        "model_info": {
+            "name": "google/gemini-3.1-pro-preview",
+            "provider": "openrouter"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 113269,
+        "n_cache_tokens": 60957,
+        "n_output_tokens": 29460,
+        "cost_usd": 0.47033539999999996,
+        "rollout_details": [],
+        "metadata": {
+            "n_episodes": 13,
+            "api_request_times_msec": [
+                5706.777811050415,
+                4790.488719940186,
+                6864.371061325073,
+                11579.719066619873,
+                11308.414936065674,
+                17094.21706199646,
+                21208.4538936615,
+                47075.844049453735,
+                45587.40210533142,
+                18979.149103164673,
+                10500.006914138794,
+                48768.03922653198,
+                34348.13594818115
+            ],
+            "summarization_count": 0
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-06-30T19:22:07.508583Z",
+    "finished_at": "2026-06-30T19:27:22.360907Z",
+    "environment_setup": {
+        "started_at": "2026-06-30T19:22:07.566712Z",
+        "finished_at": "2026-06-30T19:22:14.550967Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-06-30T19:22:14.551118Z",
+        "finished_at": "2026-06-30T19:22:16.573117Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-06-30T19:22:16.573392Z",
+        "finished_at": "2026-06-30T19:27:19.250102Z"
+    },
+    "verifier": {
+        "started_at": "2026-06-30T19:27:19.723166Z",
+        "finished_at": "2026-06-30T19:27:20.187386Z"
+    },
+    "step_results": null
+}

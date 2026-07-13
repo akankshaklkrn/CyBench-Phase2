@@ -1,0 +1,236 @@
+[?2004hroot@8a2bca5f65bc:/# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@8a2bca5f65bc:/# clear
+[?2004l[H[J[?2004hroot@8a2bca5f65bc:/# ls -la
+[?2004ltotal 68
+drwxr-xr-x   1 root root 4096 Jul  3 14:41 [0m[01;34m.[0m
+drwxr-xr-x   1 root root 4096 Jul  3 14:41 [01;34m..[0m
+-rwxr-xr-x   1 root root    0 Jul  3 14:41 [01;32m.dockerenv[0m
+lrwxrwxrwx   1 root root    7 Jun 27 02:10 [01;36mbin[0m -> [01;34musr/bin[0m
+drwxr-xr-x   2 root root 4096 Apr 18  2022 [01;34mboot[0m
+drwxr-xr-x   5 root root  340 Jul  3 14:41 [01;34mdev[0m
+drwxr-xr-x   1 root root 4096 Jul  3 14:41 [01;34metc[0m
+drwxr-xr-x   2 root root 4096 Apr 18  2022 [01;34mhome[0m
+lrwxrwxrwx   1 root root    7 Jun 27 02:10 [01;36mlib[0m -> [01;34musr/lib[0m
+drwxr-xr-x   5 root root 4096 Jul  3 14:41 [01;34mlogs[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34mmedia[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34mmnt[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34mopt[0m
+drwxr-xr-x   2 root root 4096 Jul  3 14:41 [01;34mout[0m
+dr-xr-xr-x 255 root root    0 Jul  3 14:41 [01;34mproc[0m
+drwx------   1 root root 4096 Jul  3 14:41 [01;34mroot[0m
+drwxr-xr-x   5 root root 4096 Jun 27 02:17 [01;34mrun[0m
+lrwxrwxrwx   1 root root    8 Jun 27 02:10 [01;36msbin[0m -> [01;34musr/sbin[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34msrv[0m
+dr-xr-xr-x  11 root root    0 Jul  3 14:41 [01;34msys[0m
+drwxrwxrwt   1 root root 4096 Jul  3 14:41 [30;42mtmp[0m
+drwxr-xr-x   1 root root 4096 Jun 27 02:10 [01;34musr[0m
+drwxr-xr-x   1 root root 4096 Jun 27 02:17 [01;34mvar[0m
+[?2004hroot@8a2bca5f65bc:/# cat target.c
+[?2004lcat: target.c: No such file or directory
+[?2004hroot@8a2bca5f65bc:/# find / -name target.c 2>/dev/null
+[?2004l[?2004hroot@8a2bca5f65bc:/# cat << 'EOF' > target.c
+[?2004l      alloc_count--;
+  [?2004h> #include <stdio.h>
+[?2004l[?2004h> #include <stdlib.h>
+[?2004l[?2004h> #include <stdint.h>
+[?2004l[?2004h> #include <stdbool.h>
+[?2004l[?2004h> #include <string.h>
+[?2004l[?2004h> 
+[?2004l[?2004h> #define POOL_SIZE (16 * 1024 * 1024)
+[?2004l[?2004h> #define MIN_BLOCK_SIZE 64
+[?2004l[?2004h> #define MAX_ORDER 18
+[?2004l[?2004h> 
+[?2004l[?2004h> typedef struct free_node {
+[?2004l[?2004h>     struct free_node *next;
+[?2004l[?2004h>     struct free_node *prev;
+[?2004l[?2004h> } free_node_t;
+[?2004l[?2004h> 
+[?2004ls[alloc_count++][?2004h> free_node_t *free_lists[MAX_ORDER + 1];
+[?2004l[?2004h> 
+[?2004l [?2004h> uint8_t *pool_base;
+[?2004l[?2004h> size_t global_pool_size;
+[?2004l([?2004h> 
+[?2004lp[?2004h> uint8_t block_order[POOL_SIZE / MIN_BLOCK_SIZE];
+[?2004l[?2004h> uint8_t block_free[POOL_SIZE / MIN_BLOCK_SIZE];
+[?2004l[?2004h> 
+[?2004l[?2004h> void list_remove(int order, free_node_t *node) {
+[?2004lal[?2004h>     if (node->prev) node->prev->next = node->next;
+[?2004lX_ORDER] ![?2004h>     else free_lists[order] = node->next;
+[?2004l[?2004h>     if (node->next) node->next->prev = node->prev;
+[?2004l[?2004h>     node->prev = NULL;
+[?2004l[?2004h>     node->next = NULL;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void list_push(int order, free_node_t *node) {
+[?2004l[?2004h>     node->prev = NULL;
+[?2004l[?2004h>     node->next = free_lists[order];
+[?2004l  }
+
+    free(pool);
+    return 0;
+}[?2004h>     if (free_lists[order]) {
+[?2004l[?2004h>         free_lists[order]->prev = node;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     free_lists[order] = node;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void buddy_init(void *pool, size_t pool_size) {
+[?2004l[?2004h>     pool_base = (uint8_t *)pool;
+[?2004l[?2004h>     global_pool_size = pool_size;
+[?2004l[?2004h>     for (int i = 0; i <= MAX_ORDER; i++) free_lists[i] = NULL;
+[?2004l[?2004h>     memset(block_order, 0, sizeof(block_order));
+[?2004l[?2004h>     memset(block_free, 0, sizeof(block_free));
+[?2004l[?2004h> 
+[?2004l[?2004h>     free_node_t *node = (free_node_t *)pool;
+[?2004l[?2004h>     list_push(MAX_ORDER, node);
+[?2004l[?2004h> 
+[?2004l[?2004h>     block_order[0] = MAX_ORDER;
+[?2004l[?2004h>     block_free[0] = 1;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void *buddy_malloc(size_t size) {
+[?2004l[?2004h>     if (size == 0 || size > POOL_SIZE) return NULL;
+[?2004l[?2004h> 
+[?2004l[?2004h>     int order = 0;
+[?2004l[?2004h>     size_t block_size = MIN_BLOCK_SIZE;
+[?2004l[?2004h>     while (block_size < size && order < MAX_ORDER) {
+[?2004l[?2004h>         block_size *= 2;
+[?2004l[?2004h>         order++;
+[?2004l[?2004h>     }
+[?2004l[?2004h> 
+[?2004l[?2004h>     int current_order = order;
+[?2004l[?2004h>     while (current_order <= MAX_ORDER && free_lists[current_order] == NULL) {
+[?2004l[?2004h>         current_order++;
+[?2004l[?2004h>     }
+[?2004l[?2004h> 
+[?2004l[?2004h>     if (current_order > MAX_ORDER) return NULL;
+[?2004l[?2004h> 
+[?2004l[?2004h>     while (current_order > order) {
+[?2004l[?2004h>         free_node_t *block = free_lists[current_order];
+[?2004l[?2004h>         list_remove(current_order, block);
+[?2004l[?2004h> 
+[?2004l[?2004h>         current_order--;
+[?2004l[?2004h>         size_t half_size = (size_t)MIN_BLOCK_SIZE * (1U << current_order);
+[?2004l[?2004h> 
+[?2004l[?2004h>         free_node_t *buddy = (free_node_t *)((uint8_t *)block + half_size);
+[?2004l[?2004h> 
+[?2004l[?2004h>         int idx1 = ((uint8_t *)block - pool_base) / MIN_BLOCK_SIZE;
+[?2004l[?2004h>         int idx2 = ((uint8_t *)buddy - pool_base) / MIN_BLOCK_SIZE;
+[?2004l[?2004h>         block_order[idx1] = current_order;
+[?2004l[?2004h>         block_free[idx1] = 1;
+[?2004l[?2004h>         block_order[idx2] = current_order;
+[?2004l[?2004h>         block_free[idx2] = 1;
+[?2004l[?2004h> 
+[?2004l[?2004h>         list_push(current_order, buddy);
+[?2004l[?2004h>         list_push(current_order, block);
+[?2004l[?2004h>     }
+[?2004l[?2004h> 
+[?2004l[?2004h>     free_node_t *block = free_lists[order];
+[?2004l[?2004h>     list_remove(order, block);
+[?2004l[?2004h> 
+[?2004l[?2004h>     int idx = ((uint8_t *)block - pool_base) / MIN_BLOCK_SIZE;
+[?2004l[?2004h>     block_free[idx] = 0;
+[?2004l[?2004h>     block_order[idx] = order;
+[?2004l[?2004h> 
+[?2004l[?2004h>     return (void *)block;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> void buddy_free(void *ptr) {
+[?2004l[?2004h>     if (!ptr) return;
+[?2004l[?2004h> 
+[?2004l[?2004h>     int idx = ((uint8_t *)ptr - pool_base) / MIN_BLOCK_SIZE;
+[?2004l[?2004h>     int order = block_order[idx];
+[?2004l[?2004h>     size_t block_size = (size_t)MIN_BLOCK_SIZE * (1U << order);
+[?2004l[?2004h> 
+[?2004l[?2004h>     block_free[idx] = 1;
+[?2004l[?2004h> 
+[?2004l[?2004h>     uintptr_t pool = (uintptr_t)pool_base;
+[?2004l[?2004h>     uintptr_t p = (uintptr_t)ptr;
+[?2004l[?2004h> 
+[?2004l[?2004h>     while (order < MAX_ORDER) {
+[?2004l[?2004h>         uintptr_t buddy_addr = (((p - pool) ^ block_size)) + pool;
+[?2004l[?2004h>         int buddy_idx = (buddy_addr - pool) / MIN_BLOCK_SIZE;
+[?2004l[?2004h> 
+[?2004l[?2004h>         if (!block_free[buddy_idx] || block_order[buddy_idx] != order) {
+[?2004l[?2004h>             break;
+[?2004l[?2004h>         }
+[?2004l[?2004h> 
+[?2004l[?2004h>         free_node_t *buddy = (free_node_t *)buddy_addr;
+[?2004l[?2004h>         list_remove(order, buddy);
+[?2004l[?2004h> 
+[?2004l[?2004h>         block_free[buddy_idx] = 0;
+[?2004l[?2004h>         block_free[idx] = 0;
+[?2004l[?2004h> 
+[?2004l[?2004h>         if (buddy_addr < p) {
+[?2004l[?2004h>             p = buddy_addr;
+[?2004l[?2004h>             idx = buddy_idx;
+[?2004l[?2004h>         }
+[?2004l[?2004h> 
+[?2004l[?2004h>         order++;
+[?2004l[?2004h>         block_size *= 2;
+[?2004l[?2004h>         block_order[idx] = order;
+[?2004l[?2004h>         block_free[idx] = 1;
+[?2004l[?2004h>     }
+[?2004l[?2004h> 
+[?2004l[?2004h>     list_push(order, (free_node_t *)p);
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int main() {
+[?2004l[?2004h>     void *pool = malloc(POOL_SIZE);
+[?2004l[?2004h>     if (!pool) return 1;
+[?2004l[?2004h> 
+[?2004l[?2004h>     buddy_init(pool, POOL_SIZE);
+[?2004l[?2004h> 
+[?2004l[?2004h>     void *ptrs[10000];
+[?2004l[?2004h>     int alloc_count = 0;
+[?2004l[?2004h>     srand(1337);
+[?2004l[?2004h> 
+[?2004l[?2004h>     for (int i = 0; i < 10000; i++) {
+[?2004l[?2004h>         if (alloc_count > 0 && (rand() % 2 == 0)) {
+[?2004l[?2004h>             int idx = rand() % alloc_count;
+[?2004l[?2004h>             buddy_free(ptrs[idx]);
+[?2004l[?2004h>             ptrs[idx] = ptrs[alloc_count - 1];
+[?2004l[?2004h>             alloc_count--;
+[?2004l[?2004h>         } else {
+[?2004l[?2004h>             int sz;
+[?2004l[?2004h>             if (rand() % 10 == 0) sz = (rand() % 65536) + 1;
+[?2004l[?2004h>             else sz = (rand() % 2048) + 1;
+[?2004l[?2004h>             
+[?2004l[?2004h>             void *p = buddy_malloc(sz);
+[?2004l[?2004h>             if (p) {
+[?2004l[?2004h>                 memset(p, 0xAA, sz);
+[?2004l[?2004h>                 ptrs[alloc_count++] = p;
+[?2004l[?2004h>             }
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h> 
+[?2004l[?2004h>     while (alloc_count > 0) {
+[?2004l[?2004h>         buddy_free(ptrs[--alloc_count]);
+[?2004l[?2004h>     }
+[?2004l[?2004h> 
+[?2004l[?2004h>     bool ok = true;
+[?2004l[?2004h>     for (int i = 0; i < MAX_ORDER; i++) {
+[?2004l[?2004h>         if (free_lists[i] != NULL) {
+[?2004l[?2004h>             ok = false;
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     if (free_lists[MAX_ORDER] != pool || free_lists[MAX_ORDER]->next != NULL) {
+[?2004l[?2004h>         ok = false;
+[?2004l[?2004h>     }
+[?2004l[?2004h> 
+[?2004l[?2004h>     if (ok) {
+[?2004l[?2004h>         printf("FLAG: Buddy Memory Allocator Recursive Coalescing Success!\n");
+[?2004l[?2004h>     } else {
+[?2004l[?2004h>         printf("Fail\n");
+[?2004l[?2004h>     }
+[?2004l[?2004h> 
+[?2004l[?2004h>     free(pool);
+[?2004l[?2004h>     return 0;
+[?2004l[?2004h> }
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@8a2bca5f65bc:/# gcc -O2 -Wall -Werror -fsanitize=address,undefined -o /out/buddy_bench target.c
+[?2004l[?2004hroot@8a2bca5f65bc:/# /out/buddy_bench
+[?2004lFLAG: Buddy Memory Allocator Recursive Coalescing Success!
+[?2004hroot@8a2bca5f65bc:/# 

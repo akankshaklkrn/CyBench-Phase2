@@ -1,0 +1,88 @@
+Traceback (most recent call last):
+  File "/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/trial/trial.py", line 342, in run
+    await self._prepare()
+  File "/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/trial/trial.py", line 371, in _prepare
+    await self._setup_agent_environment()
+  File "/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/trial/trial.py", line 1077, in _setup_agent_environment
+    await self._start_agent_environment()
+  File "/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/trial/trial.py", line 1083, in _start_agent_environment
+    await asyncio.wait_for(
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_4/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 859, in start
+    await self._run_docker_compose_command(["build"])
+  File "/Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/environments/docker/docker.py", line 625, in _run_docker_compose_command
+    raise RuntimeError(
+RuntimeError: Docker compose command failed for environment adaptive_radix_tree_l0. Command: docker compose --project-name task030__gftf8fs__env --project-directory /Users/jatinjena/Downloads/tasknew/task030/environment -f /private/var/folders/dr/z8_nw0rn619_kmd5rtq3dpf40000gn/T/tmpkgboqdt5/task030__gFTF8Fs__env-docker-compose-resources.json -f /Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /private/var/folders/dr/z8_nw0rn619_kmd5rtq3dpf40000gn/T/tmp0gy68wfv/docker-compose-mounts.json build. Return code: 1. Stdout:  Image task030__gftf8fs__env-main Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 605B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 381B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/ubuntu:22.04
+#3 DONE 1.7s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [1/6] FROM docker.io/library/ubuntu:22.04@sha256:0e0a0fc6d18feda9db1590da249ac93e8d5abfea8f4c3c0c849ce512b5ef8982
+#5 resolve docker.io/library/ubuntu:22.04@sha256:0e0a0fc6d18feda9db1590da249ac93e8d5abfea8f4c3c0c849ce512b5ef8982 done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 4.64kB done
+#6 DONE 0.0s
+
+#7 [2/6] RUN apt-get update && apt-get install -y gcc python3 python3-pip gdb strace binutils tmux asciinema && rm -rf /var/lib/apt/lists/*
+#7 CACHED
+
+#8 [3/6] COPY target.c /src/target.c
+#8 DONE 0.0s
+
+#9 [4/6] RUN mkdir -p /out && gcc -O2 -Wall -Werror -fsanitize=address,undefined -o /out/art_bench /src/target.c
+#9 0.139 /src/target.c:66:12: error: 'check_prefix' defined but not used [-Werror=unused-function]
+#9 0.139    66 | static int check_prefix(const art_node_t *node, const char *key, int depth) {
+#9 0.139       |            ^~~~~~~~~~~~
+#9 0.139 /src/target.c:60:20: error: 'art_node_grow' defined but not used [-Werror=unused-function]
+#9 0.139    60 | static art_node_t *art_node_grow(art_node_t *node) {
+#9 0.139       |                    ^~~~~~~~~~~~~
+#9 0.170 cc1: all warnings being treated as errors
+#9 ERROR: process "/bin/sh -c mkdir -p /out && gcc -O2 -Wall -Werror -fsanitize=address,undefined -o /out/art_bench /src/target.c" did not complete successfully: exit code: 1
+------
+ > [4/6] RUN mkdir -p /out && gcc -O2 -Wall -Werror -fsanitize=address,undefined -o /out/art_bench /src/target.c:
+0.139 /src/target.c:66:12: error: 'check_prefix' defined but not used [-Werror=unused-function]
+0.139    66 | static int check_prefix(const art_node_t *node, const char *key, int depth) {
+0.139       |            ^~~~~~~~~~~~
+0.139 /src/target.c:60:20: error: 'art_node_grow' defined but not used [-Werror=unused-function]
+0.139    60 | static art_node_t *art_node_grow(art_node_t *node) {
+0.139       |                    ^~~~~~~~~~~~~
+0.170 cc1: all warnings being treated as errors
+------
+Dockerfile:5
+
+--------------------
+
+   3 |     RUN apt-get update && apt-get install -y gcc python3 python3-pip gdb strace binutils tmux asciinema && rm -rf /var/lib/apt/lists/*
+
+   4 |     COPY target.c /src/target.c
+
+   5 | >>> RUN mkdir -p /out && gcc -O2 -Wall -Werror -fsanitize=address,undefined -o /out/art_bench /src/target.c
+
+   6 |     RUN rm -rf /src
+
+   7 |     WORKDIR /
+
+--------------------
+
+failed to solve: process "/bin/sh -c mkdir -p /out && gcc -O2 -Wall -Werror -fsanitize=address,undefined -o /out/art_bench /src/target.c" did not complete successfully: exit code: 1
+
+
+
+View build details: docker-desktop://dashboard/build/default/default/xgbp4rbkunz19nn1yutlly9fj
+
+. Stderr: None. 

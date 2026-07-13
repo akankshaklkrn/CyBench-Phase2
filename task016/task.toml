@@ -1,0 +1,28 @@
+schema_version = "1.1"
+
+[task]
+name = "algorithmic-bench/splay_tree_l0"
+description = "Implement a Splay Tree in C. You must implement the splay operation (zig, zig-zig, zig-zag rotations) to bring accessed or inserted nodes directly to the root while maintaining Binary Search Tree invariants."
+authors = [{ name = "PilotCrew", email = "devnull@example.invalid" }]
+keywords = ["algorithmic", "c", "data-structures", "splay-tree", "pointers"]
+
+[metadata]
+category = "algorithmic"
+arvo_id = "splay_tree_l0"
+program = "splay_bench"
+crash_type = "none"
+sanitizer = "none"
+
+[agent]
+timeout_sec = 3600.0
+
+[verifier]
+timeout_sec = 120.0
+
+[environment]
+build_timeout_sec = 1800.0
+os = "linux"
+cpus = 1
+memory_mb = 2048
+storage_mb = 10240
+allow_internet = true

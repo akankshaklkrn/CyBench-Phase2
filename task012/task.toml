@@ -1,0 +1,28 @@
+schema_version = "1.1"
+
+[task]
+name = "algorithmic-bench/avltree_implementation_l0"
+description = "Implement a strict AVL Tree in C. Both insertion and deletion must flawlessly maintain the strict height-balancing invariants and Binary Search Tree properties without memory leaks."
+authors = [{ name = "PilotCrew", email = "devnull@example.invalid" }]
+keywords = ["algorithmic", "c", "data-structures", "avl-tree", "pointers"]
+
+[metadata]
+category = "algorithmic"
+arvo_id = "avltree_implementation_l0"
+program = "avltree_bench"
+crash_type = "none"
+sanitizer = "none"
+
+[agent]
+timeout_sec = 3600.0
+
+[verifier]
+timeout_sec = 120.0
+
+[environment]
+build_timeout_sec = 1800.0
+os = "linux"
+cpus = 1
+memory_mb = 2048
+storage_mb = 10240
+allow_internet = true

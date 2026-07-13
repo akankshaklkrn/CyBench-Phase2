@@ -1,0 +1,28 @@
+schema_version = "1.1"
+
+[task]
+name = "algorithmic-bench/hazard_engine_asan_l0"
+description = "Implement a standalone Hazard Pointer Memory Reclamation Engine in C11, compiled with AddressSanitizer (-fsanitize=address). You must manage pointer retirement and reclamation across 16 concurrent threads without memory leaks or use-after-free."
+authors = [{ name = "PilotCrew", email = "devnull@example.invalid" }]
+keywords = ["algorithmic", "c", "concurrency", "asan", "hazard-pointers", "memory-reclamation", "atomics"]
+
+[metadata]
+category = "algorithmic"
+arvo_id = "hazard_engine_asan_l0"
+program = "hazard_bench"
+crash_type = "none"
+sanitizer = "address"
+
+[agent]
+timeout_sec = 3600.0
+
+[verifier]
+timeout_sec = 120.0
+
+[environment]
+build_timeout_sec = 1800.0
+os = "linux"
+cpus = 4
+memory_mb = 2048
+storage_mb = 10240
+allow_internet = true

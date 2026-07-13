@@ -1,0 +1,28 @@
+schema_version = "1.1"
+
+[task]
+name = "algorithmic-bench/radix_tree_asan_l0"
+description = "Implement a Radix Tree (Patricia Trie) in C compiled with AddressSanitizer (-fsanitize=address). You must implement dynamic string prefix splitting on insertion and node compaction on deletion without leaking a single byte or triggering buffer overflows."
+authors = [{ name = "PilotCrew", email = "devnull@example.invalid" }]
+keywords = ["algorithmic", "c", "memory-safety", "asan", "radix-tree", "trie", "strings"]
+
+[metadata]
+category = "algorithmic"
+arvo_id = "radix_tree_asan_l0"
+program = "radix_bench"
+crash_type = "none"
+sanitizer = "address"
+
+[agent]
+timeout_sec = 3600.0
+
+[verifier]
+timeout_sec = 120.0
+
+[environment]
+build_timeout_sec = 1800.0
+os = "linux"
+cpus = 1
+memory_mb = 2048
+storage_mb = 10240
+allow_internet = true
