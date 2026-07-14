@@ -1,0 +1,1 @@
+Oracle successfully generated dynamic flag: cyberbench{sql_hashjoin_state_9db39d0a072a14d9}

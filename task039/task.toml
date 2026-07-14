@@ -1,0 +1,25 @@
+version = "1.0"
+
+[metadata]
+bundle_id = "wasm-jit-interpreter-l0"
+id = "cyber-bench/wasm_jit_interpreter_l0"
+name = "wasm_jit_interpreter_l0"
+category = "Systems Programming / Virtual Machines & Compilers"
+difficulty = "Level 0 - High Headroom Challenge"
+tags = ["c", "wasm", "interpreter", "stack-machine", "linear-memory", "asan"]
+author = "CyberBench / Harbor Team"
+description = """
+Implement a user-space WebAssembly (WASM) Stack Machine Interpreter in C supporting structured
+control flow (block, loop, br, br_if), local variables, and linear memory sandboxing under AddressSanitizer.
+Must properly handle branching relative to enclosing blocks/loops and safely trap out-of-bounds accesses.
+"""
+
+[verifier]
+type = "cybench"
+service_id = "wasm_jit_interpreter"
+timeout_sec = 60
+memory_limit_mb = 2048
+
+[environment]
+type = "docker"
+build_timeout_sec = 180

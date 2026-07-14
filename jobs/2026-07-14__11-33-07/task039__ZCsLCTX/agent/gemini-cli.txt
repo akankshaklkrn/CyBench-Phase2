@@ -1,0 +1,19 @@
+Warning: You are running Gemini CLI in the root directory. Your entire folder structure will be used for context. It is strongly recommended to run in a project-specific directory.
+Warning: 256-color support not detected. Using a terminal with at least 256-color support is recommended for a better visual experience.
+YOLO mode is enabled. All tool calls will be automatically approved.
+YOLO mode is enabled. All tool calls will be automatically approved.
+Ripgrep is not available. Falling back to GrepTool.
+Error when talking to Gemini API Full report available at: /tmp/gemini-client-error-Turn.run-sendMessageStream-2026-07-14T06-03-43-736Z.json _ApiError: {"error":{"message":"{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"API key not valid. Please pass a valid API key.\",\n    \"status\": \"INVALID_ARGUMENT\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.ErrorInfo\",\n        \"reason\": \"API_KEY_INVALID\",\n        \"domain\": \"googleapis.com\",\n        \"metadata\": {\n          \"service\": \"generativelanguage.googleapis.com\"\n        }\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.LocalizedMessage\",\n        \"locale\": \"en-US\",\n        \"message\": \"API key not valid. Please pass a valid API key.\"\n      }\n    ]\n  }\n}\n","code":400,"status":"Bad Request"}}
+    at throwErrorIfNotOK (file:///root/.nvm/versions/node/v22.23.1/lib/node_modules/@google/gemini-cli/bundle/chunk-W4YMYD53.js:258424:24)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async file:///root/.nvm/versions/node/v22.23.1/lib/node_modules/@google/gemini-cli/bundle/chunk-W4YMYD53.js:258187:7
+    at async Models.generateContentStream (file:///root/.nvm/versions/node/v22.23.1/lib/node_modules/@google/gemini-cli/bundle/chunk-W4YMYD53.js:259283:16)
+    at async file:///root/.nvm/versions/node/v22.23.1/lib/node_modules/@google/gemini-cli/bundle/chunk-W4YMYD53.js:301279:19
+    at async file:///root/.nvm/versions/node/v22.23.1/lib/node_modules/@google/gemini-cli/bundle/chunk-W4YMYD53.js:278341:23
+    at async retryWithBackoff (file:///root/.nvm/versions/node/v22.23.1/lib/node_modules/@google/gemini-cli/bundle/chunk-W4YMYD53.js:298287:23)
+    at async GeminiChat.makeApiCallAndProcessStream (file:///root/.nvm/versions/node/v22.23.1/lib/node_modules/@google/gemini-cli/bundle/chunk-W4YMYD53.js:321564:28)
+    at async GeminiChat.streamWithRetries (file:///root/.nvm/versions/node/v22.23.1/lib/node_modules/@google/gemini-cli/bundle/chunk-W4YMYD53.js:321382:29)
+    at async Turn.run (file:///root/.nvm/versions/node/v22.23.1/lib/node_modules/@google/gemini-cli/bundle/chunk-W4YMYD53.js:322128:24) {
+  status: 400
+}
+An unexpected critical error occurred:[object Object]

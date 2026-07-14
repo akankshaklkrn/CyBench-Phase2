@@ -1,0 +1,43 @@
+{
+    "id": "b530a88f-fc02-4dbe-a672-8e2fe7b3ca97",
+    "started_at": "2026-07-14T11:35:16.268357",
+    "updated_at": "2026-07-14T11:36:14.455093",
+    "finished_at": "2026-07-14T11:36:14.455093",
+    "n_total_trials": 1,
+    "stats": {
+        "n_completed_trials": 1,
+        "n_errored_trials": 1,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "opencode__google/gemini-2.5-pro__adhoc": {
+                "n_trials": 1,
+                "n_errors": 1,
+                "metrics": [
+                    {
+                        "mean": 0.0
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "task039__jNFzcZZ"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "NonZeroAgentExitCodeError": [
+                        "task039__jNFzcZZ"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null
+    }
+}

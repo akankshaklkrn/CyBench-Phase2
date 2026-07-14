@@ -1,0 +1,1 @@
+Oracle successfully generated dynamic flag: cyberbench{ebpf_verifier_state_18446dc0ef929140}

@@ -1,0 +1,57 @@
+# Challenge: Relational Volcano Query Engine with Hash Join & Aggregations (`sql_hashjoin_engine_l0`)
+
+You are tasked with implementing a user-space **Relational Query Execution Engine** using the **Volcano Iterator Model** in standard C under AddressSanitizer (`-fsanitize=address,undefined`).
+
+## Technical Specifications
+
+### 1. Core Structures
+```c
+#define MAX_COLS 4
+#define HASH_BUCKETS 1024
+
+typedef struct {
+    int64_t cols[MAX_COLS];
+} sql_tuple_t;
+
+typedef struct sql_operator sql_operator_t;
+struct sql_operator {
+    void (*open)(sql_operator_t *op);
+    bool (*next)(sql_operator_t *op, sql_tuple_t *out_tuple);
+    void (*close)(sql_operator_t *op);
+    void *state;
+};
+```
+
+### 2. Operators to Implement
+
+1. **Sequential Scan (`sql_make_scan_op`)**
+   - `sql_operator_t* sql_make_scan_op(const sql_tuple_t *tuples, size_t count)`
+   - Emits each tuple from the input array sequentially in `next()`.
+
+2. **Predicate Filter (`sql_make_filter_op`)**
+   - `sql_operator_t* sql_make_filter_op(sql_operator_t *child, int col_idx, int64_t min_val)`
+   - Emits only tuples where `tuple.cols[col_idx] >= min_val`.
+
+3. **In-Memory Hash Join (`sql_make_hash_join_op`)**
+   - `sql_operator_t* sql_make_hash_join_op(sql_operator_t *left_child, int left_key_col, sql_operator_t *right_child, int right_key_col)`
+   - **Build Phase**: During `open()`, consumes all tuples from `left_child` and stores them in an internal hash table keyed by `cols[left_key_col]`.
+   - **Probe Phase**: During `next()`, consumes tuples from `right_child` and matches them against the build hash table on `cols[right_key_col]`.
+   - Output tuple format:
+     - `out.cols[0] = left.cols[0]`
+     - `out.cols[1] = left.cols[1]`
+     - `out.cols[2] = right.cols[0]`
+     - `out.cols[3] = right.cols[1]`
+
+4. **Group-By Hash Aggregation (`sql_make_hash_agg_op`)**
+   - `sql_operator_t* sql_make_hash_agg_op(sql_operator_t *child, int group_col, int val_col)`
+   - **Build Phase**: During `open()`, consumes all tuples from `child`, grouping by `cols[group_col]`.
+   - Computes:
+     - `out.cols[0] = group_key`
+     - `out.cols[1] = COUNT(*)`
+     - `out.cols[2] = SUM(val_col)`
+     - `out.cols[3] = MAX(val_col)`
+   - **Emit Phase**: During `next()`, emits each group's aggregated tuple.
+
+### 3. Memory Safety & Lifecycle
+- Calling `close(op)` on any operator must recursively close its children and free all dynamic memory allocations (hash buckets, state structs).
+- Must run cleanly with zero memory leaks under AddressSanitizer.

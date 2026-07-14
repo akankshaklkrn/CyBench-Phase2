@@ -1,0 +1,25 @@
+version = "1.0"
+
+[metadata]
+bundle_id = "ebpf-packet-verifier-l0"
+id = "cyber-bench/ebpf_packet_verifier_l0"
+name = "ebpf_packet_verifier_l0"
+category = "Systems Programming / Virtual Machines & Compilers"
+difficulty = "Level 0 - High Headroom Challenge"
+tags = ["c", "ebpf", "verifier", "static-analysis", "register-machine", "asan"]
+author = "CyberBench / Harbor Team"
+description = """
+Implement a user-space eBPF Register Machine Static Abstract Verifier and Execution Engine in C.
+The verifier must statically track register range bounds and pointer types across ALU64 and JMP instructions,
+rejecting out-of-bounds memory accesses to packet data or stack before execution.
+"""
+
+[verifier]
+type = "cybench"
+service_id = "ebpf_packet_verifier"
+timeout_sec = 60
+memory_limit_mb = 2048
+
+[environment]
+type = "docker"
+build_timeout_sec = 180

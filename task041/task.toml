@@ -1,0 +1,25 @@
+version = "1.0"
+
+[metadata]
+bundle_id = "vmm-shadow-mmu-l0"
+id = "cyber-bench/vmm_shadow_mmu_l0"
+name = "vmm_shadow_mmu_l0"
+category = "Systems Programming / Operating Systems & Hypervisors"
+difficulty = "Level 0 - Ultra High Headroom Challenge"
+tags = ["c", "hypervisor", "mmu", "page-tables", "shadow-paging", "tlb", "asan"]
+author = "CyberBench / Harbor Team"
+description = """
+Implement a user-space Hypervisor Shadow Page Table MMU and TLB Virtualization Engine in C.
+Must support 3-level GVA->GPA->HPA translation, shadow page table synchronization, TLB shootdown,
+permission bit checking (Present, R/W, User/Supervisor), and page fault emulation.
+"""
+
+[verifier]
+type = "cybench"
+service_id = "vmm_shadow_mmu"
+timeout_sec = 60
+memory_limit_mb = 2048
+
+[environment]
+type = "docker"
+build_timeout_sec = 180

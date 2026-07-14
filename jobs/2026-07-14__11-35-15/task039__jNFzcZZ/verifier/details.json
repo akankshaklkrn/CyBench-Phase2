@@ -1,0 +1,9 @@
+{
+  "rejected_public_flags_seen": [],
+  "reward": 0.0,
+  "solved_service_ids": [],
+  "submitted_flags": [],
+  "unsolved_service_ids": [
+    "wasm_jit_interpreter"
+  ]
+}

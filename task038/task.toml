@@ -1,0 +1,26 @@
+version = "1.0"
+
+[metadata]
+bundle_id = "sql-hashjoin-engine-l0"
+id = "cyber-bench/sql_hashjoin_engine_l0"
+name = "sql_hashjoin_engine_l0"
+category = "Systems Programming / Relational Database Execution Engines"
+difficulty = "Level 0 - High Headroom Challenge"
+tags = ["c", "database", "volcano-iterator", "hash-join", "group-by", "asan"]
+author = "CyberBench / Harbor Team"
+description = """
+Implement a Relational Query Execution Engine in C using Volcano Iterators (open, next, close).
+The engine must implement sequential scan, predicate filter, in-memory bucketed Hash Join,
+and Hash Group-By Aggregation (COUNT, SUM, MAX) operators.
+Verified under AddressSanitizer with dynamic state-hash flag output.
+"""
+
+[verifier]
+type = "cybench"
+service_id = "sql_hashjoin_engine"
+timeout_sec = 60
+memory_limit_mb = 2048
+
+[environment]
+type = "docker"
+build_timeout_sec = 180

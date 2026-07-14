@@ -1,0 +1,212 @@
+[?2004hroot@89d846a9d26e:/# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@89d846a9d26e:/# clear
+[?2004l[H[J[?2004hroot@89d846a9d26e:/# ls -la
+[?2004ltotal 68
+drwxr-xr-x   1 root root 4096 Jul 14 06:12 [0m[01;34m.[0m
+drwxr-xr-x   1 root root 4096 Jul 14 06:12 [01;34m..[0m
+-rwxr-xr-x   1 root root    0 Jul 14 06:12 [01;32m.dockerenv[0m
+lrwxrwxrwx   1 root root    7 Jun 27 02:10 [01;36mbin[0m -> [01;34musr/bin[0m
+drwxr-xr-x   2 root root 4096 Apr 18  2022 [01;34mboot[0m
+drwxr-xr-x   5 root root  340 Jul 14 06:12 [01;34mdev[0m
+drwxr-xr-x   1 root root 4096 Jul 14 06:12 [01;34metc[0m
+drwxr-xr-x   2 root root 4096 Apr 18  2022 [01;34mhome[0m
+lrwxrwxrwx   1 root root    7 Jun 27 02:10 [01;36mlib[0m -> [01;34musr/lib[0m
+drwxr-xr-x   5 root root 4096 Jul 14 06:12 [01;34mlogs[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34mmedia[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34mmnt[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34mopt[0m
+drwxr-xr-x   2 root root 4096 Jul 14 05:51 [01;34mout[0m
+dr-xr-xr-x 249 root root    0 Jul 14 06:12 [01;34mproc[0m
+drwx------   1 root root 4096 Jul 14 06:12 [01;34mroot[0m
+drwxr-xr-x   5 root root 4096 Jun 27 02:17 [01;34mrun[0m
+lrwxrwxrwx   1 root root    8 Jun 27 02:10 [01;36msbin[0m -> [01;34musr/sbin[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34msrv[0m
+dr-xr-xr-x  11 root root    0 Jul 14 06:12 [01;34msys[0m
+drwxrwxrwt   1 root root 4096 Jul 14 06:12 [30;42mtmp[0m
+drwxr-xr-x   1 root root 4096 Jun 27 02:10 [01;34musr[0m
+drwxr-xr-x   1 root root 4096 Jun 27 02:17 [01;34mvar[0m
+[?2004hroot@89d846a9d26e:/# ls -la /out
+[?2004ltotal 32
+drwxr-xr-x 2 root root  4096 Jul 14 05:51 [0m[01;34m.[0m
+drwxr-xr-x 1 root root  4096 Jul 14 06:12 [01;34m..[0m
+-rwxr-xr-x 1 root root 20888 Jul 14 05:51 [01;32mwasm_bench[0m
+[?2004hroot@89d846a9d26e:/# ls -la /root
+[?2004ltotal 20
+drwx------ 1 root root 4096 Jul 14 06:12 [0m[01;34m.[0m
+drwxr-xr-x 1 root root 4096 Jul 14 06:12 [01;34m..[0m
+-rw-r--r-- 1 root root 3106 Oct 15  2021 .bashrc
+drwxr-xr-x 3 root root 4096 Jul 14 06:12 [01;34m.config[0m
+-rw-r--r-- 1 root root  161 Jul  9  2019 .profile
+[?2004hroot@89d846a9d26e:/# find / -maxdepth 3 -name "*.c" | grep -v "/usr" | grep -v "/var"
+[?2004l[?2004hroot@89d846a9d26e:/# find / -name "*.c" -o -name "*wasm*" 2>/dev/null | head -n 30
+[?2004l/usr/lib/python3.10/config-3.10-aarch64-linux-gnu/config.c
+/out/wasm_bench
+[?2004hroot@89d846a9d26e:/# env
+[?2004lSHELL=/bin/bash
+TERM_PROGRAM_VERSION=3.2a
+ASCIINEMA_REC=1
+TMUX=/tmp/tmux-0/default,34,0
+HOSTNAME=89d846a9d26e
+PWD=/
+HOME=/root
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+TERM=screen
+TMUX_PANE=%0
+SHLVL=2
+LC_CTYPE=C.UTF-8
+DEBUGINFOD_URLS=
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+DEBIAN_FRONTEND=noninteractive
+TERM_PROGRAM=tmux
+_=/usr/bin/env
+[?2004hroot@89d846a9d26e:/# ./out/wasm_bench
+[?2004lStarting WebAssembly Structured Control Flow Interpreter Verification under ASAN...
+FAIL: Test 1 (Arithmetic) failed execution
+find / -name "*.h" | grep -i wasm
+[?2004hroot@89d846a9d26e:/# find / -name "*.h" | grep -i wasm
+[?2004l[?2004hroot@89d846a9d26e:/# ldd /out/wasm_bench
+[?2004l	linux-vdso.so.1 (0x0000ffffb1628000)
+	libasan.so.6 => /lib/aarch64-linux-gnu/libasan.so.6 (0x0000ffffb0b10000)
+	libubsan.so.1 => /lib/aarch64-linux-gnu/libubsan.so.1 (0x0000ffffb0480000)
+	libc.so.6 => /lib/aarch64-linux-gnu/libc.so.6 (0x0000ffffb02d0000)
+	/lib/ld-linux-aarch64.so.1 (0x0000ffffb15f0000)
+	libm.so.6 => /lib/aarch64-linux-gnu/libm.so.6 (0x0000ffffb0230000)
+	libgcc_s.so.1 => /lib/aarch64-linux-gnu/libgcc_s.so.1 (0x0000ffffb0200000)
+	libstdc++.so.6 => /lib/aarch64-linux-gnu/libstdc++.so.6 (0x0000ffffaffd0000)
+[?2004hroot@89d846a9d26e:/# strings /out/wasm_bench | grep \.c$
+[?2004l/src/target[01;31m[K.c[m[K
+kCurrentStackFrameMag[01;31m[Kic[m[K
+GetNextInstruction[01;31m[KPc[m[K
+kAsanGlobalRedzoneMag[01;31m[Kic[m[K
+kAsanAllocaRightMag[01;31m[Kic[m[K
+kAsanStackLeftRedzoneMag[01;31m[Kic[m[K
+kAsanStackRightRedzoneMag[01;31m[Kic[m[K
+GetPreviousInstruction[01;31m[KPc[m[K
+kRetiredStackFrameMag[01;31m[Kic[m[K
+kAsanStackUseAfterScopeMag[01;31m[Kic[m[K
+kAsanArrayCookieMag[01;31m[Kic[m[K
+kAsanContiguousContainerOOBMag[01;31m[Kic[m[K
+GetCurrent[01;31m[KPc[m[K
+kAsanStackMidRedzoneMag[01;31m[Kic[m[K
+kAsanStackAfterReturnMag[01;31m[Kic[m[K
+kAsanInternalHeapMag[01;31m[Kic[m[K
+kAsanAllocaLeftMag[01;31m[Kic[m[K
+kAsanUserPoisonedMemoryMag[01;31m[Kic[m[K
+kAsanHeapFreeMag[01;31m[Kic[m[K
+kAsanHeapLeftRedzoneMag[01;31m[Kic[m[K
+kAsanInitializationOrderMag[01;31m[Kic[m[K
+target[01;31m[K.c[m[K
+crtstuff[01;31m[K.c[m[K
+.dynam[01;31m[Kic[m[K
+[?2004hroot@89d846a9d26e:/# find / -name "*wasm*"
+[?2004l/out/wasm_bench
+[?2004hroot@89d846a9d26e:/# ls -la /src
+[?2004lls: cannot access '/src': No such file or directory
+[?2004hroot@89d846a9d26e:/# cat /src/target.c | head -n 50
+[?2004lcat: /src/target.c: No such file or directory
+[?2004hroot@89d846a9d26e:/# cat /root/.bash_history
+[?2004lcat: /root/.bash_history: No such file or directory
+[?2004hroot@89d846a9d26e:/# history
+[?2004l    1  clear
+    2  ls -la
+    3  ls -la /out
+    4  ls -la /root
+    5  find / -maxdepth 3 -name "*.c" | grep -v "/usr" | grep -v "/var"
+    6  find / -name "*.c" -o -name "*wasm*" 2>/dev/null | head -n 30
+    7  env
+    8  ./out/wasm_bench
+    9  find / -name "*.h" | grep -i wasm
+   10  ldd /out/wasm_bench
+   11  strings /out/wasm_bench | grep \.c$
+   12  find / -name "*wasm*"
+   13  ls -la /src
+   14  cat /src/target.c | head -n 50
+   15  cat /root/.bash_history
+   16  history
+[?2004hroot@89d846a9d26e:/# ls -ltd /*/ | head -n 10
+[?2004ldrwxrwxrwt   1 root root  4096 Jul 14 06:12 /tmp/
+drwx------   1 root root  4096 Jul 14 06:12 /root/
+drwxr-xr-x   5 root root   340 Jul 14 06:12 /dev/
+drwxr-xr-x   5 root root  4096 Jul 14 06:12 /logs/
+dr-xr-xr-x 250 root root     0 Jul 14 06:12 /proc/
+dr-xr-xr-x  11 root root     0 Jul 14 06:12 /sys/
+drwxr-xr-x   1 root root  4096 Jul 14 06:12 /etc/
+drwxr-xr-x   2 root root  4096 Jul 14 05:51 /out/
+drwxr-xr-x   1 root root 12288 Jul  3 14:11 /bin/
+drwxr-xr-x   1 root root  4096 Jul  3 14:11 /lib/
+[?2004hroot@89d846a9d26e:/# ps aux
+[?2004lUSER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.0   2332  1396 ?        Ss   06:12   0:00 sh -c sleep infinity
+root         7  0.0  0.0   2228  1032 ?        S    06:12   0:00 sleep infinity
+root        34  0.0  0.0   5400  3484 ?        Ss   06:12   0:00 tmux new-session -x 160 -y 40 -d -s terminus-2 bash --login ; pipe-pane -t terminus-2 cat > /lo
+root        35  0.0  0.0   4144  3324 pts/0    Ss   06:12   0:00 bash --login
+root        37  0.0  0.0   2332  1388 ?        S    06:12   0:00 sh -c cat > /logs/agent/terminus_2.pane
+root        38  0.0  0.0   2368   924 ?        S    06:12   0:00 cat
+root        59  0.0  0.2 101524 20968 pts/0    Rl+  06:12   0:00 /usr/bin/python3 /usr/bin/asciinema rec --stdin /logs/agent/recording.cast
+root        60  0.0  0.1  27720 15828 pts/0    R+   06:12   0:00 /usr/bin/python3 /usr/bin/asciinema rec --stdin /logs/agent/recording.cast
+root        61  0.0  0.1  27732 15256 pts/0    S+   06:12   0:00 /usr/bin/python3 /usr/bin/asciinema rec --stdin /logs/agent/recording.cast
+root        62  0.0  0.0   2332  1376 pts/1    Ss   06:12   0:00 sh -c /bin/bash
+root        63  0.0  0.0   4520  3476 pts/1    S    06:12   0:00 /bin/bash
+root       304  0.0  0.0   6824  2608 pts/1    R+   06:16   0:00 ps aux
+[?2004hroot@89d846a9d26e:/# ls -la /tmp
+[?2004ltotal 16
+drwxrwxrwt 1 root root    4096 Jul 14 06:12 [0m[30;42m.[0m
+drwxr-xr-x 1 root root    4096 Jul 14 06:12 [01;34m..[0m
+-rw-r--r-- 1  501 dialout  923 Jun 30 13:50 get-asciinema-timestamp.sh
+drwx------ 2 root root    4096 Jul 14 06:12 [01;34mtmux-0[0m
+[?2004hroot@89d846a9d26e:/# readelf -s /out/wasm_bench | grep wasm_exec_function
+[?2004l   104: 00000000000017e0     8 FUNC    GLOBAL DEFAULT   13 [01;31m[Kwasm_exec_function[m[K
+[?2004hroot@89d846a9d26e:/# find / -type f -name "*.py" | grep -v "/usr" | grep -v "/var"
+[?2004l/etc/python3.10/sitecustomize.py
+[?2004hroot@89d846a9d26e:/# cat << 'EOF' > solution.c
+[?2004l[?2004h> #include <stdint.h>
+[?2004l[?2004h> #include <stdbool.h>
+[?2004l[?2004h> #include <stddef.h>
+[?2004l[?2004h> 
+[?2004l[?2004h> #define WASM_MAX_CODE 256
+[?2004l[?2004h> #define WASM_MAX_STACK 128
+[?2004l[?2004h> #define WASM_MAX_MEM 4096
+[?2004l[?2004h> 
+[?2004l[?2004h> #define WASM_OP_BLOCK       0x02
+[?2004l[?2004h> #define WASM_OP_LOOP        0x03
+[?2004l[?2004h> #define WASM_OP_END         0x0B
+[?2004l[?2004h> #define WASM_OP_BR          0x0C
+[?2004l[?2004h> #define WASM_OP_BR_IF       0x0D
+[?2004l[?2004h> #define WASM_OP_LOCAL_GET   0x20
+[?2004l[?2004h> #define WASM_OP_LOCAL_SET   0x21
+[?2004l[?2004h> #define WASM_OP_I32_LOAD    0x28
+[?2004l[?2004h> #define WASM_OP_I32_STORE   0x36
+[?2004l[?2004h> #define WASM_OP_I32_CONST   0x41
+[?2004l[?2004h> #define WASM_OP_I32_EQZ     0x45
+[?2004l[?2004h> #define WASM_OP_I32_ADD     0x6A
+[?2004l[?2004h> #define WASM_OP_I32_SUB     0x6B
+[?2004l[?2004h> #define WASM_OP_I32_MUL     0x6C
+[?2004l[?2004h> #define WASM_OP_I32_DIV_S   0x6D
+[?2004l[?2004h> 
+[?2004l[?2004h> typedef struct {
+[?2004l[?2004h>     uint8_t code[WASM_MAX_CODE];
+[?2004l[?2004h>     uint32_t code_len;
+[?2004l[?2004h>     uint32_t num_locals;
+[?2004l[?2004h> } wasm_func_t;
+[?2004l[?2004h> 
+[?2004l[?2004h> typedef struct {
+[?2004l[?2004h>     uint8_t memory[WASM_MAX_MEM];
+[?2004l[?2004h>     int32_t locals[16];
+[?2004l[?2004h>     int32_t stack[WASM_MAX_STACK];
+[?2004l[?2004h>     int32_t sp;
+[?2004l[?2004h> } wasm_ctx_t;
+[?2004l[?2004h> 
+[?2004l[?2004h> bool wasm_exec_function(const wasm_func_t *func, wasm_ctx_t *ctx, int32_t *out_val) {
+[?2004l[?2004h>     ctx->sp = 0;
+[?2004l[?2004h>     return true;
+[?2004l[?2004h> }
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@89d846a9d26e:/# gcc -shared -fPIC solution.c -o solution.so -fsanitize=address,undefined
+[?2004l[?2004hroot@89d846a9d26e:/# LD_PRELOAD=./solution.so ./out/wasm_bench
+[?2004l==365==ASan runtime does not come first in initial library list; you should either link runtime to your application or manually preload it with LD_PRELOAD.
+[?2004hroot@89d846a9d26e:/# LD_PRELOAD=$(gcc -print-file-name=libasan.so):./solution.so ./out/wasm_bench
+[?2004lStarting WebAssembly Structured Control Flow Interpreter Verification under ASAN...
+FAIL: Test 1 (Arithmetic) failed execution
+[?2004hroot@89d846a9d26e:/# 
