@@ -1,0 +1,26 @@
+version = "1.0"
+
+[metadata]
+bundle_id = "mvcc-storage-engine-l0"
+id = "cyber-bench/mvcc_storage_engine_l0"
+name = "mvcc_storage_engine_l0"
+category = "Database Systems / Advanced Storage & Concurrency Control"
+difficulty = "Level 0 - Ultra High Headroom Challenge"
+tags = ["c", "database", "mvcc", "snapshot-isolation", "concurrency", "transactions", "asan"]
+author = "CyberBench / Harbor Team"
+description = """
+Implement a user-space Multi-Version Concurrency Control (MVCC) Storage Engine in C.
+Must support version chains with xmin/xmax timestamps, exact snapshot visibility checking,
+write-write conflict detection for Serializable Snapshot Isolation (SSI), transaction abort/rollback,
+and garbage collection (vacuuming) of dead tuples under AddressSanitizer.
+"""
+
+[verifier]
+type = "cybench"
+service_id = "mvcc_storage_engine"
+timeout_sec = 60
+memory_limit_mb = 2048
+
+[environment]
+type = "docker"
+build_timeout_sec = 180
