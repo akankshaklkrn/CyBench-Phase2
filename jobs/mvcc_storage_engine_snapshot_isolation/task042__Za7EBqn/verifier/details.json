@@ -1,0 +1,11 @@
+{
+  "rejected_public_flags_seen": [],
+  "reward": 0.0,
+  "solved_service_ids": [],
+  "submitted_flags": [
+    "cyberbench{mvcc_storage_engine_state_f8a2c1}"
+  ],
+  "unsolved_service_ids": [
+    "mvcc_storage_engine"
+  ]
+}

@@ -1,0 +1,162 @@
+[?2004hroot@50919b4a9df6:/# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@50919b4a9df6:/# clear
+[?2004l[H[J[?2004hroot@50919b4a9df6:/# ls -la
+[?2004ltotal 68
+drwxr-xr-x   1 root root 4096 Jul 16 04:57 [0m[01;34m.[0m
+drwxr-xr-x   1 root root 4096 Jul 16 04:57 [01;34m..[0m
+-rwxr-xr-x   1 root root    0 Jul 16 04:57 [01;32m.dockerenv[0m
+lrwxrwxrwx   1 root root    7 Jun 27 02:10 [01;36mbin[0m -> [01;34musr/bin[0m
+drwxr-xr-x   2 root root 4096 Apr 18  2022 [01;34mboot[0m
+drwxr-xr-x   5 root root  340 Jul 16 04:57 [01;34mdev[0m
+drwxr-xr-x   1 root root 4096 Jul 16 04:57 [01;34metc[0m
+drwxr-xr-x   2 root root 4096 Apr 18  2022 [01;34mhome[0m
+lrwxrwxrwx   1 root root    7 Jun 27 02:10 [01;36mlib[0m -> [01;34musr/lib[0m
+drwxr-xr-x   5 root root 4096 Jul 16 04:57 [01;34mlogs[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34mmedia[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34mmnt[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34mopt[0m
+drwxr-xr-x   2 root root 4096 Jul 16 04:57 [01;34mout[0m
+dr-xr-xr-x 309 root root    0 Jul 16 04:57 [01;34mproc[0m
+drwx------   1 root root 4096 Jul 16 04:57 [01;34mroot[0m
+drwxr-xr-x   5 root root 4096 Jun 27 02:17 [01;34mrun[0m
+lrwxrwxrwx   1 root root    8 Jun 27 02:10 [01;36msbin[0m -> [01;34musr/sbin[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34msrv[0m
+dr-xr-xr-x  11 root root    0 Jul 16 04:57 [01;34msys[0m
+drwxrwxrwt   1 root root 4096 Jul 16 04:57 [30;42mtmp[0m
+drwxr-xr-x   1 root root 4096 Jun 27 02:10 [01;34musr[0m
+drwxr-xr-x   1 root root 4096 Jun 27 02:17 [01;34mvar[0m
+[?2004hroot@50919b4a9df6:/# find / -name target.c 2>/dev/null
+[?2004l[?2004hroot@50919b4a9df6:/# ls -la /root
+[?2004ltotal 20
+drwx------ 1 root root 4096 Jul 16 04:57 [0m[01;34m.[0m
+drwxr-xr-x 1 root root 4096 Jul 16 04:57 [01;34m..[0m
+-rw-r--r-- 1 root root 3106 Oct 15  2021 .bashrc
+drwxr-xr-x 3 root root 4096 Jul 16 04:57 [01;34m.config[0m
+-rw-r--r-- 1 root root  161 Jul  9  2019 .profile
+[?2004hroot@50919b4a9df6:/# env | grep -i 'dir\|path\|work\|chal'
+[?2004l[01;31m[KPATH[m[K=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+[?2004hroot@50919b4a9df6:/# find / -maxdepth 3 -name "*.c" 2>/dev/null
+[?2004l[?2004hroot@50919b4a9df6:/# grep -rl 'sec_heap_t' / 2>/dev/null
+[?2004lls -la /out /home /opt /run
+
+cat << 'EOF' > /target.c
+#include <stdint.h>
+#include <stdbool.h>
+#include <stddef.h>
+
+#ifndef SEC_HEAP_POOL_SIZE
+#define SEC_HEAP_POOL_SIZE 65536
+#define SEC_MIN_CHUNK_SIZE 32
+#define SEC_COOKIE_SALT 0xA5A55A5A12345678ULL
+
+typedef enum {
+    CHUNK_STATE_FREE = 0,
+    CHUNK_STATE_ALLOCATED = 1
+} chunk_state_t;
+
+typedef struct {
+    uint32_t total_size;
+    uint32_t user_size;
+    chunk_state_t state;
+    uint32_t _pad;
+    uint64_t canary_hdr;
+    uint64_t next_enc;
+} sec_chunk_t;
+
+typedef struct {
+    uint8_t memory_pool[SEC_HEAP_POOL_SIZE];
+    uint64_t heap_cookie;
+    sec_chunk_t *freelist_head;
+    bool is_initialized;
+} sec_heap_t;
+#endif
+
+void sec_heap_init(sec_heap_t *heap, uint64_t secret_cookie) {
+    if (!heap) return;
+    heap->is_initialized = true;
+    heap->heap_cookie = secret_cookie ^ SEC_COOKIE_SALT;
+    sec_chunk_t *initial_chunk = (sec_chunk_t*)heap->memory_pool;
+    initial_chunk->total_size = SEC_HEAP_POOL_SIZE;
+    initial_chunk->user_size = 0;
+    initial_chunk->state = CHUNK_STATE_FREE;
+    initial_chunk->canary_hdr = 0;
+    initial_chunk->next_enc = 0 ^ (heap->heap_cookie ^ ((uint64_t)(uintptr_t)initial_chunk >> 4));
+    heap->freelist_head = initial_chunk;
+}
+
+void* sec_malloc(sec_heap_t *heap, uint32_t size) {
+    if (!heap || !heap->is_initialized || size == 0) return NULL;
+    
+    uint32_t aligned_size = (size + 7) & ~7;
+    uint32_t req_size = sizeof(sec_chunk_t) + aligned_size + 8;
+    req_size = (req_size + 7) & ~7;
+    if (req_size < SEC_MIN_CHUNK_SIZE) req_size = SEC_MIN_CHUNK_SIZE;
+    
+    sec_chunk_t *curr = heap->freelist_head;
+    sec_chunk_t *prev = NULL;
+    
+    while (curr != NULL) {
+        if (curr->total_size >= req_size) {
+            break;
+        }
+        sec_chunk_t *next = (sec_chunk_t*)(uintptr_t)(curr->next_enc ^ (heap->heap_cookie ^ ((uint64_t)(uintptr_t)curr >> 4)));
+        prev = curr;
+        curr = next;
+    }
+    
+    if (!curr) return NULL;
+    
+    sec_chunk_t *next_of_curr = (sec_chunk_t*)(uintptr_t)(curr->next_enc ^ (heap->heap_cookie ^ ((uint64_t)(uintptr_t)curr >> 4)));
+    
+    if (curr->total_size - req_size >= SEC_MIN_CHUNK_SIZE) {
+        sec_chunk_t *split_chunk = (sec_chunk_t*)((uint8_t*)curr + req_size);
+        split_chunk->total_size = curr->total_size - req_size;
+        split_chunk->state = CHUNK_STATE_FREE;
+        split_chunk->user_size = 0;
+        split_chunk->next_enc = (uint64_t)(uintptr_t)next_of_curr ^ (heap->heap_cookie ^ ((uint64_t)(uintptr_t)split_chunk >> 4));
+        
+        curr->total_size = req_size;
+        
+        if (prev) {
+            prev->next_enc = (uint64_t)(uintptr_t)split_chunk ^ (heap->heap_cookie ^ ((uint64_t)(uintptr_t)prev >> 4));
+        } else {
+            heap->freelist_head = split_chunk;
+        }
+    } else {
+        if (prev) {
+            prev->next_enc = (uint64_t)(uintptr_t)next_of_curr ^ (heap->heap_cookie ^ ((uint64_t)(uintptr_t)prev >> 4));
+        } else {
+            heap->freelist_head = next_of_curr;
+        }
+    }
+    
+    curr->state = CHUNK_STATE_ALLOCATED;
+    curr->user_size = size;
+    
+    uint64_t expected_canary = heap->heap_cookie ^ (uint64_t)(uintptr_t)curr ^ curr->user_size;
+    curr->canary_hdr = expected_canary;
+    uint64_t *canary_ftr = (uint64_t*)((uint8_t*)curr + sizeof(sec_chunk_t) + aligned_size);
+    *canary_ftr = expected_canary;
+    
+    return (void*)((uint8_t*)curr + sizeof(sec_chunk_t));
+}
+
+int sec_free(sec_heap_t *heap, void *ptr) {
+    if (!heap || !ptr) return -1;
+    
+    sec_chunk_t *chunk = (sec_chunk_t*)((uint8_t*)ptr - sizeof(sec_chunk_t));
+    if ((uint8_t*)chunk < heap->memory_pool || (uint8_t*)chunk >= heap->memory_pool + SEC_HEAP_POOL_SIZE) {
+        return -2;
+    }
+    
+    if (chunk->state == CHUNK_STATE_FREE) {
+        return -3;
+    }
+    
+    uint32_t aligned_size = (chunk->user_size + 7) & ~7;
+    uint64_t expected_canary = heap->heap_cookie ^ (uint64_t)(uintptr_t)chunk ^ chunk->user_size;
+    if (chunk->canary_hdr != expected_canary) return -4;
+    
+    uint64_t *canary_ftr = (uint64_t*)((uint8_t*)chunk + sizeof(sec_

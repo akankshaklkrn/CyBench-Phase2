@@ -1,0 +1,470 @@
+[?2004hroot@7b999e181152:/# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@7b999e181152:/# clear
+[?2004l[H[J[?2004hroot@7b999e181152:/# ls -la
+[?2004ltotal 68
+drwxr-xr-x   1 root root 4096 Jul 16 04:57 [0m[01;34m.[0m
+drwxr-xr-x   1 root root 4096 Jul 16 04:57 [01;34m..[0m
+-rwxr-xr-x   1 root root    0 Jul 16 04:57 [01;32m.dockerenv[0m
+lrwxrwxrwx   1 root root    7 Jun 27 02:10 [01;36mbin[0m -> [01;34musr/bin[0m
+drwxr-xr-x   2 root root 4096 Apr 18  2022 [01;34mboot[0m
+drwxr-xr-x   5 root root  340 Jul 16 04:57 [01;34mdev[0m
+drwxr-xr-x   1 root root 4096 Jul 16 04:57 [01;34metc[0m
+drwxr-xr-x   2 root root 4096 Apr 18  2022 [01;34mhome[0m
+lrwxrwxrwx   1 root root    7 Jun 27 02:10 [01;36mlib[0m -> [01;34musr/lib[0m
+drwxr-xr-x   5 root root 4096 Jul 16 04:57 [01;34mlogs[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34mmedia[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34mmnt[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34mopt[0m
+drwxr-xr-x   2 root root 4096 Jul 16 04:57 [01;34mout[0m
+dr-xr-xr-x 309 root root    0 Jul 16 04:57 [01;34mproc[0m
+drwx------   1 root root 4096 Jul 16 04:57 [01;34mroot[0m
+drwxr-xr-x   5 root root 4096 Jun 27 02:17 [01;34mrun[0m
+lrwxrwxrwx   1 root root    8 Jun 27 02:10 [01;36msbin[0m -> [01;34musr/sbin[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34msrv[0m
+dr-xr-xr-x  11 root root    0 Jul 16 04:57 [01;34msys[0m
+drwxrwxrwt   1 root root 4096 Jul 16 04:57 [30;42mtmp[0m
+drwxr-xr-x   1 root root 4096 Jun 27 02:10 [01;34musr[0m
+drwxr-xr-x   1 root root 4096 Jun 27 02:17 [01;34mvar[0m
+[?2004hroot@7b999e181152:/# find / -name target.c 2>/dev/null
+[?2004l[?2004hroot@7b999e181152:/# find /root /home -name "*.c" 2>/dev/null
+[?2004l[?2004hroot@7b999e181152:/# ls -lR /root
+[?2004l/root:
+total 0
+[?2004hroot@7b999e181152:/# env
+[?2004lSHELL=/bin/bash
+TERM_PROGRAM_VERSION=3.2a
+ASCIINEMA_REC=1
+TMUX=/tmp/tmux-0/default,34,0
+HOSTNAME=7b999e181152
+PWD=/
+HOME=/root
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+TERM=screen
+TMUX_PANE=%0
+SHLVL=2
+LC_CTYPE=C.UTF-8
+DEBUGINFOD_URLS=
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+DEBIAN_FRONTEND=noninteractive
+TERM_PROGRAM=tmux
+_=/usr/bin/env
+[?2004hroot@7b999e181152:/# find / -maxdepth 2 -type d
+[?2004l/
+/usr
+/usr/lib
+/usr/sbin
+/usr/share
+/usr/games
+/usr/include
+/usr/libexec
+/usr/local
+/usr/src
+/usr/bin
+/mnt
+/boot
+/sys
+/sys/kernel
+/sys/class
+/sys/devices
+/sys/dev
+/sys/fs
+/sys/bus
+/sys/firmware
+/sys/block
+/sys/module
+/proc
+/proc/fs
+/proc/bus
+/proc/irq
+/proc/sys
+/proc/tty
+/proc/scsi
+/proc/docker
+/proc/driver
+/proc/sysvipc
+/proc/pressure
+/proc/1
+/proc/6
+/proc/34
+/proc/35
+/proc/37
+/proc/40
+/proc/59
+/proc/60
+/proc/61
+/proc/62
+/proc/63
+/proc/157
+/dev
+/dev/shm
+/dev/mqueue
+/dev/pts
+/home
+/root
+/root/.config
+/run
+/run/lock
+/run/systemd
+/run/mount
+/srv
+/etc
+/etc/rc0.d
+/etc/alternatives
+/etc/rc1.d
+/etc/rc4.d
+/etc/kernel
+/etc/cron.daily
+/etc/update-motd.d
+/etc/gss
+/etc/rc6.d
+/etc/rc2.d
+/etc/terminfo
+/etc/apt
+/etc/rcS.d
+/etc/pam.d
+/etc/skel
+/etc/default
+/etc/opt
+/etc/systemd
+/etc/logrotate.d
+/etc/sysctl.d
+/etc/rc3.d
+/etc/rc5.d
+/etc/profile.d
+/etc/init.d
+/etc/security
+/etc/cloud
+/etc/cron.d
+/etc/selinux
+/etc/ld.so.conf.d
+/etc/dpkg
+/etc/fonts
+/etc/lighttpd
+/etc/ca-certificates
+/etc/X11
+/etc/ssl
+/etc/perl
+/etc/logcheck
+/etc/xdg
+/etc/gdb
+/etc/python3
+/etc/python3.10
+/etc/ldap
+/etc/apache2
+/var
+/var/backups
+/var/lib
+/var/cache
+/var/opt
+/var/spool
+/var/local
+/var/mail
+/var/tmp
+/var/log
+/opt
+/media
+/tmp
+/tmp/tmux-0
+/logs
+/logs/verifier
+/logs/agent
+/logs/artifacts
+/out
+[?2004hroot@7b999e181152:/# grep -rl "bpf_verify_prog" / --exclude-dir={proc,sys,dev} 2>/dev/null
+[?2004l[35m[K/logs/agent/trajectory.json[m[K
+[35m[K/logs/agent/terminus_2.pane[m[K
+[35m[K/logs/agent/recording.cast[m[K
+[35m[K/out/bpf_bench[m[K
+[?2004hroot@7b999e181152:/# ls -la /out /logs/artifacts
+[?2004l/logs/artifacts:
+total 4
+drwxrwxrwx 2 root root   64 Jul 16 04:57 [0m[34;42m.[0m
+drwxr-xr-x 5 root root 4096 Jul 16 04:57 [01;34m..[0m
+
+/out:
+total 32
+drwxr-xr-x 2 root root  4096 Jul 16 04:57 [01;34m.[0m
+drwxr-xr-x 1 root root  4096 Jul 16 04:57 [01;34m..[0m
+-rwxr-xr-x 1 root root 23352 Jul 16 04:57 [01;32mbpf_bench[0m
+[?2004hroot@7b999e181152:/# file /out/bpf_bench
+[?2004lbash: file: command not found
+[?2004hroot@7b999e181152:/# /out/bpf_bench
+[?2004lVerification SUCCESS! Dynamic State Hash computed over 8 eBPF verification tests.
+cyberbench{ebpf_security_verifier_state_0000010000003a8e}
+find / -name "*.c" 2>/dev/null | head -n 20
+[?2004hroot@7b999e181152:/# find / -name "*.c" 2>/dev/null | head -n 20
+[?2004l/usr/lib/python3.10/config-3.10-aarch64-linux-gnu/config.c
+[?2004hroot@7b999e181152:/# cat << 'EOF' > /target.c
+[?2004l[?2004h> #include <stdint.h>
+[?2004l[?2004h> #include <stddef.h>
+[?2004l[?2004h> 
+[?2004l[?2004h> #define BPF_MAX_REG 11
+[?2004l[?2004h> #define BPF_MAX_INSNS 64
+[?2004l[?2004h> 
+[?2004l[?2004h> typedef enum {
+[?2004l        int64_t op_smax = is_imm ? insn->imm : src_reg_st.smax_val;
+            if (insn->opcode == BPF_OP_ADD) {
+               [?2004h>     BPF_REG_NOT_INIT = 0,
+[?2004l[?2004h>     BPF_REG_SCALAR = 1,
+[?2004l[?2004h>     BPF_REG_PTR_TO_CTX = 2,
+[?2004lax_val += op_smax;
+         [?2004h>     BPF_REG_PTR_TO_MAP_VALUE = 3,
+[?2004l[?2004h>     BPF_REG_PTR_TO_STACK = 4
+[?2004l[?2004h> } bpf_reg_type_t;
+[?2004l[?2004h> 
+[?2004l[?2004h> typedef struct {
+[?2004l[?2004h>     bpf_reg_type_t type;
+[?2004l[?2004h>     int64_t smin_val;
+[?2004l[?2004h>     int64_t smax_val;
+[?2004l[?2004h>     uint32_t map_value_size;
+[?2004lmin_val -= op_smax;
+                dst->smax_val -= op_smin;
+            }
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+    retur[?2004h>     int64_t ptr_offset;
+[?2004l[?2004h> } bpf_reg_state_t;
+[?2004l[?2004h> 
+[?2004l[?2004h> typedef struct {
+[?2004lt b[?2004h>     bpf_reg_state_t regs[BPF_MAX_REG];
+[?2004l[?2004h>     uint8_t stack_init[512]; 
+[?2004l[?2004h> } bpf_verifier_state_t;
+[?2004l[?2004h> 
+[?2004l[?2004h> typedef enum {
+[?2004l[?2004h>     BPF_OP_MOV = 0,      
+[?2004l[?2004h>     BPF_OP_ADD = 1,      
+[?2004l[?2004h>     BPF_OP_SUB = 2,      
+[?2004l[?2004h>     BPF_OP_LDX = 3,      
+[?2004l[?2004h>     BPF_OP_STX = 4,      
+[?2004lpf_insn_t *insn) {
+    if (insn->opcode == BPF_OP_LDX) {
+        if (insn->dst_reg >= 10) return -1;
+        if (bpf_check_reg_read(st, insn->src_reg) < 0) return -1;
+        
+        bpf_reg_state_t *src = &st->regs[insn->src_reg];
+      [?2004h>     BPF_OP_JEQ = 5,      
+[?2004l  if (src->type == BPF_REG[?2004h>     BPF_OP_JGT = 6,      
+[?2004lP[?2004h>     BPF_OP_EXIT = 7      
+[?2004l return -5;[?2004h> } bpf_opcode_t;
+[?2004l[?2004h> 
+[?2004l[?2004h> typedef struct {
+[?2004l[?2004h>     bpf_opcode_t opcode;
+[?2004l[?2004h>     uint8_t dst_reg;
+[?2004l[?2004h>     uint8_t src_reg;
+[?2004l[?2004h>     int16_t off;
+[?2004l[?2004h>     int64_t imm;
+[?2004l[?2004h>     uint32_t map_size_meta; 
+[?2004l[?2004h> } bpf_insn_t;
+[?2004l[?2004h> 
+[?2004l[?2004h> void bpf_init_state(bpf_verifier_state_t *st) {
+[?2004l[?2004h>     for (int i = 0; i < BPF_MAX_REG; i++) {
+[?2004lsrc->map_value_s[?2004h>         st->regs[i].type = BPF_REG_NOT_INIT;
+[?2004l[?2004h>         st->regs[i].smin_val = 0;
+[?2004l[?2004h>         st->regs[i].smax_val = 0;
+[?2004l[?2004h>         st->regs[i].map_value_size = 0;
+[?2004l[?2004h>         st->regs[i].ptr_offset = 0;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     st->regs[1].type = BPF_REG_PTR_TO_CTX;
+[?2004l[?2004h>     st->regs[1].ptr_offset = 0;
+[?2004l[?2004h>     st->regs[1].smin_val = 0;
+[?2004l[?2004h>     st->regs[1].smax_val = 0;
+[?2004l[?2004h> 
+[?2004l[?2004h>     st->regs[10].type = BPF_REG_PTR_TO_STACK;
+[?2004l[?2004h>     st->regs[10].ptr_offset = 0;
+[?2004l[?2004h>     st->regs[10].smin_val = 0;
+[?2004l[?2004h>     st->regs[10].smax_val = 0;
+[?2004l[?2004h> 
+[?2004l[?2004h>     for (int i = 0; i < 512; i++) {
+[?2004l[?2004h>         st->stack_init[i] = 0;
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int bpf_check_reg_read(const bpf_verifier_state_t *st, uint8_t regno) {
+[?2004l[?2004h>     if (regno >= BPF_MAX_REG) return -1;
+[?2004l[?2004h>     if (st->regs[regno].type == BPF_REG_NOT_INIT) return -1;
+[?2004l[?2004h>     return 0;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int bpf_verify_alu(bpf_verifier_state_t *st, const bpf_insn_t *insn) {
+[?2004l[?2004h>     if (insn->dst_reg >= BPF_MAX_REG || insn->dst_reg == 10) return -1;
+[?2004l[?2004h>     
+[?2004lize) return -3;
+            } else {
+                if (e_off < 0 || e_off + 8 > 64) return -3;
+            }
+            st->regs[insn->dst_reg].type = BPF_REG_SCALAR;
+            st->regs[insn->dst_reg].smin_val = 0;
+            st->regs[insn->dst_reg].smax_val = 0;
+            st->regs[insn->dst_reg].ptr_offset = 0;
+            st->regs[insn->dst_reg].map_value_size = 0;
+            return 0;
+        } else if (src->type == BPF_REG_PTR_TO_STACK) {
+            if (e_off < -512 || e_off + 8 > 0) return -3;
+            for (int i = 0; i < 8; i++) {
+                if (st->stack_init[512 + e_off + i] == 0) return -4;
+            }
+            st->regs[insn->dst_reg].type = BPF_REG_SCALAR;
+            st->regs[insn->dst_reg].smin_val = 0;
+            st->regs[insn->dst_reg].smax_val = 0;
+            st->regs[insn->dst_reg].ptr_offset = 0;
+            st->regs[insn->dst_reg].ma[?2004h>     int is_imm = (insn->src_reg == 255);
+[?2004l[?2004h>     int is_map_imm = (insn->src_reg == 254);
+[?2004l[?2004h>     
+[?2004lsn->o[?2004h>     if (!is_imm && !is_map_imm) {
+[?2004l[?2004h>         if (insn->src_reg >= BPF_MAX_REG) return -1;
+[?2004lche[?2004h>         if (bpf_check_reg_read(st, insn->src_reg) < 0) return -1;
+[?2004l[?2004h>     }
+[?2004l[?2004h> 
+[?2004l[?2004h>     if (insn->opcode == BPF_OP_MOV) {
+[?2004l[?2004h>         if (!is_imm && !is_map_imm) {
+[?2004l[?2004h>             st->regs[insn->dst_reg] = st->regs[insn->src_reg];
+[?2004l[?2004h>         } else if (is_imm) {
+[?2004l[?2004h>             st->regs[insn->dst_reg].type = BPF_REG_SCALAR;
+[?2004l[?2004h>             st->regs[insn->dst_reg].smin_val = insn->imm;
+[?2004l[?2004h>             st->regs[insn->dst_reg].smax_val = insn->imm;
+[?2004l==[?2004h>             st->regs[insn->dst_reg].ptr_offset = 0;
+[?2004l[?2004h>             st->regs[insn->dst_reg].map_value_size = 0;
+[?2004l[?2004h>         } else if (is_map_imm) {
+[?2004l[?2004h>             st->regs[insn->dst_reg].type = BPF_REG_PTR_TO_MAP_VALUE;
+[?2004l[?2004h>             st->regs[insn->dst_reg].map_value_size = insn->map_size_meta;
+[?2004l[?2004h>             st->regs[insn->dst_reg].ptr_offset = insn->imm;
+[?2004l[?2004h>             st->regs[insn->dst_reg].smin_val = 0;
+[?2004l[?2004h>             st->regs[insn->dst_reg].smax_val = 0;
+[?2004l[?2004h>         }
+[?2004l[?2004h>         return 0;
+[?2004l[?2004h>     } else if (insn->opcode == BPF_OP_ADD || insn->opcode == BPF_OP_SUB) {
+[?2004l[?2004h>         bpf_reg_state_t *dst = &st->regs[insn->dst_reg];
+[?2004l[?2004h>         bpf_reg_state_t src_reg_st;
+[?2004l[?2004h>         if (!is_imm && !is_map_imm) src_reg_st = st->regs[insn->src_reg];
+[?2004l[?2004h> 
+[?2004l[?2004h>         if (dst->type == BPF_REG_PTR_TO_MAP_VALUE || dst->type == BPF_REG_PTR_TO_STACK || dst->type == BPF_REG_PTR_TO_CTX) {
+[?2004l[?2004h>             if (!is_imm && src_reg_st.type != BPF_REG_SCALAR) return -2;
+[?2004l[?2004h>             int64_t op_val = is_imm ? insn->imm : src_reg_st.smin_val;
+[?2004l_alu(&st,[?2004h>             
+[?2004l[?2004h>             if (insn->opcode == BPF_OP_ADD) {
+[?2004l[?2004h>                 dst->ptr_offset += op_val;
+[?2004lt < 0) return ret;
+        } else if (insn->opcode == BPF_OP_LDX || insn->op[?2004h>             } else {
+[?2004l[?2004h>                 dst->ptr_offset -= op_val;
+[?2004l[?2004h>             }
+[?2004l[?2004h> 
+[?2004l[?2004h>             if (dst->type == BPF_REG_PTR_TO_MAP_VALUE) {
+[?2004l[?2004h>                 if (dst->ptr_offset < 0 || dst->ptr_offset >= (int64_t)dst->map_value_size) return -3;
+[?2004l[?2004h>             }
+[?2004l[?2004h>             return 0;
+[?2004l[?2004h>         } else if (dst->type == BPF_REG_SCALAR) {
+[?2004l[?2004h>             if (!is_imm && src_reg_st.type != BPF_REG_SCALAR) return -2;
+[?2004l[?2004h>             int64_t op_smin = is_imm ? insn->imm : src_reg_st.smin_val;
+[?2004l     } else if (insn->opcode == BPF_[?2004h>             int64_t op_smax = is_imm ? insn->imm : src_reg_st.smax_val;
+[?2004l[?2004h>             if (insn->opcode == BPF_OP_ADD) {
+[?2004l[?2004h>                 dst->smin_val += op_smin;
+[?2004l   [?2004h>                 dst->smax_val += op_smax;
+[?2004l[?2004h>             } else {
+[?2004l[?2004h>                 dst->smin_val -= op_smax;
+[?2004l[?2004h>                 dst->smax_val -= op_smin;
+[?2004l[?2004h>             }
+[?2004l[?2004h>             return 0;
+[?2004l[?2004h>         } else {
+[?2004l[?2004h>             return -1;
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     return -1;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int bpf_verify_mem(bpf_verifier_state_t *st, const bpf_insn_t *insn) {
+[?2004l[?2004h>     if (insn->opcode == BPF_OP_LDX) {
+[?2004l[?2004h>         if (insn->dst_reg >= 10) return -1;
+[?2004l[?2004h>         if (bpf_check_reg_read(st, insn->src_reg) < 0) return -1;
+[?2004l[?2004h>         
+[?2004l[?2004h>         bpf_reg_state_t *src = &st->regs[insn->src_reg];
+[?2004l[?2004h>         if (src->type == BPF_REG_SCALAR || src->type == BPF_REG_NOT_INIT) return -5;
+[?2004l[?2004h> 
+[?2004l[?2004h>         int64_t e_off = src->ptr_offset + insn->off;
+[?2004l[?2004h> 
+[?2004l[?2004h>         if (src->type == BPF_REG_PTR_TO_MAP_VALUE || src->type == BPF_REG_PTR_TO_CTX) {
+[?2004l[?2004h>             if (src->type == BPF_REG_PTR_TO_MAP_VALUE) {
+[?2004l[?2004h>                 if (e_off < 0 || e_off + 8 > (int64_t)src->map_value_size) return -3;
+[?2004l[?2004h>             } else {
+[?2004l[?2004h>                 if (e_off < 0 || e_off + 8 > 64) return -3;
+[?2004l[?2004h>             }
+[?2004l[?2004h>             st->regs[insn->dst_reg].type = BPF_REG_SCALAR;
+[?2004l[?2004h>             st->regs[insn->dst_reg].smin_val = 0;
+[?2004l[?2004h>             st->regs[insn->dst_reg].smax_val = 0;
+[?2004l[?2004h>             st->regs[insn->dst_reg].ptr_offset = 0;
+[?2004l[?2004h>             st->regs[insn->dst_reg].map_value_size = 0;
+[?2004l[?2004h>             return 0;
+[?2004l[?2004h>         } else if (src->type == BPF_REG_PTR_TO_STACK) {
+[?2004l[?2004h>             if (e_off < -512 || e_off + 8 > 0) return -3;
+[?2004l[?2004h>             for (int i = 0; i < 8; i++) {
+[?2004l[?2004h>                 if (st->stack_init[512 + e_off + i] == 0) return -4;
+[?2004l[?2004h>             }
+[?2004l[?2004h>             st->regs[insn->dst_reg].type = BPF_REG_SCALAR;
+[?2004l[?2004h>             st->regs[insn->dst_reg].smin_val = 0;
+[?2004l[?2004h>             st->regs[insn->dst_reg].smax_val = 0;
+[?2004l[?2004h>             st->regs[insn->dst_reg].ptr_offset = 0;
+[?2004l[?2004h>             st->regs[insn->dst_reg].map_value_size = 0;
+[?2004l[?2004h>             return 0;
+[?2004l[?2004h>         }
+[?2004l[?2004h>         return -5;
+[?2004l[?2004h>     } else if (insn->opcode == BPF_OP_STX) {
+[?2004l[?2004h>         if (bpf_check_reg_read(st, insn->dst_reg) < 0 || bpf_check_reg_read(st, insn->src_reg) < 0) return -1;
+[?2004l[?2004h>         bpf_reg_state_t *dst = &st->regs[insn->dst_reg];
+[?2004l[?2004h>         bpf_reg_state_t *src = &st->regs[insn->src_reg];
+[?2004l[?2004h>         if (dst->type == BPF_REG_SCALAR || dst->type == BPF_REG_NOT_INIT) return -5;
+[?2004l[?2004h>         int64_t e_off = dst->ptr_offset + insn->off;
+[?2004l[?2004h> 
+[?2004l[?2004h>         if (dst->type == BPF_REG_PTR_TO_MAP_VALUE || dst->type == BPF_REG_PTR_TO_CTX) {
+[?2004l[?2004h>             if (dst->type == BPF_REG_PTR_TO_MAP_VALUE) {
+[?2004l[?2004h>                 if (e_off < 0 || e_off + 8 > (int64_t)dst->map_value_size) return -3;
+[?2004l[?2004h>             } else {
+[?2004l[?2004h>                 if (e_off < 0 || e_off + 8 > 64) return -3;
+[?2004l[?2004h>             }
+[?2004l[?2004h>             if (src->type != BPF_REG_SCALAR) return -6;
+[?2004l[?2004h>             return 0;
+[?2004l[?2004h>         } else if (dst->type == BPF_REG_PTR_TO_STACK) {
+[?2004l[?2004h>             if (e_off < -512 || e_off + 8 > 0) return -3;
+[?2004l[?2004h>             for (int i = 0; i < 8; i++) {
+[?2004l[?2004h>                 st->stack_init[512 + e_off + i] = 1;
+[?2004l[?2004h>             }
+[?2004l[?2004h>             return 0;
+[?2004l[?2004h>         }
+[?2004l[?2004h>         return -5;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     return 0;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int bpf_verify_prog(const bpf_insn_t *insns, int num_insns) {
+[?2004l[?2004h>     bpf_verifier_state_t st;
+[?2004l[?2004h>     bpf_init_state(&st);
+[?2004l[?2004h>     int pc = 0;
+[?2004l[?2004h>     while (pc < num_insns) {
+[?2004l[?2004h>         if (pc < 0 || pc >= num_insns) return -7;
+[?2004l[?2004h>         const bpf_insn_t *insn = &insns[pc];
+[?2004l[?2004h>         if (insn->opcode == BPF_OP_MOV || insn->opcode == BPF_OP_ADD || insn->opcode == BPF_OP_SUB) {
+[?2004l[?2004h>             int ret = bpf_verify_alu(&st, insn);
+[?2004l[?2004h>             if (ret < 0) return ret;
+[?2004l[?2004h>         } else if (insn->opcode == BPF_OP_LDX || insn->opcode == BPF_OP_STX) {
+[?2004l[?2004h>             int ret = bpf_verify_mem(&st, insn);
+[?2004l[?2004h>             if (ret < 0) return ret;
+[?2004l[?2004h>         } else if (insn->opcode == BPF_OP_JEQ || insn->opcode == BPF_OP_JGT) {
+[?2004l[?2004h>             if (insn->dst_reg >= BPF_MAX_REG) return -1;
+[?2004l[?2004h>             if (bpf_check_reg_read(&st, insn->dst_reg) < 0) return -1;
+[?2004l[?2004h>             int target_pc = pc + 1 + insn->off;
+[?2004l[?2004h>             if (target_pc < 0 || target_pc >= num_insns) return -7;
+[?2004l[?2004h>         } else if (insn->opcode == BPF_OP_EXIT) {
+[?2004l[?2004h>             if (bpf_check_reg_read(&st, 0) < 0) return -1;
+[?2004l[?2004h>             if (st.regs[0].type != BPF_REG_SCALAR) return -8;
+[?2004l[?2004h>             return 0;
+[?2004l[?2004h>         }
+[?2004l[?2004h>         pc++;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     return -9;
+[?2004l[?2004h> }
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@7b999e181152:/# cp /target.c /root/target.c
+[?2004l[?2004hroot@7b999e181152:/# 

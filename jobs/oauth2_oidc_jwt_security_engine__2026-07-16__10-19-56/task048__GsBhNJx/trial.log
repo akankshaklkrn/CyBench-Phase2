@@ -1,0 +1,85 @@
+Trial task048__GsBhNJx failed: Docker compose command failed for environment task048. Command: docker compose --project-name task048__gsbhnjx__env --project-directory /Users/jatinjena/Downloads/tasknew/task048/environment -f /private/var/folders/dr/z8_nw0rn619_kmd5rtq3dpf40000gn/T/tmpjawhhf8v/task048__GsBhNJx__env-docker-compose-resources.json -f /Users/jatinjena/Downloads/tasknew/.venv/lib/python3.12/site-packages/harbor/environments/docker/docker-compose-build.yaml -f /private/var/folders/dr/z8_nw0rn619_kmd5rtq3dpf40000gn/T/tmpn5n913kx/docker-compose-mounts.json build. Return code: 1. Stdout:  Image task048__gsbhnjx__env-main Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 605B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 401B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/ubuntu:22.04
+#3 DONE 2.3s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [1/6] FROM docker.io/library/ubuntu:22.04@sha256:0e0a0fc6d18feda9db1590da249ac93e8d5abfea8f4c3c0c849ce512b5ef8982
+#5 resolve docker.io/library/ubuntu:22.04@sha256:0e0a0fc6d18feda9db1590da249ac93e8d5abfea8f4c3c0c849ce512b5ef8982 0.0s done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 5.03kB done
+#6 DONE 0.0s
+
+#7 [2/6] RUN apt-get update && apt-get install -y gcc python3 python3-pip gdb strace binutils tmux asciinema && rm -rf /var/lib/apt/lists/*
+#7 CACHED
+
+#8 [3/6] COPY target.c /src/target.c
+#8 DONE 0.0s
+
+#9 [4/6] RUN mkdir -p /out && gcc -O2 -Wall -Werror -fsanitize=address,undefined -o /out/oidc_bench /src/target.c
+#9 0.067 /src/target.c: In function 'main':
+#9 0.067 /src/target.c:92:41: error: format '%llx' expects argument of type 'long long unsigned int', but argument 4 has type 'uint64_t' {aka 'long unsigned int'} [-Werror=format=]
+#9 0.067    92 |     snprintf(chal, sizeof(chal), "%016llx", vhash);
+#9 0.067       |                                   ~~~~~~^   ~~~~~
+#9 0.067       |                                         |   |
+#9 0.067       |                                         |   uint64_t {aka long unsigned int}
+#9 0.067       |                                         long long unsigned int
+#9 0.067       |                                   %016lx
+#9 0.067 /src/target.c:136:68: error: format '%llx' expects argument of type 'long long unsigned int', but argument 2 has type 'uint64_t' {aka 'long unsigned int'} [-Werror=format=]
+#9 0.067   136 |     printf("cyberbench{oauth2_oidc_jwt_security_engine_state_%016llx}\n", state_hash);
+#9 0.067       |                                                              ~~~~~~^      ~~~~~~~~~~
+#9 0.067       |                                                                    |      |
+#9 0.067       |                                                                    |      uint64_t {aka long unsigned int}
+#9 0.067       |                                                                    long long unsigned int
+#9 0.067       |                                                              %016lx
+#9 0.099 cc1: all warnings being treated as errors
+#9 ERROR: process "/bin/sh -c mkdir -p /out && gcc -O2 -Wall -Werror -fsanitize=address,undefined -o /out/oidc_bench /src/target.c" did not complete successfully: exit code: 1
+------
+ > [4/6] RUN mkdir -p /out && gcc -O2 -Wall -Werror -fsanitize=address,undefined -o /out/oidc_bench /src/target.c:
+0.067       |                                         long long unsigned int
+0.067       |                                   %016lx
+0.067 /src/target.c:136:68: error: format '%llx' expects argument of type 'long long unsigned int', but argument 2 has type 'uint64_t' {aka 'long unsigned int'} [-Werror=format=]
+0.067   136 |     printf("cyberbench{oauth2_oidc_jwt_security_engine_state_%016llx}\n", state_hash);
+0.067       |                                                              ~~~~~~^      ~~~~~~~~~~
+0.067       |                                                                    |      |
+0.067       |                                                                    |      uint64_t {aka long unsigned int}
+0.067       |                                                                    long long unsigned int
+0.067       |                                                              %016lx
+0.099 cc1: all warnings being treated as errors
+------
+Dockerfile:5
+
+--------------------
+
+   3 |     RUN apt-get update && apt-get install -y gcc python3 python3-pip gdb strace binutils tmux asciinema && rm -rf /var/lib/apt/lists/*
+
+   4 |     COPY target.c /src/target.c
+
+   5 | >>> RUN mkdir -p /out && gcc -O2 -Wall -Werror -fsanitize=address,undefined -o /out/oidc_bench /src/target.c
+
+   6 |     RUN rm -rf /src
+
+   7 |     WORKDIR /
+
+--------------------
+
+failed to solve: process "/bin/sh -c mkdir -p /out && gcc -O2 -Wall -Werror -fsanitize=address,undefined -o /out/oidc_bench /src/target.c" did not complete successfully: exit code: 1
+
+
+
+View build details: docker-desktop://dashboard/build/default/default/cqrgsnukjffisppo0cyyxt436
+
+. Stderr: None. 
+Collecting main service artifacts

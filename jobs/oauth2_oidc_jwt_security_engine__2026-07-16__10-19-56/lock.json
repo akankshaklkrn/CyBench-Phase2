@@ -1,0 +1,82 @@
+{
+    "schema_version": 1,
+    "created_at": "2026-07-16T04:49:57.026690Z",
+    "harbor": {
+        "version": "0.16.1",
+        "is_editable": false
+    },
+    "invocation": [
+        ".venv/bin/harbor",
+        "run",
+        "-a",
+        "terminus-2",
+        "-m",
+        "openrouter/google/gemini-3.1-pro-preview",
+        "-p",
+        "task043",
+        "-p",
+        "task044",
+        "-p",
+        "task045",
+        "-p",
+        "task046",
+        "-p",
+        "task047",
+        "-p",
+        "task048",
+        "--n-concurrent",
+        "4"
+    ],
+    "n_concurrent_trials": 4,
+    "retry": {
+        "max_retries": 0,
+        "exclude_exceptions": [
+            "VerifierOutputParseError",
+            "ApiUsageLimitError",
+            "RewardFileNotFoundError",
+            "RewardFileEmptyError",
+            "VerifierTimeoutError",
+            "AgentTimeoutError"
+        ],
+        "wait_multiplier": 1.0,
+        "min_wait_sec": 1.0,
+        "max_wait_sec": 60.0
+    },
+    "trials": [
+        {
+            "task": {
+                "name": "task048",
+                "type": "local",
+                "digest": "sha256:4d37b4e8eae6892064cadbb08ec43110feea2d610c8ef44618db8d1c7161e3bc",
+                "path": "task048"
+            },
+            "install_only": false,
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "name": "terminus-2",
+                "model_name": "openrouter/google/gemini-3.1-pro-preview",
+                "skills": [],
+                "extra_allowed_hosts": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {},
+                "extra_allowed_hosts": []
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        }
+    ]
+}

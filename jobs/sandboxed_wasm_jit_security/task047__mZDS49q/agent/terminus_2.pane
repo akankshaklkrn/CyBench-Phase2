@@ -1,0 +1,270 @@
+[?2004hroot@af588bf6e983:/# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@af588bf6e983:/# clear
+[?2004l[H[J[?2004hroot@af588bf6e983:/# ls -la
+[?2004ltotal 68
+drwxr-xr-x   1 root root 4096 Jul 16 04:57 [0m[01;34m.[0m
+drwxr-xr-x   1 root root 4096 Jul 16 04:57 [01;34m..[0m
+-rwxr-xr-x   1 root root    0 Jul 16 04:57 [01;32m.dockerenv[0m
+lrwxrwxrwx   1 root root    7 Jun 27 02:10 [01;36mbin[0m -> [01;34musr/bin[0m
+drwxr-xr-x   2 root root 4096 Apr 18  2022 [01;34mboot[0m
+drwxr-xr-x   5 root root  340 Jul 16 04:57 [01;34mdev[0m
+drwxr-xr-x   1 root root 4096 Jul 16 04:57 [01;34metc[0m
+drwxr-xr-x   2 root root 4096 Apr 18  2022 [01;34mhome[0m
+lrwxrwxrwx   1 root root    7 Jun 27 02:10 [01;36mlib[0m -> [01;34musr/lib[0m
+drwxr-xr-x   5 root root 4096 Jul 16 04:57 [01;34mlogs[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34mmedia[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34mmnt[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34mopt[0m
+drwxr-xr-x   2 root root 4096 Jul 16 04:57 [01;34mout[0m
+dr-xr-xr-x 309 root root    0 Jul 16 04:57 [01;34mproc[0m
+drwx------   1 root root 4096 Jul 16 04:57 [01;34mroot[0m
+drwxr-xr-x   5 root root 4096 Jun 27 02:17 [01;34mrun[0m
+lrwxrwxrwx   1 root root    8 Jun 27 02:10 [01;36msbin[0m -> [01;34musr/sbin[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34msrv[0m
+dr-xr-xr-x  11 root root    0 Jul 16 04:57 [01;34msys[0m
+drwxrwxrwt   1 root root 4096 Jul 16 04:57 [30;42mtmp[0m
+drwxr-xr-x   1 root root 4096 Jun 27 02:10 [01;34musr[0m
+drwxr-xr-x   1 root root 4096 Jun 27 02:17 [01;34mvar[0m
+[?2004hroot@af588bf6e983:/# find / -name target.c
+[?2004l[?2004hroot@af588bf6e983:/# cat << 'EOF' > /target.c
+[?2004lt_sandbox(wasm_sandbox_t *box, uint32_t initial_pages) {
+    if (!box) return;
+    box->is_initialized = true;
+    if (initial_pages == 0) initial_pages = 1;
+    if (initial_pages > WASM_MAX_PAGES) initial_pages = WASM_MAX_PAGES;
+    box->current_memory_bytes = initial_pages * WASM_PAGE_SIZE;
+    
+    for (uint32_t i = 0; i < initial_pages; i++) {
+        box->page_states[i] = PAGE_STATE_MAPPED;
+        memset(box->linear_memory + i * WASM_PAGE_SIZE, 0, WASM_PAGE_SIZE);
+    }
+    for (uint32_t i = initial_pages; i < WASM_MAX_PAGES; i++) {
+        box->page_states[i] = PAGE_STATE_GUARD;
+    }
+    for (uint32_t i = 0; i < WASM_MAX_TABLE_SLOTS; i++) {
+        box->table_slots[i].is_valid = false;
+        box->table_slots[i].type_signature = 0;
+        box->table_slots[i].target_code_id = 0;
+    }
+}
+
+int wasm_register_table_slot(wasm_sandbox_t *box, uint32_t slot_idx, uint64_t type_sig, uint32_t target_id) {
+    if (!box || !box->is_initialized || slot_idx >= WASM_MAX_TABLE_SLOTS) return -1;
+    if (box->table_slots[slot_idx].is_valid) return -2;
+    box->table_slots[slot_idx].is_valid = true;
+    box->table_slots[slot_idx].type_signature = type_sig;
+    box->table_slots[slot_idx].target_code_id = target_id;
+    return 0;
+}
+
+int wasm_verify_mem_op(const wasm_sandbox_t *box, uint32_t base, uint32_t offset, uint32_t access_size, uint32_t align_mask) {
+    if (!box || !box->is_initialized) return -1;
+    if (((base + offset) & align_mask) != 0) return -3;
+    
+    uint32_t addr = base + offset;
+    if (addr < base) return -4;
+    
+    uint32_t end_addr = addr + access_size;
+    if (end_addr < addr) return -4;
+    
+    if ((uint64_t)base + offset + access_size > box->current_memory_bytes) {
+        uint64_t target_addr = (uint64_t)base + offset;
+        uint64_t page_idx = target_addr / WASM_PAGE_SIZE;
+        if (page_idx < WASM_MAX_PAGES && box->page_states[page_idx] == PAGE_STATE_GUARD) {
+            return -5;
+        }
+        return -6;
+    }
+    return 0;
+}
+
+int wasm_execute_instruction(wasm_sandbox_t *box, const wasm_insn_t *insn, uint64_t *out_result) {
+    if (!box || !insn || !out_result) return -1;
+    switch (insn->opcode) {
+        case WASM_OP_LOAD32: {
+            int err = wasm_verify_mem_op(box, insn->base_addr, insn->offset, 4, 3);
+            if (err < 0) return err;
+            uint32_t val;
+            memcpy(&val, box->linear_memory + insn->base_addr + insn->offset, 4);
+            *out_result = (uint64_t)val;
+            return 0;
+        }
+        case WASM_OP_STORE32: {
+            int err = wasm_verify_mem_op(box, insn->base_addr, insn->offset, 4, 3);
+            if (err < 0) return err;
+            uint32_t val = (uint32_t)insn->value;
+            memcpy(box->linear_memory + insn->base_addr + insn->offset, &val, 4);
+            return 0;
+        }
+        case WASM_OP_LOAD64: {
+            int err = wasm_verify_mem_op(box, insn->base_addr, insn->offset, 8, 7);
+            if (err < 0) return err;
+            uint64_t val;
+            memcpy(&val, box->linear_memory + insn->base_addr + insn->offset, 8);
+            *out_r[?2004h> #include <stdint.h>
+[?2004l[?2004h> #include <stdbool.h>
+[?2004l[?2004h> #include <stddef.h>
+[?2004l[?2004h> #include <string.h>
+[?2004lM_OP_STORE64: {
+    [?2004h> 
+[?2004l [?2004h> #define WASM_PAGE_SIZE 65536
+[?2004l[?2004h> #define WASM_MAX_PAGES 16
+[?2004l[?2004h> #define WASM_MAX_TABLE_SLOTS 64
+[?2004l8, 7);
+        [?2004h> #define WASM_GUARD_SIZE 4096
+[?2004l[?2004h> 
+[?2004l[?2004h> typedef enum {
+[?2004l[?2004h>     PAGE_STATE_UNMAPPED = 0,
+[?2004l   [?2004h>     PAGE_STATE_MAPPED = 1,
+[?2004l[?2004h>     PAGE_STATE_GUARD = 2
+[?2004l[?2004h> } page_state_t;
+[?2004l[?2004h> 
+[?2004l[?2004h> typedef enum {
+[?2004l[?2004h>     WASM_OP_LOAD32 = 1,
+[?2004l[?2004h>     WASM_OP_STORE32 = 2,
+[?2004l[?2004h>     WASM_OP_LOAD64 = 3,
+[?2004l[?2004h>     WASM_OP_STORE64 = 4,
+[?2004l[?2004h>     WASM_OP_CALL_INDIRECT = 5
+[?2004l[?2004h> } wasm_opcode_t;
+[?2004l[?2004h> 
+[?2004l [?2004h> typedef struct {
+[?2004l[?2004h>     wasm_opcode_t opcode;
+[?2004l[?2004h>     uint32_t base_addr;
+[?2004lurn -8;
+          [?2004h>     uint32_t offset;
+[?2004l[?2004h>     uint64_t value;
+[?2004l[?2004h>     uint32_t table_idx;
+[?2004le != insn->v[?2004h> } wasm_insn_t;
+[?2004l[?2004h> 
+[?2004l[?2004h> typedef struct {
+[?2004l[?2004h>     bool is_valid;
+[?2004ltabl[?2004h>     uint64_t type_signature;
+[?2004lable_idx].targ[?2004h>     uint32_t target_code_id;
+[?2004l[?2004h> } table_slot_t;
+[?2004l[?2004h> 
+[?2004l[?2004h> typedef struct {
+[?2004let_code_id;
+            return 0;
+        }
+        default:
+  [?2004h>     uint8_t linear_memory[WASM_MAX_PAGES * WASM_PAGE_SIZE];
+[?2004l[?2004h>     page_state_t page_states[WASM_MAX_PAGES];
+[?2004l[?2004h>     uint32_t current_memory_bytes;
+[?2004l[?2004h>     table_slot_t table_slots[WASM_MAX_TABLE_SLOTS];
+[?2004lox->current_memory_by[?2004h>     bool is_initialized;
+[?2004l[?2004h> } wasm_sandbox_t;
+[?2004l[?2004h> 
+[?2004l[?2004h> void wasm_init_sandbox(wasm_sandbox_t *box, uint32_t initial_pages) {
+[?2004l[?2004h>     if (!box) return;
+[?2004l[?2004h>     box->is_initialized = true;
+[?2004l[?2004h>     if (initial_pages == 0) initial_pages = 1;
+[?2004l[?2004h>     if (initial_pages > WASM_MAX_PAGES) initial_pages = WASM_MAX_PAGES;
+[?2004l[?2004h>     box->current_memory_bytes = initial_pages * WASM_PAGE_SIZE;
+[?2004l[?2004h>     
+[?2004l[?2004h>     for (uint32_t i = 0; i < initial_pages; i++) {
+[?2004l[?2004h>         box->page_states[i] = PAGE_STATE_MAPPED;
+[?2004l[?2004h>         memset(box->linear_memory + i * WASM_PAGE_SIZE, 0, WASM_PAGE_SIZE);
+[?2004l[?2004h>     }
+[?2004l[?2004h>     for (uint32_t i = initial_pages; i < WASM_MAX_PAGES; i++) {
+[?2004l[?2004h>         box->page_states[i] = PAGE_STATE_GUARD;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     for (uint32_t i = 0; i < WASM_MAX_TABLE_SLOTS; i++) {
+[?2004l[?2004h>         box->table_slots[i].is_valid = false;
+[?2004l[?2004h>         box->table_slots[i].type_signature = 0;
+[?2004l[?2004h>         box->table_slots[i].target_code_id = 0;
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int wasm_register_table_slot(wasm_sandbox_t *box, uint32_t slot_idx, uint64_t type_sig, uint32_t target_id) {
+[?2004l[?2004h>     if (!box || !box->is_initialized || slot_idx >= WASM_MAX_TABLE_SLOTS) return -1;
+[?2004l[?2004h>     if (box->table_slots[slot_idx].is_valid) return -2;
+[?2004l[?2004h>     box->table_slots[slot_idx].is_valid = true;
+[?2004l[?2004h>     box->table_slots[slot_idx].type_signature = type_sig;
+[?2004l[?2004h>     box->table_slots[slot_idx].target_code_id = target_id;
+[?2004l[?2004h>     return 0;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int wasm_verify_mem_op(const wasm_sandbox_t *box, uint32_t base, uint32_t offset, uint32_t access_size, uint32_t align_mask) {
+[?2004l[?2004h>     if (!box || !box->is_initialized) return -1;
+[?2004l[?2004h>     if (((base + offset) & align_mask) != 0) return -3;
+[?2004l[?2004h>     
+[?2004l[?2004h>     uint32_t addr = base + offset;
+[?2004l[?2004h>     if (addr < base) return -4;
+[?2004l[?2004h>     
+[?2004l[?2004h>     uint32_t end_addr = addr + access_size;
+[?2004l[?2004h>     if (end_addr < addr) return -4;
+[?2004l[?2004h>     
+[?2004l[?2004h>     if ((uint64_t)base + offset + access_size > box->current_memory_bytes) {
+[?2004l[?2004h>         uint64_t target_addr = (uint64_t)base + offset;
+[?2004l[?2004h>         uint64_t page_idx = target_addr / WASM_PAGE_SIZE;
+[?2004l[?2004h>         if (page_idx < WASM_MAX_PAGES && box->page_states[page_idx] == PAGE_STATE_GUARD) {
+[?2004l[?2004h>             return -5;
+[?2004l[?2004h>         }
+[?2004l[?2004h>         return -6;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     return 0;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int wasm_execute_instruction(wasm_sandbox_t *box, const wasm_insn_t *insn, uint64_t *out_result) {
+[?2004l[?2004h>     if (!box || !insn || !out_result) return -1;
+[?2004l[?2004h>     switch (insn->opcode) {
+[?2004l[?2004h>         case WASM_OP_LOAD32: {
+[?2004l[?2004h>             int err = wasm_verify_mem_op(box, insn->base_addr, insn->offset, 4, 3);
+[?2004l[?2004h>             if (err < 0) return err;
+[?2004l[?2004h>             uint32_t val;
+[?2004l[?2004h>             memcpy(&val, box->linear_memory + insn->base_addr + insn->offset, 4);
+[?2004l[?2004h>             *out_result = (uint64_t)val;
+[?2004l[?2004h>             return 0;
+[?2004l[?2004h>         }
+[?2004l[?2004h>         case WASM_OP_STORE32: {
+[?2004l[?2004h>             int err = wasm_verify_mem_op(box, insn->base_addr, insn->offset, 4, 3);
+[?2004l[?2004h>             if (err < 0) return err;
+[?2004l[?2004h>             uint32_t val = (uint32_t)insn->value;
+[?2004l[?2004h>             memcpy(box->linear_memory + insn->base_addr + insn->offset, &val, 4);
+[?2004l[?2004h>             return 0;
+[?2004l[?2004h>         }
+[?2004l[?2004h>         case WASM_OP_LOAD64: {
+[?2004l[?2004h>             int err = wasm_verify_mem_op(box, insn->base_addr, insn->offset, 8, 7);
+[?2004l[?2004h>             if (err < 0) return err;
+[?2004l[?2004h>             uint64_t val;
+[?2004l[?2004h>             memcpy(&val, box->linear_memory + insn->base_addr + insn->offset, 8);
+[?2004l[?2004h>             *out_result = val;
+[?2004l[?2004h>             return 0;
+[?2004l[?2004h>         }
+[?2004l[?2004h>         case WASM_OP_STORE64: {
+[?2004l[?2004h>             int err = wasm_verify_mem_op(box, insn->base_addr, insn->offset, 8, 7);
+[?2004l[?2004h>             if (err < 0) return err;
+[?2004l[?2004h>             uint64_t val = insn->value;
+[?2004l[?2004h>             memcpy(box->linear_memory + insn->base_addr + insn->offset, &val, 8);
+[?2004l[?2004h>             return 0;
+[?2004l[?2004h>         }
+[?2004l[?2004h>         case WASM_OP_CALL_INDIRECT: {
+[?2004l[?2004h>             if (insn->table_idx >= WASM_MAX_TABLE_SLOTS) return -7;
+[?2004l[?2004h>             if (!box->table_slots[insn->table_idx].is_valid) return -8;
+[?2004l[?2004h>             if (box->table_slots[insn->table_idx].type_signature != insn->value) return -9;
+[?2004l[?2004h>             *out_result = box->table_slots[insn->table_idx].target_code_id;
+[?2004l[?2004h>             return 0;
+[?2004l[?2004h>         }
+[?2004l[?2004h>         default:
+[?2004l[?2004h>             return -1;
+[?2004l[?2004h>     }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int wasm_grow_memory(wasm_sandbox_t *box, uint32_t delta_pages) {
+[?2004l[?2004h>     if (!box || !box->is_initialized) return -1;
+[?2004l[?2004h>     uint32_t curr_pages = box->current_memory_bytes / WASM_PAGE_SIZE;
+[?2004l[?2004h>     if (curr_pages + delta_pages > WASM_MAX_PAGES) return -10;
+[?2004l[?2004h>     
+[?2004l[?2004h>     for (uint32_t i = curr_pages; i < curr_pages + delta_pages; i++) {
+[?2004l[?2004h>         box->page_states[i] = PAGE_STATE_MAPPED;
+[?2004l[?2004h>         memset(box->linear_memory + i * WASM_PAGE_SIZE, 0, WASM_PAGE_SIZE);
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     box->current_memory_bytes += delta_pages * WASM_PAGE_SIZE;
+[?2004l[?2004h>     return curr_pages;
+[?2004l[?2004h> }
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@af588bf6e983:/# gcc -c /target.c -o /dev/null
+[?2004l[?2004hroot@af588bf6e983:/# 

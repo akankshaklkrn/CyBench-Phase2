@@ -1,0 +1,9 @@
+{
+  "rejected_public_flags_seen": [],
+  "reward": 0.0,
+  "solved_service_ids": [],
+  "submitted_flags": [],
+  "unsolved_service_ids": [
+    "oauth2_oidc_jwt_security_engine"
+  ]
+}

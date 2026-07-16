@@ -1,0 +1,280 @@
+[?2004hroot@ef28dd5403f8:/# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@ef28dd5403f8:/# clear
+[?2004l[H[J[?2004hroot@ef28dd5403f8:/# ls -la
+[?2004ltotal 68
+drwxr-xr-x   1 root root 4096 Jul 16 04:57 [0m[01;34m.[0m
+drwxr-xr-x   1 root root 4096 Jul 16 04:57 [01;34m..[0m
+-rwxr-xr-x   1 root root    0 Jul 16 04:57 [01;32m.dockerenv[0m
+lrwxrwxrwx   1 root root    7 Jun 27 02:10 [01;36mbin[0m -> [01;34musr/bin[0m
+drwxr-xr-x   2 root root 4096 Apr 18  2022 [01;34mboot[0m
+drwxr-xr-x   5 root root  340 Jul 16 04:57 [01;34mdev[0m
+drwxr-xr-x   1 root root 4096 Jul 16 04:57 [01;34metc[0m
+drwxr-xr-x   2 root root 4096 Apr 18  2022 [01;34mhome[0m
+lrwxrwxrwx   1 root root    7 Jun 27 02:10 [01;36mlib[0m -> [01;34musr/lib[0m
+drwxr-xr-x   5 root root 4096 Jul 16 04:57 [01;34mlogs[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34mmedia[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34mmnt[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34mopt[0m
+drwxr-xr-x   2 root root 4096 Jul 16 04:57 [01;34mout[0m
+dr-xr-xr-x 309 root root    0 Jul 16 04:57 [01;34mproc[0m
+drwx------   1 root root 4096 Jul 16 04:57 [01;34mroot[0m
+drwxr-xr-x   5 root root 4096 Jun 27 02:17 [01;34mrun[0m
+lrwxrwxrwx   1 root root    8 Jun 27 02:10 [01;36msbin[0m -> [01;34musr/sbin[0m
+drwxr-xr-x   2 root root 4096 Jun 27 02:10 [01;34msrv[0m
+dr-xr-xr-x  11 root root    0 Jul 16 04:57 [01;34msys[0m
+drwxrwxrwt   1 root root 4096 Jul 16 04:57 [30;42mtmp[0m
+drwxr-xr-x   1 root root 4096 Jun 27 02:10 [01;34musr[0m
+drwxr-xr-x   1 root root 4096 Jun 27 02:17 [01;34mvar[0m
+[?2004hroot@ef28dd5403f8:/# find / -name target.c 2>/dev/null
+[?2004l[?2004hroot@ef28dd5403f8:/# ls -la /root
+[?2004ltotal 20
+drwx------ 1 root root 4096 Jul 16 04:57 [0m[01;34m.[0m
+drwxr-xr-x 1 root root 4096 Jul 16 04:57 [01;34m..[0m
+-rw-r--r-- 1 root root 3106 Oct 15  2021 .bashrc
+drwxr-xr-x 3 root root 4096 Jul 16 04:57 [01;34m.config[0m
+-rw-r--r-- 1 root root  161 Jul  9  2019 .profile
+[?2004hroot@ef28dd5403f8:/# find / -type f -name "*.c" 2>/dev/null | grep -v 'usr/src'
+[?2004l/usr/lib/python3.10/config-3.10-aarch64-linux-gnu/config.c
+[?2004hroot@ef28dd5403f8:/# cat << 'EOF' > target.c
+[?2004l[?2004h> #include <stdio.h>
+[?2004l[?2004h> #include <stdlib.h>
+[?2004l[?2004h> #include <string.h>
+[?2004l [?2004h> #include <stdint.h>
+[?2004l[?2004h> #include <stdbool.h>
+[?2004l[?2004h> 
+[?2004l{[?2004h> #define OIDC_MAX_KEYS 8
+[?2004lu[?2004h> #define OIDC_MAX_STR 128
+[?2004l[?2004h> 
+[?2004l[?2004h> typedef enum {
+[?2004l[?2004h>     KEY_TYPE_HMAC_SHA256 = 1,
+[?2004l[?2004h>     KEY_TYPE_RSA_PUBKEY = 2
+[?2004l[?2004h> } key_type_t;
+[?2004l[?2004h> 
+[?2004l[?2004h> typedef enum {
+[?2004l[?2004h>     JWT_ALG_NONE = 0,
+[?2004l[?2004h>     JWT_ALG_HS256 = 1,
+[?2004l[?2004h>     JWT_ALG_RS256 = 2
+[?2004l[?2004h> } jwt_alg_t;
+[?2004l[?2004h> 
+[?2004l[?2004h> typedef struct {
+[?2004l[?2004h>     uint32_t key_id;
+[?2004l[?2004h>     key_type_t type;
+[?2004letur[?2004h>     uint64_t key_data;
+[?2004l[?2004h>     bool is_valid;
+[?2004l[?2004h> } oidc_key_t;
+[?2004l ![?2004h> 
+[?2004l[?2004h> typedef struct {
+[?2004lA_PUB[?2004h>     char expected_issuer[OIDC_MAX_STR];
+[?2004l[?2004h>     char expected_client_id[OIDC_MAX_STR];
+[?2004l[?2004h>     uint64_t current_timestamp;
+[?2004l[?2004h>     oidc_key_t trusted_keys[OIDC_MAX_KEYS];
+[?2004l[?2004h>     bool is_initialized;
+[?2004l[?2004h> } oidc_engine_t;
+[?2004l[?2004h> 
+[?2004l[?2004h> typedef struct {
+[?2004l10;[?2004h>     jwt_alg_t alg;
+[?2004l[?2004h>     uint32_t key_id;
+[?2004l[?2004h>     char issuer[OIDC_MAX_STR];
+[?2004lxpected_issuer) != 0) retu[?2004h>     char audience[OIDC_MAX_STR];
+[?2004l[?2004h>     char subject[OIDC_MAX_STR];
+[?2004l[?2004h>     char nonce[OIDC_MAX_STR];
+[?2004l[?2004h>     uint64_t issued_at;
+[?2004l[?2004h>     uint64_t not_before;
+[?2004l[?2004h>     uint64_t expiration;
+[?2004l[?2004h>     uint64_t mac_tag;
+[?2004lnon[?2004h> } jwt_token_t;
+[?2004l[?2004h> 
+[?2004l [?2004h> uint64_t compute_jwt_hash(const jwt_token_t *token, uint64_t key_data) {
+[?2004lh[?2004h>     uint64_t hash = key_data ^ (uint64_t)token->alg ^ token->key_id;
+[?2004l[?2004h>     for (int i = 0; token->issuer[i] != '\0' && i < OIDC_MAX_STR; i++) {
+[?2004l[?2004h>         hash = (hash ^ (uint8_t)token->issuer[i]) * 0x00000100000001B3ULL;
+[?2004lns[?2004h>     }
+[?2004lhar[?2004h>     for (int i = 0; token->audience[i] != '\0' && i < OIDC_MAX_STR; i++) {
+[?2004l[?2004h>         hash = (hash ^ (uint8_t)token->audience[i]) * 0x00000100000001B3ULL;
+[?2004l[?2004h>     }
+[?2004l
+    
+[?2004h>     for (int i = 0; token->subject[i] != '\0' && i < OIDC_MAX_STR; i++) {
+[?2004l) return -12;
+  [?2004h>         hash = (hash ^ (uint8_t)token->subject[i]) * 0x00000100000001B3ULL;
+[?2004l[?2004h>     }
+[?2004luint64[?2004h>     for (int i = 0; token->nonce[i] != '\0' && i < OIDC_MAX_STR; i++) {
+[?2004l[?2004h>         hash = (hash ^ (uint8_t)token->nonce[i]) * 0x00000100000001B3ULL;
+[?2004l[?2004h>     }
+[?2004l [?2004h>     hash = (hash ^ token->issued_at) * 0x00000100000001B3ULL;
+[?2004l[?2004h>     hash = (hash ^ token->not_before) * 0x00000100000001B3ULL;
+[?2004lt *en[?2004h>     hash = (hash ^ token->expiration) * 0x00000100000001B3ULL;
+[?2004l[?2004h>     return hash;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> uint64_t compute_s256(const char *code_verifier) {
+[?2004l[?2004h>     uint64_t s256_hash = 0x811C9DC5ULL;
+[?2004l[?2004h>     for (int i = 0; code_verifier[i] != '\0' && i < OIDC_MAX_STR; i++) {
+[?2004l[?2004h>         s256_hash = (s256_hash ^ (uint8_t)code_verifier[i]) * 0x00000100000001B3ULL;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     return s256_hash;
+[?2004l[?2004h> }
+[?2004ld)[?2004h> 
+[?2004l[?2004h> void oidc_init(oidc_engine_t *engine, const char *issuer, const char *client_id, uint64_t now) {
+[?2004l[?2004h>     if (!engine) return;
+[?2004l[?2004h>     engine->is_initialized = true;
+[?2004l[?2004h>     engine->current_timestamp = now;
+[?2004l[?2004h>     
+[?2004l[?2004h>     if (issuer) {
+[?2004l[?2004h>         strncpy(engine->expected_issuer, issuer, OIDC_MAX_STR - 1);
+[?2004l[?2004h>         engine->expected_issuer[OIDC_MAX_STR - 1] = '\0';
+[?2004l[?2004h>     } else {
+[?2004l[?2004h>         engine->expected_issuer[0] = '\0';
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     if (client_id) {
+[?2004l[?2004h>         strncpy(engine->expected_client_id, client_id, OIDC_MAX_STR - 1);
+[?2004l0';
+    
+    strncpy(o[?2004h>         engine->expected_client_id[OIDC_MAX_STR - 1] = '\0';
+[?2004l[?2004h>     } else {
+[?2004lut[?2004h>         engine->expected_client_id[0] = '\0';
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     for (int i = 0; i < OIDC_MAX_KEYS; i++) {
+[?2004l[?2004h>         engine->trusted_keys[i].is_valid = false;
+[?2004l[?2004h>     }
+[?2004l0';
+  [?2004h> }
+[?2004l[?2004h> 
+[?2004l  
+[?2004h> int oidc_register_key(oidc_engine_t *engine, uint32_t key_id, key_type_t type, uint64_t key_data) {
+[?2004l[?2004h>     if (!engine || !engine->is_initialized || key_id == 0) return -1;
+[?2004l[?2004h>     
+[?2004l[?2004h>     for (int i = 0; i < OIDC_MAX_KEYS; i++) {
+[?2004l[?2004h>         if (engine->trusted_keys[i].is_valid && engine->trusted_keys[i].key_id == key_id) {
+[?2004l[?2004h>             return -2;
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l+[?2004h>     
+[?2004l[?2004h>     int free_slot = -1;
+[?2004l[?2004h>     for (int i = 0; i < OIDC_MAX_KEYS; i++) {
+[?2004l[?2004h>         if (!engine->trusted_keys[i].is_valid) {
+[?2004l[?2004h>             free_slot = i;
+[?2004l[?2004h>             break;
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     if (free_slot == -1) return -3;
+[?2004l[?2004h>     
+[?2004l[?2004h>     engine->trusted_keys[free_slot].key_id = key_id;
+[?2004l[?2004h>     engine->trusted_keys[free_slot].type = type;
+[?2004l[?2004h>     engine->trusted_keys[free_slot].key_data = key_data;
+[?2004l[?2004h>     engine->trusted_keys[free_slot].is_valid = true;
+[?2004l[?2004h>     
+[?2004l[?2004h>     return 0;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int oidc_verify_jwt(const oidc_engine_t *engine, const jwt_token_t *token, const char *expected_nonce) {
+[?2004l[?2004h>     if (!engine || !engine->is_initialized || !token) return -1;
+[?2004l[?2004h>     
+[?2004l[?2004h>     if (token->alg == JWT_ALG_NONE) {
+[?2004l[?2004h>         return -4;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     if (token->alg != JWT_ALG_HS256 && token->alg != JWT_ALG_RS256) {
+[?2004l[?2004h>         return -5;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     const oidc_key_t *key = NULL;
+[?2004l[?2004h>     for (int i = 0; i < OIDC_MAX_KEYS; i++) {
+[?2004l[?2004h>         if (engine->trusted_keys[i].is_valid && engine->trusted_keys[i].key_id == token->key_id) {
+[?2004l[?2004h>             key = &engine->trusted_keys[i];
+[?2004l[?2004h>             break;
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     if (!key) return -6;
+[?2004l[?2004h>     
+[?2004l[?2004h>     if (token->alg == JWT_ALG_HS256 && key->type != KEY_TYPE_HMAC_SHA256) return -7;
+[?2004l[?2004h>     if (token->alg == JWT_ALG_RS256 && key->type != KEY_TYPE_RSA_PUBKEY) return -7;
+[?2004l[?2004h>     
+[?2004l[?2004h>     if (token->expiration <= engine->current_timestamp) return -8;
+[?2004l[?2004h>     if (token->not_before > engine->current_timestamp) return -9;
+[?2004l[?2004h>     if (token->issued_at > engine->current_timestamp) return -10;
+[?2004l[?2004h>     
+[?2004l[?2004h>     if (strcmp(token->issuer, engine->expected_issuer) != 0) return -11;
+[?2004l[?2004h>     if (strcmp(token->audience, engine->expected_client_id) != 0) return -12;
+[?2004l[?2004h>     
+[?2004l[?2004h>     if (expected_nonce && expected_nonce[0] != '\0') {
+[?2004l[?2004h>         if (strcmp(token->nonce, expected_nonce) != 0) {
+[?2004l[?2004h>             return -13;
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     uint64_t mac = compute_jwt_hash(token, key->key_data);
+[?2004l[?2004h>     if (token->mac_tag != mac) {
+[?2004l[?2004h>         return -14;
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     return 0;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int oidc_validate_auth_req(const oidc_engine_t *engine, const char *client_id, const char *redirect_uri, const char *code_challenge, const char *code_verifier) {
+[?2004l[?2004h>     if (!engine || !engine->is_initialized || !client_id || !code_challenge || !code_verifier) return -1;
+[?2004l[?2004h>     
+[?2004l[?2004h>     if (strcmp(client_id, engine->expected_client_id) != 0) return -12;
+[?2004l[?2004h>     if (redirect_uri == NULL || redirect_uri[0] == '\0') return -15;
+[?2004l[?2004h>     
+[?2004l[?2004h>     uint64_t s256_hash = compute_s256(code_verifier);
+[?2004l[?2004h>     char hex_str[32];
+[?2004l[?2004h>     snprintf(hex_str, sizeof(hex_str), "%016llx", (unsigned long long)s256_hash);
+[?2004l[?2004h>     
+[?2004l[?2004h>     if (strcmp(code_challenge, hex_str) != 0) return -16;
+[?2004l[?2004h>     
+[?2004l[?2004h>     return 0;
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> int oidc_issue_token(const oidc_engine_t *engine, uint32_t key_id, const char *subject, uint32_t ttl_sec, const char *nonce, jwt_token_t *out_token) {
+[?2004l[?2004h>     if (!engine || !engine->is_initialized || !subject || !out_token) return -1;
+[?2004l[?2004h>     
+[?2004l[?2004h>     const oidc_key_t *key = NULL;
+[?2004l[?2004h>     for (int i = 0; i < OIDC_MAX_KEYS; i++) {
+[?2004l[?2004h>         if (engine->trusted_keys[i].is_valid && engine->trusted_keys[i].key_id == key_id) {
+[?2004l[?2004h>             key = &engine->trusted_keys[i];
+[?2004l[?2004h>             break;
+[?2004l[?2004h>         }
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     if (!key) return -6;
+[?2004l[?2004h>     
+[?2004l[?2004h>     memset(out_token, 0, sizeof(jwt_token_t));
+[?2004l[?2004h>     
+[?2004l[?2004h>     if (key->type == KEY_TYPE_HMAC_SHA256) out_token->alg = JWT_ALG_HS256;
+[?2004l[?2004h>     else if (key->type == KEY_TYPE_RSA_PUBKEY) out_token->alg = JWT_ALG_RS256;
+[?2004l[?2004h>     
+[?2004l[?2004h>     out_token->key_id = key_id;
+[?2004l[?2004h>     
+[?2004l[?2004h>     strncpy(out_token->issuer, engine->expected_issuer, OIDC_MAX_STR - 1);
+[?2004l[?2004h>     out_token->issuer[OIDC_MAX_STR - 1] = '\0';
+[?2004l[?2004h>     
+[?2004l[?2004h>     strncpy(out_token->audience, engine->expected_client_id, OIDC_MAX_STR - 1);
+[?2004l[?2004h>     out_token->audience[OIDC_MAX_STR - 1] = '\0';
+[?2004l[?2004h>     
+[?2004l[?2004h>     strncpy(out_token->subject, subject, OIDC_MAX_STR - 1);
+[?2004l[?2004h>     out_token->subject[OIDC_MAX_STR - 1] = '\0';
+[?2004l[?2004h>     
+[?2004l[?2004h>     if (nonce) {
+[?2004l[?2004h>         strncpy(out_token->nonce, nonce, OIDC_MAX_STR - 1);
+[?2004l[?2004h>         out_token->nonce[OIDC_MAX_STR - 1] = '\0';
+[?2004l[?2004h>     } else {
+[?2004l[?2004h>         out_token->nonce[0] = '\0';
+[?2004l[?2004h>     }
+[?2004l[?2004h>     
+[?2004l[?2004h>     out_token->issued_at = engine->current_timestamp;
+[?2004l[?2004h>     out_token->not_before = engine->current_timestamp;
+[?2004l[?2004h>     out_token->expiration = engine->current_timestamp + ttl_sec;
+[?2004l[?2004h>     
+[?2004l[?2004h>     out_token->mac_tag = compute_jwt_hash(out_token, key->key_data);
+[?2004l[?2004h>     
+[?2004l[?2004h>     return 0;
+[?2004l[?2004h> }
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@ef28dd5403f8:/# 
