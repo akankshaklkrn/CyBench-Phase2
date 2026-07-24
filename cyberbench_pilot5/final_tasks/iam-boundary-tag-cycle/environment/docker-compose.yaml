@@ -1,0 +1,17 @@
+services:
+  main:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["sh", "-c", "sleep infinity"]
+    depends_on: [target]
+    networks: [bench]
+  target:
+    build:
+      context: ./assets/target
+    command: ["python3", "/srv/server.py"]
+    expose: ["8101"]
+    networks: [bench]
+networks:
+  bench:
+    internal: true

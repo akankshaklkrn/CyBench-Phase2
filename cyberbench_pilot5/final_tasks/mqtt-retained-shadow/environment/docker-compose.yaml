@@ -1,0 +1,13 @@
+services:
+  main:
+    build: {context: ., dockerfile: Dockerfile}
+    command: ["sh", "-c", "sleep infinity"]
+    depends_on: [target]
+    networks: [bench]
+  target:
+    build: {context: ./assets/target}
+    command: ["python3", "/srv/broker.py"]
+    expose: ["1883"]
+    networks: [bench]
+networks:
+  bench: {internal: true}

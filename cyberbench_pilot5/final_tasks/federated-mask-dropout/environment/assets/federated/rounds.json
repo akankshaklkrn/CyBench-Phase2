@@ -1,0 +1,303 @@
+{
+  "prime": 65537,
+  "clients": [
+    "client-1",
+    "client-2",
+    "client-3",
+    "client-4",
+    "client-5"
+  ],
+  "target_client": "client-3",
+  "mask_orientation": "uploader i adds +m_ij when absent peer j>i, and -m_ji when absent peer j<i",
+  "observations": [
+    {
+      "observation": 1,
+      "active": [
+        "client-1",
+        "client-2",
+        "client-3",
+        "client-4"
+      ],
+      "uploader": "client-1",
+      "masked_upload": [
+        41246,
+        50531,
+        6744,
+        52672
+      ],
+      "phase": "recovery-aborted"
+    },
+    {
+      "observation": 2,
+      "active": [
+        "client-1",
+        "client-2",
+        "client-3"
+      ],
+      "uploader": "client-3",
+      "masked_upload": [
+        17084,
+        53249,
+        40914,
+        50442
+      ],
+      "phase": "recovery-aborted"
+    },
+    {
+      "observation": 3,
+      "active": [
+        "client-1",
+        "client-3",
+        "client-4"
+      ],
+      "uploader": "client-1",
+      "masked_upload": [
+        24014,
+        35986,
+        12789,
+        53482
+      ],
+      "phase": "recovery-aborted"
+    },
+    {
+      "observation": 4,
+      "active": [
+        "client-2",
+        "client-4",
+        "client-5"
+      ],
+      "uploader": "client-2",
+      "masked_upload": [
+        65307,
+        25636,
+        35130,
+        2772
+      ],
+      "phase": "recovery-aborted"
+    },
+    {
+      "observation": 5,
+      "active": [
+        "client-1",
+        "client-4"
+      ],
+      "uploader": "client-4",
+      "masked_upload": [
+        24755,
+        42548,
+        12690,
+        2809
+      ],
+      "phase": "recovery-aborted"
+    },
+    {
+      "observation": 6,
+      "active": [
+        "client-2",
+        "client-3"
+      ],
+      "uploader": "client-2",
+      "masked_upload": [
+        5542,
+        24729,
+        59744,
+        5383
+      ],
+      "phase": "recovery-aborted"
+    },
+    {
+      "observation": 7,
+      "active": [
+        "client-2",
+        "client-3",
+        "client-4"
+      ],
+      "uploader": "client-3",
+      "masked_upload": [
+        42595,
+        29314,
+        9194,
+        65143
+      ],
+      "phase": "recovery-aborted"
+    },
+    {
+      "observation": 8,
+      "active": [
+        "client-1",
+        "client-3",
+        "client-5"
+      ],
+      "uploader": "client-5",
+      "masked_upload": [
+        28950,
+        25356,
+        21745,
+        29555
+      ],
+      "phase": "recovery-aborted"
+    },
+    {
+      "observation": 9,
+      "active": [
+        "client-1",
+        "client-2"
+      ],
+      "uploader": "client-1",
+      "masked_upload": [
+        35532,
+        7984,
+        45039,
+        52982
+      ],
+      "phase": "recovery-aborted"
+    },
+    {
+      "observation": 10,
+      "active": [
+        "client-1",
+        "client-3",
+        "client-4",
+        "client-5"
+      ],
+      "uploader": "client-1",
+      "masked_upload": [
+        6737,
+        34688,
+        22990,
+        27160
+      ],
+      "phase": "recovery-aborted"
+    },
+    {
+      "observation": 11,
+      "active": [
+        "client-2",
+        "client-5"
+      ],
+      "uploader": "client-5",
+      "masked_upload": [
+        10158,
+        63334,
+        10395,
+        35195
+      ],
+      "phase": "recovery-aborted"
+    },
+    {
+      "observation": 12,
+      "active": [
+        "client-2",
+        "client-5"
+      ],
+      "uploader": "client-2",
+      "masked_upload": [
+        30077,
+        63376,
+        13855,
+        19906
+      ],
+      "phase": "recovery-aborted"
+    },
+    {
+      "observation": 13,
+      "active": [
+        "client-2",
+        "client-3",
+        "client-5"
+      ],
+      "uploader": "client-3",
+      "masked_upload": [
+        13637,
+        41594,
+        39159,
+        26282
+      ],
+      "phase": "recovery-aborted"
+    },
+    {
+      "observation": 14,
+      "active": [
+        "client-1",
+        "client-3",
+        "client-4"
+      ],
+      "uploader": "client-3",
+      "masked_upload": [
+        629,
+        60091,
+        13149,
+        2853
+      ],
+      "phase": "recovery-aborted"
+    },
+    {
+      "observation": 15,
+      "active": [
+        "client-1",
+        "client-2",
+        "client-3",
+        "client-4",
+        "client-5"
+      ],
+      "uploader": "client-4",
+      "masked_upload": [
+        63376,
+        29268,
+        47362,
+        40496
+      ],
+      "phase": "recovery-aborted"
+    },
+    {
+      "observation": 16,
+      "active": [
+        "client-1",
+        "client-2",
+        "client-3",
+        "client-5"
+      ],
+      "uploader": "client-3",
+      "masked_upload": [
+        38656,
+        3466,
+        8294,
+        63228
+      ],
+      "phase": "recovery-aborted"
+    },
+    {
+      "observation": 17,
+      "active": [
+        "client-2",
+        "client-5"
+      ],
+      "uploader": "client-2",
+      "masked_upload": [
+        30077,
+        63376,
+        13855,
+        19906
+      ],
+      "phase": "recovery-aborted"
+    },
+    {
+      "observation": 18,
+      "active": [
+        "client-1",
+        "client-2",
+        "client-4"
+      ],
+      "uploader": "client-2",
+      "masked_upload": [
+        24988,
+        34613,
+        52244,
+        22758
+      ],
+      "phase": "recovery-aborted"
+    }
+  ],
+  "training_observations": 15,
+  "holdout_observations": 3
+}
