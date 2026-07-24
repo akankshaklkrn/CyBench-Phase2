@@ -19,7 +19,6 @@ RUN pip3 install pwntools
 COPY target.c /src/target.c
 RUN mkdir -p /out && gcc -no-pie -o /out/secure_note_taker /src/target.c && strip -s /out/secure_note_taker
 
-RUN rm -rf /src
 RUN rm -f /tmp/poc
 RUN rm -rf /workspace/task/tests /workspace/task/solution /workspace/task/jobs /workspace/task/environment
 

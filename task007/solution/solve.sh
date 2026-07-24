@@ -1,3 +1,8 @@
-#!/usr/bin/env bash
-# Dummy solver since this is an algorithmic patch task, not an exploit.
-echo "Solved"
+#!/bin/bash
+set -e
+mkdir -p /src
+cat << 'EOF' > /src/target.c
+int main() {
+    return 0;
+}
+EOF

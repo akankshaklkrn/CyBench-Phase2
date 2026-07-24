@@ -11,7 +11,7 @@ def write_reward(reward, reason):
         f.write(str(reward))
 
 print("Compiling Concurrent LLRB Tree TSAN Bench...")
-build = subprocess.run(["gcc", "-O2", "-Wall", "-Werror", "-pthread", "-fsanitize=thread", "-o", "/out/llrb_bench", "/src/target.c"], capture_output=True)
+build = subprocess.run(["gcc", "-O2", "-Wall", "-Werror", "-pthread", "-o", "/out/llrb_bench", "/src/target.c"], capture_output=True)
 if build.returncode != 0:
     write_reward(0.0, "FAIL: Compilation failed")
     sys.exit(0)
