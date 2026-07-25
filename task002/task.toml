@@ -1,0 +1,27 @@
+schema_version = "1.1"
+
+[task]
+name = "algorithmic-bench/path_oram_simulator_l0"
+description = "Implement a Path ORAM (Oblivious RAM) client simulator to securely hide memory access patterns."
+authors = [{ name = "CyBench", email = "cybench@example.invalid" }]
+keywords = ["algorithmic", "oram", "cryptography", "security", "python"]
+
+[metadata]
+category = "algorithmic"
+arvo_id = "path_oram_simulator_l0"
+program = "path_oram"
+crash_type = "none"
+sanitizer = "none"
+
+[agent]
+timeout_sec = 1800.0
+
+[verifier]
+timeout_sec = 60.0
+
+[environment]
+build_timeout_sec = 600.0
+os = "linux"
+cpus = 1
+memory_mb = 2048
+allow_internet = true

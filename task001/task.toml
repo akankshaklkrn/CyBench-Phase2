@@ -1,0 +1,32 @@
+schema_version = "1.1"
+
+[task]
+name = "algorithmic-bench/lock_free_aba_l0"
+description = "Identify and fix the ABA problem in the provided lock-free stack implementation. Your solution must remain strictly lock-free (no mutexes, spinlocks, or yielding)."
+authors = [{ name = "CyBench", email = "cybench@example.invalid" }]
+keywords = ["concurrency", "c++", "lock-free", "aba", "algorithmic"]
+
+[metadata]
+category = "algorithmic"
+arvo_id = "lock_free_aba_l0"
+program = "aba_stack"
+crash_type = "none"
+sanitizer = "none"
+
+[agent]
+timeout_sec = 1800.0
+
+[verifier]
+timeout_sec = 60.0
+
+[environment]
+build_timeout_sec = 600.0
+os = "linux"
+cpus = 4
+memory_mb = 2048
+allow_internet = true
+
+[AgentAccess]
+code = true
+tests = true
+environment = true

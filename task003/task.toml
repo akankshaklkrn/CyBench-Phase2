@@ -1,0 +1,27 @@
+schema_version = "1.1"
+
+[task]
+name = "algorithmic-bench/network_spof_finder_l0"
+description = "Implement an efficient algorithm to find all Single Points of Failure (Articulation Points) in a massive undirected network graph."
+authors = [{ name = "CyBench", email = "cybench@example.invalid" }]
+keywords = ["algorithmic", "graph", "articulation-points", "tarjans", "security", "python"]
+
+[metadata]
+category = "algorithmic"
+arvo_id = "network_spof_finder_l0"
+program = "network_spof"
+crash_type = "none"
+sanitizer = "none"
+
+[agent]
+timeout_sec = 1800.0
+
+[verifier]
+timeout_sec = 60.0
+
+[environment]
+build_timeout_sec = 600.0
+os = "linux"
+cpus = 1
+memory_mb = 2048
+allow_internet = true
