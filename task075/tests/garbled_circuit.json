@@ -1,0 +1,38 @@
+{
+  "active_input_labels": {
+    "wire_0": "d670e58e0351d8ae8e4f6eac342fc231",
+    "wire_1": "7733c28ee8ba53bdb56b8824577d53ec"
+  },
+  "output_wire_map": {
+    "wire_4": {
+      "0": "7a1d7b282bf8234041f35487d86c669f",
+      "1": "ccbfe0e73d7e7320ad0a757003241e75"
+    }
+  },
+  "gates": [
+    {
+      "gate_id": "g0",
+      "in_wire_A": "wire_0",
+      "in_wire_B": "wire_1",
+      "out_wire": "wire_2",
+      "garbled_table": [
+        "03ee510b6bddd87279b3656c2ee294c509aad553",
+        "a049496b6a1c3303b7240f47dd846ae5c1939487",
+        "3a9771788d4eec3667a43e6cd9b7d2f553bcd471",
+        "7b64378b15268c8599bd02784a766586bc91bbaa"
+      ]
+    },
+    {
+      "gate_id": "g1",
+      "in_wire_A": "wire_2",
+      "in_wire_B": "wire_0",
+      "out_wire": "wire_4",
+      "garbled_table": [
+        "7d12bb77e5d5cb5fc5729e28307b3164a01b782a",
+        "685c4afa62bd7eaa5ac5000fd7710b8b21e78dc1",
+        "876e81ab25d3b3a4df8640975aa8bbcdfcc7399e",
+        "84ff0647d92015a6a34734d35ac1a5a26f234cb8"
+      ]
+    }
+  ]
+}
