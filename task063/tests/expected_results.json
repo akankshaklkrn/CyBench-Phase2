@@ -1,0 +1,23 @@
+{
+  "timestamp": 1735689600,
+  "chain_valid.der": {
+    "valid": true,
+    "chain_length": 3,
+    "errors": []
+  },
+  "chain_expired.der": {
+    "valid": false,
+    "chain_length": 3,
+    "errors": ["certificate_expired"]
+  },
+  "chain_wrong_issuer.der": {
+    "valid": false,
+    "chain_length": 3,
+    "errors": ["signature_invalid"]
+  },
+  "chain_bad_sig.der": {
+    "valid": false,
+    "chain_length": 3,
+    "errors": ["signature_invalid"]
+  }
+}
