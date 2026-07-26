@@ -1,0 +1,56 @@
+{
+  "sensitivity": 1.0,
+  "max_epsilon_budget": 10.0,
+  "queries": [
+    {
+      "node_id": "node_0",
+      "epsilon": 0.5,
+      "response": 50.65382621342971
+    },
+    {
+      "node_id": "node_1",
+      "epsilon": 0.5,
+      "response": 44.00939568567873
+    },
+    {
+      "node_id": "node_2",
+      "epsilon": 0.5,
+      "response": 48.80453921162608
+    },
+    {
+      "node_id": "node_3",
+      "epsilon": 0.5,
+      "response": 48.38701648182696
+    },
+    {
+      "node_id": "node_4",
+      "epsilon": 0.5,
+      "response": 51.280890984496274
+    },
+    {
+      "node_id": "node_5",
+      "epsilon": 0.5,
+      "response": 50.872051656477296
+    },
+    {
+      "node_id": "node_6",
+      "epsilon": 0.5,
+      "response": 53.06828183798287
+    },
+    {
+      "node_id": "node_7",
+      "epsilon": 0.5,
+      "response": 46.50119339947081
+    },
+    {
+      "node_id": "node_8",
+      "epsilon": 0.5,
+      "response": 49.66042387408299
+    },
+    {
+      "node_id": "node_9",
+      "epsilon": 0.5,
+      "response": 44.3596139665769
+    }
+  ]
+}

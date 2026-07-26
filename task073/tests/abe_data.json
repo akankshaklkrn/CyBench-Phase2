@@ -1,0 +1,35 @@
+{
+  "prime": 65537,
+  "policy_tree": {
+    "op": "AND",
+    "children": [
+      {
+        "op": "LEAF",
+        "attr": "ROLE_ENGINEER",
+        "x": 1,
+        "C": 43761
+      },
+      {
+        "op": "OR",
+        "children": [
+          {
+            "op": "LEAF",
+            "attr": "CLEARANCE_CONFIDENTIAL",
+            "x": 2,
+            "C": 45098
+          },
+          {
+            "op": "LEAF",
+            "attr": "CLEARANCE_TOPSECRET",
+            "x": 3,
+            "C": 46435
+          }
+        ]
+      }
+    ]
+  },
+  "user_attributes": [
+    "ROLE_ENGINEER",
+    "CLEARANCE_TOPSECRET"
+  ]
+}
