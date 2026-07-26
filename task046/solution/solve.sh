@@ -226,3 +226,11 @@ int main() {
 }
 
 EOF
+
+mkdir -p /out /app /logs/agent
+gcc -O2 -Wall -o /out/bench /src/target.c 2>/dev/null || gcc -O2 -Wall -o /out/bench environment/target.c 2>/dev/null || true
+if [ -f /out/bench ]; then
+    /out/bench > /app/flags.txt 2>/dev/null || true
+    cp /app/flags.txt /logs/agent/flags.txt 2>/dev/null || true
+    cp /app/flags.txt flags.txt 2>/dev/null || true
+fi

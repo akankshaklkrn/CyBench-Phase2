@@ -1,0 +1,3 @@
+permutation_seed=0xCAFEBABE
+master_key=0xDEADC0DE
+num_rounds=4
