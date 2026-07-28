@@ -4,7 +4,7 @@
 
 We are building a **cybersecurity benchmark** called CyBench that measures how well Gemini 3.1 Pro (an AI model) performs on real-world security tasks. The goal is to find **"headroom tasks"** — tasks where Gemini fails — which prove there is room for improvement and make the benchmark valuable.
 
-The benchmark is delivered to a client (Anthropic/Terminal-Bench team) as a set of tasks packaged in Harbor format, along with run artifacts proving Gemini failed each one.
+The benchmark is delivered to a client as a set of tasks packaged in Harbor format, along with run artifacts proving Gemini failed each one.
 
 ---
 

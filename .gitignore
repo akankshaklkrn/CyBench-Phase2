@@ -5,3 +5,4 @@ logs/
 runs/
 jobs/
 .env
+JOBS/
