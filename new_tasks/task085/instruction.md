@@ -4,7 +4,7 @@ You are an IAM and API security engineer building an **OAuth 2.0 Authorization C
 
 ## OAuth 2.0 / PKCE Verification Protocol
 
-Given an OAuth authorization code exchange request (`tests/oauth_request.json`):
+Given an OAuth authorization code exchange request (`/tests/oauth_request.json`):
 
 1. **PKCE `code_challenge` S256 Validation**:
    - `code_challenge` sent during authorization:
@@ -16,12 +16,12 @@ Given an OAuth authorization code exchange request (`tests/oauth_request.json`):
    - `code_age_sec` MUST be $\le$ `max_code_lifetime_sec` (e.g. 60s).
    - `code_already_used` MUST be `false`.
 
-## Input Schema (`tests/oauth_request.json`)
+## Input Schema (`/tests/oauth_request.json`)
 
 ```json
 {
   "code_verifier": "dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk",
-  "expected_code_challenge": "E9Mel-ha2nyd_C5_652656n2Yy413-n4112",
+  "expected_code_challenge": "E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM",
   "redirect_uri": "https://client.app/oauth/callback",
   "registered_redirect_uri": "https://client.app/oauth/callback",
   "code_age_sec": 12,
@@ -41,7 +41,9 @@ class OAuthPKCEValidator:
         pass
 ```
 
-When run directly (`python3 solution.py`), write output to `/src/oauth_result.json`.
+Save the script as `/src/solution.py`. When run directly (`cd /src && python3
+solution.py`), it must read `/tests/oauth_request.json` and write the result to
+`/src/oauth_result.json`.
 
 ## Constraints
 - **Python Standard Library Only** (`hashlib`, `base64`, `json`, `os`, `sys`).

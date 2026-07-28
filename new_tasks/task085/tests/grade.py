@@ -1,4 +1,5 @@
 import os
+import subprocess
 import sys
 import json
 
@@ -17,11 +18,30 @@ def grade():
             return
 
         results_file = "/src/oauth_result.json"
-        if not os.path.exists(results_file):
-            exit_code = os.system("cd /src && timeout 60 python3 solution.py")
-            if exit_code != 0:
-                write_reward(0.0, f"FAIL: solution.py exited with code {exit_code}")
-                return
+        # Never trust output left behind by an agent self-test. Run the submitted
+        # solution against the authoritative input mounted at /tests.
+        if os.path.exists(results_file):
+            os.remove(results_file)
+
+        try:
+            completed = subprocess.run(
+                [sys.executable, "solution.py"],
+                cwd="/src",
+                capture_output=True,
+                text=True,
+                timeout=60,
+            )
+        except subprocess.TimeoutExpired:
+            write_reward(0.0, "FAIL: solution.py timed out after 60 seconds")
+            return
+
+        if completed.returncode != 0:
+            stderr = completed.stderr.strip()
+            reason = f"FAIL: solution.py exited with code {completed.returncode}"
+            if stderr:
+                reason += f": {stderr[-500:]}"
+            write_reward(0.0, reason)
+            return
 
         if not os.path.exists(results_file):
             write_reward(0.0, "FAIL: /src/oauth_result.json not found.")
