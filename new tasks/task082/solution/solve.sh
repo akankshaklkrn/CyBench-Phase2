@@ -53,7 +53,7 @@ class TrafficStegoClassifier:
 if __name__ == "__main__":
     fp = "/tests/traffic_metadata.json"
     if not os.path.exists(fp):
-        fp = "/Users/jatinjena/Downloads/tasknew/task082/tests/traffic_metadata.json"
+        fp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "tests", "traffic_metadata.json")
     classifier = TrafficStegoClassifier()
     res = classifier.classify_traffic(fp)
     os.makedirs("/src", exist_ok=True)

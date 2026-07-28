@@ -47,7 +47,7 @@ class PSIProtocolEngine:
 if __name__ == "__main__":
     fp = "/tests/psi_data.json"
     if not os.path.exists(fp):
-        fp = "/Users/jatinjena/Downloads/tasknew/task080/tests/psi_data.json"
+        fp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "tests", "psi_data.json")
     engine = PSIProtocolEngine()
     res = engine.compute_intersection(fp)
     os.makedirs("/src", exist_ok=True)

@@ -29,7 +29,7 @@ class BLSVerifier:
 if __name__ == "__main__":
     fp = "/tests/bls_data.json"
     if not os.path.exists(fp):
-        fp = "/Users/jatinjena/Downloads/tasknew/task078/tests/bls_data.json"
+        fp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "tests", "bls_data.json")
     verifier = BLSVerifier()
     res = verifier.verify_aggregate(fp)
     os.makedirs("/src", exist_ok=True)

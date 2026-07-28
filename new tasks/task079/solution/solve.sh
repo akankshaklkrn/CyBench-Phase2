@@ -41,7 +41,7 @@ class LatticeZKVerifier:
 if __name__ == "__main__":
     fp = "/tests/lattice_proof.json"
     if not os.path.exists(fp):
-        fp = "/Users/jatinjena/Downloads/tasknew/task079/tests/lattice_proof.json"
+        fp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "tests", "lattice_proof.json")
     verifier = LatticeZKVerifier()
     res = verifier.verify_proof(fp)
     os.makedirs("/src", exist_ok=True)

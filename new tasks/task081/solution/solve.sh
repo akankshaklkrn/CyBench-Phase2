@@ -54,7 +54,7 @@ class AESDFARecovery:
 if __name__ == "__main__":
     fp = "/tests/dfa_pairs.json"
     if not os.path.exists(fp):
-        fp = "/Users/jatinjena/Downloads/tasknew/task081/tests/dfa_pairs.json"
+        fp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "tests", "dfa_pairs.json")
     recovery = AESDFARecovery()
     res = recovery.recover_subkey_byte(fp)
     os.makedirs("/src", exist_ok=True)

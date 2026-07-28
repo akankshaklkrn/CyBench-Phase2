@@ -29,7 +29,7 @@ def grade():
 
         exp_file = "/tests/expected_lattice_result.json"
         if not os.path.exists(exp_file):
-            exp_file = "/Users/jatinjena/Downloads/tasknew/task079/tests/expected_lattice_result.json"
+            exp_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "expected_lattice_result.json")
 
         with open(exp_file, "r") as f:
             expected = json.load(f)
