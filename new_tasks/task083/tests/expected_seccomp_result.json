@@ -1,0 +1,16 @@
+{
+  "audit_results": [
+    {
+      "syscall_nr": 59,
+      "action": "KILL"
+    },
+    {
+      "syscall_nr": 60,
+      "action": "ALLOW"
+    },
+    {
+      "syscall_nr": 60,
+      "action": "KILL"
+    }
+  ]
+}

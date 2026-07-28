@@ -1,0 +1,31 @@
+{
+  "decisions": [
+    {
+      "packet_id": 1,
+      "action": "XDP_PASS"
+    },
+    {
+      "packet_id": 2,
+      "action": "XDP_PASS"
+    },
+    {
+      "packet_id": 3,
+      "action": "XDP_PASS"
+    },
+    {
+      "packet_id": 4,
+      "action": "XDP_DROP"
+    },
+    {
+      "packet_id": 5,
+      "action": "XDP_DROP"
+    },
+    {
+      "packet_id": 6,
+      "action": "XDP_PASS"
+    }
+  ],
+  "blocked_ips": [
+    "192.168.1.50"
+  ]
+}

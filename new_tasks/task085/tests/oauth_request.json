@@ -1,0 +1,9 @@
+{
+  "code_verifier": "dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk",
+  "expected_code_challenge": "E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM",
+  "redirect_uri": "https://client.app/oauth/callback",
+  "registered_redirect_uri": "https://client.app/oauth/callback",
+  "code_age_sec": 12,
+  "max_code_lifetime_sec": 60,
+  "code_already_used": false
+}
