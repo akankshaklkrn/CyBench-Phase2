@@ -1,0 +1,57 @@
+{
+  "max_syn_per_sec": 3,
+  "blocked_ports": [
+    23,
+    445
+  ],
+  "packets": [
+    {
+      "packet_id": 1,
+      "eth_proto": "0x0800",
+      "src_ip": "192.168.1.50",
+      "dst_port": 80,
+      "ip_proto": 6,
+      "tcp_flags": 2
+    },
+    {
+      "packet_id": 2,
+      "eth_proto": "0x0800",
+      "src_ip": "192.168.1.50",
+      "dst_port": 80,
+      "ip_proto": 6,
+      "tcp_flags": 2
+    },
+    {
+      "packet_id": 3,
+      "eth_proto": "0x0800",
+      "src_ip": "192.168.1.50",
+      "dst_port": 80,
+      "ip_proto": 6,
+      "tcp_flags": 2
+    },
+    {
+      "packet_id": 4,
+      "eth_proto": "0x0800",
+      "src_ip": "192.168.1.50",
+      "dst_port": 80,
+      "ip_proto": 6,
+      "tcp_flags": 2
+    },
+    {
+      "packet_id": 5,
+      "eth_proto": "0x0800",
+      "src_ip": "192.168.1.99",
+      "dst_port": 23,
+      "ip_proto": 6,
+      "tcp_flags": 2
+    },
+    {
+      "packet_id": 6,
+      "eth_proto": "0x0800",
+      "src_ip": "192.168.1.99",
+      "dst_port": 80,
+      "ip_proto": 6,
+      "tcp_flags": 16
+    }
+  ]
+}
