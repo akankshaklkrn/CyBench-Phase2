@@ -1,0 +1,10 @@
+{
+  "intersection_size": 5,
+  "intersected_elements": [
+    "user_5@example.com",
+    "user_6@example.com",
+    "user_7@example.com",
+    "user_8@example.com",
+    "user_9@example.com"
+  ]
+}
