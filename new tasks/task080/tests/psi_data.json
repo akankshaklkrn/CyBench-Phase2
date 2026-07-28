@@ -1,0 +1,29 @@
+{
+  "prime": 65537,
+  "client_secret_r": 12345,
+  "server_secret_s": 23456,
+  "client_set": [
+    "user_0@example.com",
+    "user_1@example.com",
+    "user_2@example.com",
+    "user_3@example.com",
+    "user_4@example.com",
+    "user_5@example.com",
+    "user_6@example.com",
+    "user_7@example.com",
+    "user_8@example.com",
+    "user_9@example.com"
+  ],
+  "server_set": [
+    "user_5@example.com",
+    "user_6@example.com",
+    "user_7@example.com",
+    "user_8@example.com",
+    "user_9@example.com",
+    "user_10@example.com",
+    "user_11@example.com",
+    "user_12@example.com",
+    "user_13@example.com",
+    "user_14@example.com"
+  ]
+}
