@@ -1,0 +1,6 @@
+{
+  "normal_ciphertext": "cd0c8c7d7247342cd8100f2f6f770d65",
+  "faulty_ciphertext": "7a0c8c7d7247342cd8100f2f6f770d65",
+  "delta": 5,
+  "target_byte_index": 0
+}
