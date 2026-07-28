@@ -94,7 +94,7 @@ typedef struct {
 #define CT_ERR_SEQ_MISMATCH -7
 #define CT_ERR_REFCNT -8
 
-static bool tuples_equal(const ip_tuple_t *a, const ip_tuple_t *b) {
+static bool __attribute__((unused)) tuples_equal(const ip_tuple_t *a, const ip_tuple_t *b) {
     if (!a || !b) return false;
     return a->src_ip == b->src_ip && a->dst_ip == b->dst_ip &&
            a->src_port == b->src_port && a->dst_port == b->dst_port &&

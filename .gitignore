@@ -6,3 +6,4 @@ runs/
 jobs/
 .env
 JOBS/
+.venv/
