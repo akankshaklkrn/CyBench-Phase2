@@ -1,3 +1,7 @@
 trajectory.json 
 trial.log
 recording.cast
+*.log
+*.txt
+runs/
+jobs/

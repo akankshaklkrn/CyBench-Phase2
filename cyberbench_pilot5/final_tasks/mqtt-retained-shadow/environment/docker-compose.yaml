@@ -2,12 +2,25 @@ services:
   main:
     build: {context: ., dockerfile: Dockerfile}
     command: ["sh", "-c", "sleep infinity"]
-    depends_on: [target]
-    networks: [bench]
+    depends_on:
+      target:
+        condition: service_started
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   target:
+    image: "python:3.12"
+    command: ["python", "/opt/cyberbench/gateway.py"]
+    environment:
+      CYBERBENCH_GATEWAY_MAP: '{"1883": {"host": "mqtt-broker", "port": 1883}}'
+    volumes:
+      - "./gateway.py:/opt/cyberbench/gateway.py:ro"
+    depends_on: [mqtt-broker]
+    networks: [bench]
+  mqtt-broker:
     build: {context: ./assets/target}
     command: ["python3", "/srv/broker.py"]
     expose: ["1883"]
     networks: [bench]
 networks:
-  bench: {internal: true}
+  bench:
+    internal: true
