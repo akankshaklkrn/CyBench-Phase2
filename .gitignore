@@ -4,3 +4,4 @@ recording.cast
 logs/
 runs/
 jobs/
+.env
